@@ -59,7 +59,7 @@ export default function NavBar() {
                 class="rounded-md bg-neutral-900 px-5 py-2.5 text-sm font-medium text-white shadow"
                 href="/"
               >
-                Ingresar
+                Ejemplo
               </a>
               <a
                 class="rounded-md bg-neutral-200 px-5 py-2.5 text-sm font-medium text-neutral-900"
