@@ -1,84 +1,71 @@
 import React from "react";
+import { Link } from "react-router-dom";
 function Home() {
   return (
-    <section>
-      <div class="slider">
-        <div class="myslide fade">
-          <div class="txt">
-            <h1>IMAGE 1</h1>
-            <p>
-              Web Devoloper
-              <br />
-              Subscribe To My Channel For More Videos
-            </p>
-          </div>
-          <img src="img1.jpg" style="width: 100%; height: 100%;" />
-        </div>
-
-        <div class="myslide fade">
-          <div class="txt">
-            <h1>IMAGE 2</h1>
-            <p>
-              Web Devoloper
-              <br />
-              Subscribe To My Channel For More Videos
-            </p>
-          </div>
-          <img src="img2.jpg" style="width: 100%; height: 100%;" />
-        </div>
-
-        <div class="myslide fade">
-          <div class="txt">
-            <h1>IMAGE 3</h1>
-            <p>
-              Web Devoloper
-              <br />
-              Subscribe To My Channel For More Videos
-            </p>
-          </div>
-          <img src="img3.jpg" style="width: 100%; height: 100%;" />
-        </div>
-
-        <div class="myslide fade">
-          <div class="txt">
-            <h1>IMAGE 4</h1>
-            <p>
-              Web Devoloper
-              <br />
-              Subscribe To My Channel For More Videos
-            </p>
-          </div>
-          <img src="img4.jpg" style="width: 100%; height: 100%;" />
-        </div>
-
-        <div class="myslide fade">
-          <div class="txt">
-            <h1>IMAGE 5</h1>
-            <p>
-              Web Devoloper
-              <br />
-              Subscribe To My Channel For More Videos
-            </p>
-          </div>
-          <img src="img5.jpg" style="width: 100%; height: 100%;" />
-        </div>
-
-        <a class="prev" onclick="plusSlides(-1)">
-          &#10094;
-        </a>
-        <a class="next" onclick="plusSlides(1)">
-          &#10095;
-        </a>
-
-        <div class="dotsbox" style="text-align:center">
-          <span class="dot" onclick="currentSlide(1)"></span>
-          <span class="dot" onclick="currentSlide(2)"></span>
-          <span class="dot" onclick="currentSlide(3)"></span>
-          <span class="dot" onclick="currentSlide(4)"></span>
-          <span class="dot" onclick="currentSlide(5)"></span>
+    <div className="relative bg-neutral-900">
+      <div className="absolute inset-x-0 bottom-0">
+        <svg
+          viewBox="0 0 224 12"
+          fill="currentColor"
+          className="w-full -mb-1 text-white"
+          preserveAspectRatio="none"
+        >
+          <path d="M0,0 C48.8902582,6.27314026 86.2235915,9.40971039 112,9.40971039 C137.776408,9.40971039 175.109742,6.27314026 224,0 L224,12.0441132 L0,12.0441132 L0,0 Z" />
+        </svg>
+      </div>
+      <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+        <div className="relative max-w-2xl sm:mx-auto sm:max-w-xl md:max-w-2xl sm:text-center">
+          <h2 className="mb-6 font-sans text-3xl font-bold tracking-tight text-white sm:text-4xl sm:leading-none">
+            Consigue los mejores productos
+            <br className="hidden md:block" />
+            electronicos en{" "}
+            <span className="relative inline-block px-2">
+              <div className="absolute inset-0 transform -skew-x-12 py-6 bg-slate-200" />
+              <span className="relative text-stone-900">KARMA</span>
+            </span>
+          </h2>
+          <p className="mb-6 text-base text-indigo-100 md:text-lg">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+            Voluptatibus dolores rem asperiores dignissimos molestias iure
+            assumenda libero. Deleniti reprehenderit quo iste, tenetur
+            voluptatem nam sequi, tempora, laboriosam voluptas corporis qui?
+          </p>
+          <form className="flex flex-col items-center w-full mb-4 md:flex-row md:px-16">
+            <input
+              placeholder="Marca o Producto"
+              required
+              type="text"
+              className="flex-grow w-full h-12 px-4 mb-3 text-white transition duration-200 border-2 border-transparent rounded appearance-none md:mr-2 md:mb-0 bg-slate-100 focus:border-stone-600 focus:outline-none focus:shadow-outline"
+            />
+            <a
+              href="/"
+              className="inline-flex items-center justify-center w-full h-12 px-6 font-semibold tracking-wide text-indigo-100 transition duration-200 rounded shadow-md md:w-auto hover:text-stone-800 bg-stone-600  hover:bg-stone-400 focus:shadow-outline focus:outline-none"
+            >
+              Buscar
+            </a>
+          </form>
+          <p className="max-w-md mb-10 text-xs tracking-wide text-indigo-100 sm:text-sm sm:mx-auto md:mb-16">
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+            accusantium doloremque.
+          </p>
+          <a
+            href="/"
+            aria-label="Scroll down"
+            className="flex items-center justify-center w-10 h-10 mx-auto text-white duration-300 transform border border-gray-400 rounded-full hover:text-teal-accent-400 hover:border-teal-accent-400 hover:shadow hover:scale-110"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="12"
+              height="12"
+              viewBox="0 0 12 12"
+              fill="currentColor"
+            >
+              <path d="M10.293,3.293,6,7.586,1.707,3.293A1,1,0,0,0,.293,4.707l5,5a1,1,0,0,0,1.414,0l5-5a1,1,0,1,0-1.414-1.414Z" />
+            </svg>
+          </a>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
 
