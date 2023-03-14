@@ -1,3 +1,4 @@
+import CartPopup from "./CartPopup";
 import UserDropdown from "./UserDropdown";
 import {
   ShoppingBagIcon,
@@ -76,16 +77,6 @@ export default function NavBar() {
             <div class="flex items-center divide-x divide-neutral-300 border-x border-neutral-300">
               <span>
                 <a
-                  href="/cart"
-                  class="block border-transparent p-6 hover:border-neutral-900"
-                >
-                  <ShoppingBagIcon className="-mr-1 h-5 w-5 text-neutral-900" />
-                  <span class="sr-only">Cart</span>
-                </a>
-              </span>
-
-              <span>
-                <a
                   href="/search"
                   class="block border-transparent p-6 hover:border-neutral-900"
                 >
@@ -93,6 +84,8 @@ export default function NavBar() {
                   <span class="sr-only"> Search </span>
                 </a>
               </span>
+
+              <CartPopup />
 
               <span>
                 <div class="block border-transparent p-3.5 hover:border-neutral-900">
