@@ -1,10 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import PaymentMethods from "./PaymentMethods";
+import OffersAndNews from "./OffersAndNews";
+import { Tooltip } from "flowbite-react";
 function Home() {
   return (
     <section>
-      <div className="relative bg-neutral-900">
+      <div className="relative bg-neutral-900 ">
         <div className="absolute inset-x-0 bottom-0">
           <svg
             viewBox="0 0 224 12"
@@ -35,7 +36,7 @@ function Home() {
             </p>
             <form className="flex flex-col items-center w-full mb-4 md:flex-row md:px-16">
               <input
-                placeholder="Marca o Producto"
+                placeholder="Escribe aquí para buscar"
                 required
                 type="text"
                 className="flex-grow w-full h-12 px-4 mb-3 text-white transition duration-200 border-2 border-transparent rounded appearance-none md:mr-2 md:mb-0 bg-slate-100 focus:border-stone-700 focus:outline-none focus:shadow-outline placeholder:text-stone-600"
@@ -44,7 +45,9 @@ function Home() {
                 href="/"
                 className="inline-flex items-center justify-center w-full h-12 px-6 font-semibold tracking-wide text-indigo-100 transition duration-200 rounded shadow-md md:w-auto hover:text-stone-800 bg-stone-600  hover:bg-stone-400 focus:shadow-outline focus:outline-none"
               >
-                Buscar
+                <Tooltip content="Puedes buscar por modelos, marcas o categorias">
+                  Buscar
+                </Tooltip>
               </a>
             </form>
             <p className="max-w-md mb-10 text-xs tracking-wide text-indigo-100 sm:text-sm sm:mx-auto md:mb-16">
@@ -53,9 +56,9 @@ function Home() {
               con el medio ambiente. ¡Gracias por elegir Karma!
             </p>
             <a
-              href="/"
+              href="#down"
               aria-label="Scroll down"
-              className="flex items-center justify-center w-10 h-10 mx-auto text-white duration-300 transform border border-gray-400 rounded-full hover:text-teal-accent-400 hover:border-teal-accent-400 hover:shadow hover:scale-110"
+              className="flex items-center justify-center w-10 h-10 mx-auto text-white duration-300 transform border border-gray-400 rounded-full hover:text-teal-accent-400 hover:border-teal-accent-400 hover:shadow hover:scale-110 -m-8"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -70,6 +73,8 @@ function Home() {
           </div>
         </div>
       </div>
+      <OffersAndNews />
+
       <PaymentMethods></PaymentMethods>
     </section>
   );

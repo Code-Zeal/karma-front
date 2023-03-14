@@ -4,11 +4,12 @@ module.exports = {
     "./src/Components/**/*.{js,jsx,ts,tsx}",
     "./src/**/*.{js,jsx,ts,tsx}",
     "./public/**/*.{js,jsx,ts,tsx,html}",
+    "node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require("flowbite/plugin")],
   "tailwindCSS.includeLanguages": {
     javascript: "javascript",
     html: "HTML",

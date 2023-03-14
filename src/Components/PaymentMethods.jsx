@@ -1,9 +1,11 @@
+import { Button, Tooltip } from "flowbite-react";
+import { Link } from "react-router-dom";
 export const PaymentMethods = () => {
   return (
     <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
       <div className="grid gap-5 row-gap-8 lg:grid-cols-2">
-        <div className="flex flex-col justify-center">
-          <div className="max-w-xl mb-6">
+        <div className="flex flex-col justify-center ">
+          <div className="max-w-xl mb-6 ">
             <h2 className="max-w-lg  mb-6 font-sans text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none ">
               Metodos de pago
               <br className="hidden md:block " />
@@ -63,6 +65,33 @@ export const PaymentMethods = () => {
             src="https://http2.mlstatic.com/D_NQ_NP_991501-MLA45229459134_032021-OO.jpg"
             alt=""
           />
+          <div className="flex justify-evenly my-8">
+            <Link
+              to="https://www.mercadopago.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Tooltip
+                placement="bottom"
+                content="Haz clic en este botón para ser redirigido a Mercado Pago"
+              >
+                <Button gradientMonochrome="info">Mercado Pago</Button>
+              </Tooltip>
+            </Link>
+
+            <Tooltip
+              placement="bottom"
+              content="Haz clic en este botón para ser redirigido a Paypal"
+            >
+              <Link
+                to="https://www.paypal.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button gradientMonochrome="info">Paypal</Button>
+              </Link>
+            </Tooltip>
+          </div>
         </div>
       </div>
     </div>
