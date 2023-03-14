@@ -9,13 +9,13 @@ import {
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 
-const OffersSamsung = (props) => {
+const OffersHuawei = (props) => {
   return (
     <section className=" ">
       <div className="w-full h-min bg-white border-t-2 border-slate-800  flex justify-center items-center pt-4">
         <img
           className="h-[90px]"
-          src="https://www.seekpng.com/png/full/2-21861_samsung-logo-samsung-logo-png-black.png"
+          src="https://cdn.icon-icons.com/icons2/2699/PNG/512/huawei_logo_icon_170010.png"
           alt=""
         />
       </div>
@@ -188,4 +188,4 @@ const OffersSamsung = (props) => {
     </section>
   );
 };
-export default OffersSamsung;
+export default OffersHuawei;
