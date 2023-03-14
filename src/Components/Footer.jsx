@@ -23,7 +23,7 @@ export default function Footer() {
                 class="text-neutral-900 transition hover:text-neutral-500/75"
                 href="/"
               >
-                About
+                Quiénes somos
               </a>
             </li>
 
@@ -32,7 +32,7 @@ export default function Footer() {
                 class="text-neutral-900 transition hover:text-neutral-500/75"
                 href="/"
               >
-                Careers
+                Contacto
               </a>
             </li>
 
@@ -41,34 +41,7 @@ export default function Footer() {
                 class="text-neutral-900 transition hover:text-neutral-500/75"
                 href="/"
               >
-                History
-              </a>
-            </li>
-
-            <li>
-              <a
-                class="text-neutral-900 transition hover:text-neutral-500/75"
-                href="/"
-              >
-                Services
-              </a>
-            </li>
-
-            <li>
-              <a
-                class="text-neutral-900 transition hover:text-neutral-500/75"
-                href="/"
-              >
-                Projects
-              </a>
-            </li>
-
-            <li>
-              <a
-                class="text-neutral-900 transition hover:text-neutral-500/75"
-                href="/"
-              >
-                Blog
+                Desarrolladores
               </a>
             </li>
           </ul>
