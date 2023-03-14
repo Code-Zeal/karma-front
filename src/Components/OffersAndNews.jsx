@@ -8,7 +8,7 @@ const OffersAndNews = (props) => {
       <section className="mx-2 flex  flex-col lg:flex-row lg:justify-evenly">
         <div className="lg:w-[40%]">
           <h3 className="p-4 text-3xl font-bold ">OFERTAS Y NOVEDADES</h3>
-          <h3 className="p-4">
+          <h3 className="p-4 mb-3 font-normal text-gray-700 ">
             En Karma, nos esforzamos por ofrecer productos de la mejor calidad a
             precios competitivos. Trabajamos con las mejores marcas del mercado
             para asegurarnos de que nuestros clientes reciban dispositivos

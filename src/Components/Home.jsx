@@ -2,6 +2,7 @@ import React from "react";
 import PaymentMethods from "./PaymentMethods";
 import OffersAndNews from "./OffersAndNews";
 import { Tooltip } from "flowbite-react";
+import OffersSamsung from "./OffersSamsung";
 function Home() {
   return (
     <section>
@@ -74,7 +75,7 @@ function Home() {
         </div>
       </div>
       <OffersAndNews />
-
+      <OffersSamsung></OffersSamsung>
       <PaymentMethods></PaymentMethods>
     </section>
   );
