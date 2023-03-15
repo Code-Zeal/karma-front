@@ -62,7 +62,7 @@ export const PaymentMethods = () => {
         <div>
           <img
             className="object-fill w-full h-64 rounded-lg shadow-2xl sm:h-96"
-            src="https://http2.mlstatic.com/D_NQ_NP_991501-MLA45229459134_032021-OO.jpg"
+            src="https://res.cloudinary.com/dx2me9gqm/image/upload/v1678830141/D_NQ_NP_991501-MLA45229459134_032021-OO_pxxwsy.jpg"
             alt=""
           />
           <div className="flex justify-evenly my-8">
@@ -75,7 +75,7 @@ export const PaymentMethods = () => {
                 placement="bottom"
                 content="Haz clic en este botón para ser redirigido a Mercado Pago"
               >
-                <Button gradientMonochrome="info">Mercado Pago</Button>
+                <Button color="dark">Mercado Pago</Button>
               </Tooltip>
             </Link>
 
@@ -88,7 +88,7 @@ export const PaymentMethods = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Button gradientMonochrome="info">Paypal</Button>
+                <Button color="dark">Paypal</Button>
               </Link>
             </Tooltip>
           </div>

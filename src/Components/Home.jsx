@@ -1,10 +1,17 @@
 import React from "react";
 import PaymentMethods from "./PaymentMethods";
 import OffersAndNews from "./OffersAndNews";
-import { Tooltip } from "flowbite-react";
+import { Button, Tooltip } from "flowbite-react";
+import OffersSamsung from "./OffersSamsung";
+import NavBar from "./NavBar";
+import Footer from "./Footer";
+import OffersHuawei from "./OffersHuawei";
+import { FeedbackHome } from "./FeedbackHome";
+import { Link } from "react-router-dom";
 function Home() {
   return (
     <section>
+      <NavBar></NavBar>
       <div className="relative bg-neutral-900 ">
         <div className="absolute inset-x-0 bottom-0">
           <svg
@@ -41,14 +48,17 @@ function Home() {
                 type="text"
                 className="flex-grow w-full h-12 px-4 mb-3 text-white transition duration-200 border-2 border-transparent rounded appearance-none md:mr-2 md:mb-0 bg-slate-100 focus:border-stone-700 focus:outline-none focus:shadow-outline placeholder:text-stone-600"
               />
-              <a
-                href="/"
-                className="inline-flex items-center justify-center w-full h-12 px-6 font-semibold tracking-wide text-indigo-100 transition duration-200 rounded shadow-md md:w-auto hover:text-stone-800 bg-stone-600  hover:bg-stone-400 focus:shadow-outline focus:outline-none"
-              >
-                <Tooltip content="Puedes buscar por modelos, marcas o categorias">
-                  Buscar
+              <Link to="">
+                <Tooltip
+                  placement="right"
+                  style="light"
+                  content="¡Puedes realizar busquedas por modelos, marcas o categorias!"
+                >
+                  <Button color="light" size="md">
+                    Buscar
+                  </Button>
                 </Tooltip>
-              </a>
+              </Link>
             </form>
             <p className="max-w-md mb-10 text-xs tracking-wide text-indigo-100 sm:text-sm sm:mx-auto md:mb-16">
               Estamos comprometidos con la sostenibilidad y trabajamos con
@@ -74,8 +84,11 @@ function Home() {
         </div>
       </div>
       <OffersAndNews />
-
       <PaymentMethods></PaymentMethods>
+      <OffersSamsung></OffersSamsung>
+      <FeedbackHome></FeedbackHome>
+      <OffersHuawei></OffersHuawei>
+      <Footer></Footer>
     </section>
   );
 }
