@@ -18,107 +18,67 @@ const OffersAndNews = (props) => {
             tus necesidades.
           </h3>
         </div>
-        <div className="lg:w-1/2 grid h-56 grid-cols-2 gap-4 sm:h-64 xl:h-80 2xl:h-96">
+        <div className="lg:w-7/12 grid h-56 grid-cols-2 gap-4 sm:h-64 xl:h-80 2xl:h-96">
           <Carousel>
             <Link className="w-full flex items-start ">
-              <h5 className="text-[10px] lg:text-lg font-semibold tracking-tight px-[10%] pt-4 text-center text-white absolute z-10 ">
-                Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
+              <h5 className="text-[10px] lg:text-lg font-semibold tracking-tight px-[10%] p-2 text-center rounded-tr-xl rounded-br-xl bg-[#171717] text-white absolute z-10 ">
+                Samsung Galaxy S22
               </h5>
               <img
-                className="w-full h-full m-auto relative z-0"
-                src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
+                className="w-[200px] h-[200px] m-auto relative z-0"
+                src="https://m.media-amazon.com/images/I/71c5rhsUkxL._AC_SL1500_.jpg"
                 alt="Apple Watch Series 7 in colors pink, silver, and black"
               />
             </Link>
             <Link className="w-full flex items-start ">
-              <h5 className="text-[10px] lg:text-lg font-semibold tracking-tight px-[10%] pt-4 text-center text-white absolute z-10 ">
-                Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
+              <h5 className="text-[10px] lg:text-lg font-semibold tracking-tight px-[10%] p-2 text-center rounded-tr-xl rounded-br-xl bg-[#171717] text-white absolute z-10 ">
+                iPhone 13 Pro Max
               </h5>
               <img
-                className="w-full h-full m-auto relative z-0"
-                src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
+                className="w-[200px] h-[200px] m-auto relative z-0"
+                src="https://m.media-amazon.com/images/I/61D84NtVgVL._AC_SL1500_.jpg"
                 alt="Apple Watch Series 7 in colors pink, silver, and black"
               />
             </Link>
             <Link className="w-full flex items-start ">
-              <h5 className="text-[10px] lg:text-lg font-semibold tracking-tight px-[10%] pt-4 text-center text-white absolute z-10 ">
-                Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
+              <h5 className="text-[10px] lg:text-lg font-semibold tracking-tight px-[10%] p-2 text-center rounded-tr-xl rounded-br-xl bg-[#171717] text-white absolute z-10 ">
+                Acer Aspire Vero
               </h5>
               <img
-                className="w-full h-full m-auto relative z-0"
-                src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
-                alt="Apple Watch Series 7 in colors pink, silver, and black"
-              />
-            </Link>
-            <Link className="w-full flex items-start ">
-              <h5 className="text-[10px] lg:text-lg font-semibold tracking-tight px-[10%] pt-4 text-center text-white absolute z-10 ">
-                Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
-              </h5>
-              <img
-                className="w-full h-full m-auto relative z-0"
-                src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
-                alt="Apple Watch Series 7 in colors pink, silver, and black"
-              />
-            </Link>
-            <Link className="w-full flex items-start ">
-              <h5 className="text-[10px] lg:text-lg font-semibold tracking-tight px-[10%] pt-4 text-center text-white absolute z-10 ">
-                Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
-              </h5>
-              <img
-                className="w-full h-full m-auto relative z-0"
-                src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
+                className="w-[200px] h-[200px] m-auto relative z-0"
+                src="https://m.media-amazon.com/images/I/81XIwlF8sxL._AC_SL1500_.jpg"
                 alt="Apple Watch Series 7 in colors pink, silver, and black"
               />
             </Link>
           </Carousel>
           <Carousel indicators={true}>
             <Link className="w-full flex items-start ">
-              <h5 className="text-[10px] lg:text-lg font-semibold tracking-tight px-[10%] pt-4 text-center text-white absolute z-10 ">
-                Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
+              <h5 className="text-[10px] lg:text-lg font-semibold tracking-tight px-[10%] p-2 text-center rounded-tr-xl rounded-br-xl bg-[#171717] text-white absolute z-10 ">
+                Lenovo - Tab P11 Plus
               </h5>
               <img
-                className="w-full h-full m-auto relative z-0"
-                src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
+                className="w-[200px] h-[200px] m-auto relative z-0"
+                src="https://m.media-amazon.com/images/I/617Q3DbKyPL._AC_SL1500_.jpg"
                 alt="Apple Watch Series 7 in colors pink, silver, and black"
               />
             </Link>
             <Link className="w-full flex items-start ">
-              <h5 className="text-[10px] lg:text-lg font-semibold tracking-tight px-[10%] pt-4 text-center text-white absolute z-10 ">
-                Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
+              <h5 className="text-[10px] lg:text-lg font-semibold tracking-tight px-[10%] p-2 text-center rounded-tr-xl rounded-br-xl bg-[#171717] text-white absolute z-10 ">
+                MSI Katana GF66
               </h5>
               <img
-                className="w-full h-full m-auto relative z-0"
-                src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
+                className="w-[300px] h-[200px] m-auto relative z-0"
+                src="https://m.media-amazon.com/images/I/71nk3uDrqkL._AC_SL1500_.jpg"
                 alt="Apple Watch Series 7 in colors pink, silver, and black"
               />
             </Link>
             <Link className="w-full flex items-start ">
-              <h5 className="text-[10px] lg:text-lg font-semibold tracking-tight px-[10%] pt-4 text-center text-white absolute z-10 ">
-                Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
+              <h5 className="text-[10px] lg:text-lg font-semibold tracking-tight px-[10%] p-2 text-center rounded-tr-xl rounded-br-xl bg-[#171717] text-white absolute z-10 ">
+                SAMSUNG Galaxy Tab S6 Lite
               </h5>
               <img
-                className="w-full h-full m-auto relative z-0"
-                src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
-                alt="Apple Watch Series 7 in colors pink, silver, and black"
-              />
-            </Link>
-            <Link className="w-full flex items-start ">
-              <h5 className="text-[10px] lg:text-lg font-semibold tracking-tight px-[10%] pt-4 text-center text-white absolute z-10 ">
-                Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
-              </h5>
-              <img
-                className="w-full h-full m-auto relative z-0"
-                src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
-                alt="Apple Watch Series 7 in colors pink, silver, and black"
-              />
-            </Link>
-            <Link className="w-full flex items-start ">
-              <h5 className="text-[10px] lg:text-lg font-semibold tracking-tight px-[10%] pt-4 text-center text-white absolute z-10 ">
-                Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
-              </h5>
-              <img
-                className="w-full h-full m-auto relative z-0"
-                src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
+                className="w-[200px] h-[200px] m-auto relative z-0"
+                src="https://m.media-amazon.com/images/I/718B6zl+b6L._AC_SL1500_.jpg"
                 alt="Apple Watch Series 7 in colors pink, silver, and black"
               />
             </Link>
@@ -126,39 +86,25 @@ const OffersAndNews = (props) => {
         </div>
       </section>
       <div className="h-56 sm:h-64 xl:h-80 2xl:h-96 m-6">
-        <Carousel slideInterval={5000}>
+        <Carousel slideInterval={5000} className="w-10/12 m-auto">
           <Link>
             <img
               className="cursor-pointer w-full"
-              src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
+              src="https://blog.clickio.com/wp-content/uploads/2022/06/sticky-ads.png"
               alt="..."
             />
           </Link>
           <Link>
             <img
               className="cursor-pointer w-full"
-              src="https://flowbite.com/docs/images/carousel/carousel-2.svg"
+              src="https://www.the-future-of-commerce.com/wp-content/uploads/2019/11/thumbnail-499857e59b7ac790619ff8db95a1e400-1200x370.jpeg"
               alt="..."
             />
           </Link>
           <Link>
             <img
               className="cursor-pointer w-full"
-              src="https://flowbite.com/docs/images/carousel/carousel-3.svg"
-              alt="..."
-            />
-          </Link>
-          <Link>
-            <img
-              className="cursor-pointer w-full"
-              src="https://flowbite.com/docs/images/carousel/carousel-4.svg"
-              alt="..."
-            />
-          </Link>
-          <Link>
-            <img
-              className="cursor-pointer w-full"
-              src="https://flowbite.com/docs/images/carousel/carousel-5.svg"
+              src="https://www.tweakuk.com/wp-content/uploads/2020/01/Tech-banner.jpg"
               alt="..."
             />
           </Link>
