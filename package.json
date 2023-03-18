@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@auth0/auth0-react": "^2.0.1",
     "@cloudinary/react": "^1.11.1",
     "@cloudinary/url-gen": "^1.9.2",
     "@headlessui/react": "^1.7.13",
