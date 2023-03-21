@@ -1,34 +1,29 @@
 import { Link } from "react-router-dom";
 
 export default function Card(props) {
+  console.log(props);
   return (
     <div className="max-w-sm">
-      <img src={`${props.card.image}`} alt="imagen" />
+      <img src={`${props.card.images[0]}`} alt="imagen" />
       <a href="#">
-        {props.card.Laptop ? (
-          <h5>{`${props.card.brand} ${props.card.model} ${props.card.Laptop.name}`}</h5>
-        ) : (
-          <></>
-        )}
-        {props.card.Tablet ? (
-          <h5>{`${props.card.brand} ${props.card.model} ${props.card.Tablet.name}`}</h5>
-        ) : (
-          <></>
-        )}
+        {props.card.Laptop ? <h5>{` ${props.card.Laptop.name}`}</h5> : <></>}
+        {props.card.Tablet ? <h5>{` ${props.card.Tablet.name}`}</h5> : <></>}
         {props.card.CellPhone ? (
-          <h5>{`${props.card.brand} ${props.card.model} ${props.card.CellPhone.name}`}</h5>
+          <h5>
+            {` ${props.card.CellPhone.name} `} <br></br>{" "}
+          </h5>
         ) : (
           <></>
         )}
         {props.card.Television ? (
-          <h5>{`${props.card.brand} ${props.card.model} ${props.card.television.name}`}</h5>
+          <h5>{` ${props.card.Television.name}`}</h5>
         ) : (
           <></>
         )}
       </a>
       <div className="flex items-center justify-between">
         <span className="text-3xl font-bold text-gray-900 dark:text-white">
-          {props.card.price}
+          ${props.card.price}
         </span>
         {/* {props.laptop ? ( */}
         <Link to={`/detail/${props.card.id}`}> Ver detalles del producto</Link>
