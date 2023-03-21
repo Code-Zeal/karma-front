@@ -8,6 +8,7 @@ import Cards from "./Components/Cards";
 import DetailCard from "./Components/DetailCard";
 import Card from "./Components/Card";
 import Details from "./Components/DetailsCard";
+import Shop from "./Components/Shop";
 import Checkout from "./Components/Checkout";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/detail/:id" element={<DetailCard />} />
         <Route exact path="/card" element={<Card />} />
         <Route exact path="/detail" element={<Details />} />
+        <Route exact path="/shop/:category" element={<Shop />} />
         <Route exact path="/checkout" element={<Checkout />} />
       </Routes>
     </BrowserRouter>
