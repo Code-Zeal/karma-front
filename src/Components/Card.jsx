@@ -3,38 +3,35 @@ import { Link } from "react-router-dom";
 export default function Card(props) {
   return (
     <div className="max-w-sm">
-      <img src={`${props.image}`} alt="imagen" />
+      <img src={`${props.card.image}`} alt="imagen" />
       <a href="#">
-        {props.laptop ? (
-          <h5>{`${props.brand} ${props.model} ${props.laptop.name}`}</h5>
+        {props.card.Laptop ? (
+          <h5>{`${props.card.brand} ${props.card.model} ${props.card.Laptop.name}`}</h5>
         ) : (
           <></>
         )}
-        {props.tablet ? (
-          <h5>{`${props.brand} ${props.model} ${props.tablet.name}`}</h5>
+        {props.card.Tablet ? (
+          <h5>{`${props.card.brand} ${props.card.model} ${props.card.Tablet.name}`}</h5>
         ) : (
           <></>
         )}
-        {props.celulares ? (
-          <h5>{`${props.brand} ${props.model} ${props.celulares.name}`}</h5>
+        {props.card.CellPhone ? (
+          <h5>{`${props.card.brand} ${props.card.model} ${props.card.CellPhone.name}`}</h5>
         ) : (
           <></>
         )}
-        {props.television ? (
-          <h5>{`${props.brand} ${props.model} ${props.television.name}`}</h5>
+        {props.card.Television ? (
+          <h5>{`${props.card.brand} ${props.card.model} ${props.card.television.name}`}</h5>
         ) : (
           <></>
         )}
       </a>
       <div className="flex items-center justify-between">
         <span className="text-3xl font-bold text-gray-900 dark:text-white">
-          {props.price}
+          {props.card.price}
         </span>
         {/* {props.laptop ? ( */}
-        <Link to={`/detail/${props.idDetailProduct}`}>
-          {" "}
-          Ver detalles del producto
-        </Link>
+        <Link to={`/detail/${props.card.id}`}> Ver detalles del producto</Link>
         {/* ) : (
           <></>
         )} */}
@@ -63,7 +60,12 @@ export default function Card(props) {
           <></>
         )} */}
       </div>
-      <div>categoria</div>
+      <div>
+        {props.card.Laptop ? <span>{`Laptop`}</span> : <></>}
+        {props.card.Tablet ? <span>{`Tablet`}</span> : <></>}
+        {props.card.CellPhone ? <span>{`Celulares`}</span> : <></>}
+        {props.card.Television ? <span>{`Television`}</span> : <></>}
+      </div>
     </div>
   );
 }
