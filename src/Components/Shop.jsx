@@ -7,7 +7,6 @@ import axios from "axios";
 export default function Shop() {
   const nameUrl = window.location.pathname;
   const [info, setInfo] = useState("");
-  console.log(nameUrl);
   useEffect(() => {
     switch (nameUrl) {
       case "/shop/CellPhone":
