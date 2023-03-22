@@ -51,13 +51,13 @@ export default function UserDropdown() {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="/register"
+                  href="/profile/orders"
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "block px-4 py-2 text-sm"
                   )}
                 >
-                  Registrarse
+                  {isAuthenticated ? "Mi Perfil" : <></>}
                 </a>
               )}
             </Menu.Item>
