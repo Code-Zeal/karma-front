@@ -1,9 +1,7 @@
 import CartPopup from "./CartPopup";
 import UserDropdown from "./UserDropdown";
-import {
-  ShoppingBagIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/24/outline";
+import SearchBar from "./SearchBar";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 export default function NavBar() {
   return (
@@ -75,23 +73,9 @@ export default function NavBar() {
         <div class="flex items-center justify-end">
           <div class="flex items-center">
             <div class="flex items-center divide-x divide-neutral-300 border-x border-neutral-300">
-              <span>
-                <a
-                  href="/search"
-                  class="block border-transparent p-6 hover:border-neutral-900"
-                >
-                  <MagnifyingGlassIcon className="-mr-1 h-5 w-5 text-neutral-900" />
-                  <span class="sr-only"> Search </span>
-                </a>
-              </span>
-
+              <SearchBar />
               <CartPopup />
-
-              <span>
-                <div class="block border-transparent p-3.5 hover:border-neutral-900">
-                  <UserDropdown />
-                </div>
-              </span>
+              <UserDropdown />
             </div>
           </div>
         </div>

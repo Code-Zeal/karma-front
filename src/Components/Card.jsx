@@ -1,25 +1,18 @@
 export default function Card(props) {
   return (
-    <div className="max-w-sm">
-      <img src="" alt="imagen" />
-      <a href="#">
-        <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-          {/* Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport */}
-          Nombre producto
-        </h5>
-      </a>
-      <div className="flex items-center justify-between">
-        <span className="text-3xl font-bold text-gray-900 dark:text-white">
-          $599
-        </span>
-        <a
-          href="#"
-          className="rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-          Ver detalles del producto
-        </a>
+    <div class="max-w-sm overflow-hidden shadow-lg border border-neutral-600">
+      <div class="h-[300px] bg-white flex items-center justify-center">
+        <img
+          class="object-contain p-16"
+          src={`${props.images}`}
+          alt="Product Image"
+        />
       </div>
-      <div>categoria</div>
+      <div class="px-6 py-4">
+        <div class="font-bold text-xl mb-2">{props.brand}</div>
+        <p class="text-gray-700 text-base">{props.model}</p>
+        <p class="text-gray-700 text-base mt-2">${props.price}</p>
+      </div>
     </div>
   );
 }
