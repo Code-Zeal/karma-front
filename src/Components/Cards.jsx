@@ -8,15 +8,7 @@ export default function Cards() {
   return (
     <div class="flex flex-wrap p-16 gap-8">
       {products.map((product) => (
-        <Card
-          key={product.id}
-          productId={product.id}
-          model={product.model}
-          brand={product.brand}
-          description={product.description}
-          price={product.price}
-          images={product.images}
-        />
+        <Card card={product} />
       ))}
     </div>
   );

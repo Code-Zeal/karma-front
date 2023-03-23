@@ -1,12 +1,17 @@
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { UserIcon } from "@heroicons/react/24/outline";
+import { useAuth0 } from "@auth0/auth0-react";
+import Logout from "./Logout";
+import Login from "./Login";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function UserDropdown() {
+  const { user, isAuthenticated } = useAuth0();
+
   return (
     <div class="block border-transparent p-3.5 hover:border-neutral-900">
       <Menu as="div" className="relative inline-block text-center">
@@ -33,13 +38,13 @@ export default function UserDropdown() {
               <Menu.Item>
                 {({ active }) => (
                   <a
-                    href="/log-in"
+                    href="/"
                     className={classNames(
                       active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                       "block px-4 py-2 text-sm"
                     )}
                   >
-                    Ingresar
+                    {isAuthenticated ? <Logout></Logout> : <Login></Login>}
                   </a>
                 )}
               </Menu.Item>

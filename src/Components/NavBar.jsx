@@ -1,9 +1,17 @@
+import { Dropdown } from "flowbite-react";
 import CartPopup from "./CartPopup";
 import UserDropdown from "./UserDropdown";
 import SearchBar from "./SearchBar";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { Link, useNavigate, redirect, NavLink } from "react-router-dom";
+import { Router } from "react-router-dom";
 
 export default function NavBar() {
+  const navigate = useNavigate();
+  const navegador = () => {
+    navigate("/shop/CellPhone");
+    window.location.reload();
+  };
   return (
     <header aria-label="Site Header" class="border-b border-neutral-300">
       <div class="mx-auto flex h-16 max-w-screen-2xl items-center justify-between sm:px-6 lg:px-8">
@@ -38,7 +46,7 @@ export default function NavBar() {
         <div class="flex flex-1 items-center justify-center gap-8">
           <nav
             aria-label="Site Nav"
-            class="hidden lg:flex lg:gap-8 lg:text-xs lg:font-bold lg:uppercase lg:tracking-wide lg:text-neutral-900 font-mono"
+            class="hidden lg:flex lg:gap-8 lg:text-xs lg:font-bold lg:uppercase lg:tracking-wide lg:text-neutral-900 font-mono items-center justify-center"
           >
             <a
               href="/"
@@ -46,21 +54,26 @@ export default function NavBar() {
             >
               Inicio
             </a>
-
             <a
               href="/explore"
               class="block h-16 border-b-4 border-transparent leading-[4rem] hover:border-current hover:text-neutral-900"
             >
               Explorar
             </a>
-
-            <a
-              href="/products"
-              class="block h-16 border-b-4 border-transparent leading-[4rem] hover:border-current hover:text-neutral-900"
-            >
-              Productos
-            </a>
-
+            <Dropdown inline={true} label="CATEGORIAS" color="white">
+              <a href="/shop/CellPhone">
+                <Dropdown.Item>Celulares</Dropdown.Item>
+              </a>
+              <a href="/shop/Laptop">
+                <Dropdown.Item>Laptops</Dropdown.Item>
+              </a>
+              <a href="/shop/Tablet">
+                <Dropdown.Item>Tablets</Dropdown.Item>
+              </a>
+              <a href="/shop/TV">
+                <Dropdown.Item>Televisores</Dropdown.Item>
+              </a>
+            </Dropdown>
             <a
               href="/contact"
               class="block h-16 border-b-4 border-transparent leading-[4rem] hover:border-current hover:text-neutral-900"
