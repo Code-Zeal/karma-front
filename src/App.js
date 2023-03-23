@@ -9,6 +9,7 @@ import Card from "./Components/Card";
 import Details from "./Components/DetailCard";
 import Shop from "./Components/Shop";
 import Checkout from "./Components/Checkout";
+import Search from "./Components/Search";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route exact path="/detail" element={<Details />} />
         <Route exact path="/shop/:category" element={<Shop />} />
         <Route exact path="/checkout" element={<Checkout />} />
+        <Route path="/search" element={<Search />} />
       </Routes>
     </BrowserRouter>
   );

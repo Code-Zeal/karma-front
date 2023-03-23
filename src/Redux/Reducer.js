@@ -10,11 +10,18 @@ const persistConfig = {
 
 const initialState = {
   estadoInicial: [],
+  searchedProducts: [],
 };
 
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     // defecto
+    case "GET_PRODUCTS_BY_INPUT":
+      return {
+        ...state,
+        searchedProducts: action.payload,
+      };
+
     default:
       return {
         ...state,
