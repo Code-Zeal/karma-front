@@ -11,6 +11,7 @@ import Shop from "./Components/Shop";
 import Checkout from "./Components/Checkout";
 import MyOrders from "./Components/MyOrders";
 import MyData from "./Components/MyData";
+import Search from "./Components/Search";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route exact path="/checkout" element={<Checkout />} />
         <Route exact path="/profile/orders" element={<MyOrders />} />
         <Route exact path="/profile/data" element={<MyData />} />
+        <Route path="/search" element={<Search />} />
       </Routes>
     </BrowserRouter>
   );

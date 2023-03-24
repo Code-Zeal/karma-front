@@ -13,16 +13,16 @@ export default function UserDropdown() {
   const { user, isAuthenticated } = useAuth0();
 
   return (
-    <Menu as="div" className="relative inline-block text-center">
-      <div>
-        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900">
-          <UserIcon
-            className="-mr-1 h-5 w-5 text-neutral-900"
-            aria-hidden="true"
-          />
-        </Menu.Button>
-      </div>
-
+    <div class="block border-transparent p-3.5 hover:border-neutral-900">
+      <Menu as="div" className="relative inline-block text-center">
+        <div>
+          <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900">
+            <UserIcon
+              className="-mr-1 h-5 w-5 text-neutral-900"
+              aria-hidden="true"
+            />
+          </Menu.Button>
+        </div>
       <Transition
         as={Fragment}
         enter="transition ease-out duration-100"
@@ -65,5 +65,6 @@ export default function UserDropdown() {
         </Menu.Items>
       </Transition>
     </Menu>
+    </div>
   );
 }
