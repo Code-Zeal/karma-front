@@ -5,9 +5,10 @@ export default function Card(props) {
   return (
     <div className="max-w-sm">
       <img src={`${props.card.images[0]}`} alt="imagen" />
+      <div class="font-bold text-xl mb-2">{props.brand}</div>
       <a href="#">
-        {props.card.Laptop ? <h5>{` ${props.card.Laptop.name}`}</h5> : <></>}
-        {props.card.Tablet ? <h5>{` ${props.card.Tablet.name}`}</h5> : <></>}
+        {props.card.Laptop ? <h5>{` ${props.card.model}`}</h5> : <></>}
+        {props.card.Tablet ? <h5>{` ${props.card.model}`}</h5> : <></>}
         {props.card.CellPhone ? (
           <h5>
             {` ${props.card.CellPhone.name} `} <br></br>{" "}
