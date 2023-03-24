@@ -13,7 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const EditData = forwardRef((props, ref) => {
   const notify = () =>
-    toast.success(`Información editada correctamente :)`, {
+    toast.success(`Información editada correctamente `, {
       position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
@@ -21,8 +21,22 @@ const EditData = forwardRef((props, ref) => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "colored",
+      theme: "dark",
     });
+  const errorNotify = () =>
+    toast.error(
+      "Ups, la información no se editó correctamente, intente de nuevo",
+      {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      }
+    );
   const { user, isAuthenticated } = useAuth0();
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState("");
@@ -63,6 +77,7 @@ const EditData = forwardRef((props, ref) => {
         address: res.data.address,
         email: res.data.email,
         picture: res.data.picture,
+        birthdate: res.data.birthdate,
       });
     };
     if (user?.sub) {
@@ -114,17 +129,14 @@ const EditData = forwardRef((props, ref) => {
   const cities = countrySelected
     ? countries.find((country) => country.country === countrySelected).cities
     : [];
-  console.log(myData);
   const handlerChange = (event) => {
     if (typeof event === "string" || event === undefined) {
-      console.log("1");
       setMyData({
         ...myData,
         phoneNumber: event,
       });
       return;
     } else {
-      console.log(event);
       setMyData({
         ...myData,
         [event.target.name]: event.target.value,
@@ -142,13 +154,29 @@ const EditData = forwardRef((props, ref) => {
       notify();
       TogglePopUp("edited");
     } catch (error) {
-      console.log(error);
+      errorHandler(error);
     }
+  };
+  const errorHandler = async (error) => {
+    await TogglePopUp("edited");
+    console.log(error);
+    errorNotify();
   };
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
 
       {visible !== false ? (
         <section className=" fixed z-10 inset-0 flex justify-center items-center bg-[#000000ab] ">
@@ -202,7 +230,8 @@ const EditData = forwardRef((props, ref) => {
                   </>
                 ) : (
                   <input
-                    type={type}
+                    type="text"
+                    name={type}
                     onChange={handlerChange}
                     placeholder={`Ingresa tu nuevo ${visible}`}
                     className="w-1/2 border-black rounded-lg focus:border-black focus:border-2"

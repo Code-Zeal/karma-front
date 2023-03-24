@@ -23,6 +23,20 @@ const CreateData = forwardRef((props, ref) => {
       progress: undefined,
       theme: "colored",
     });
+  const errorNotify = () =>
+    toast.error(
+      "Ups,la información no se agregó correctamente, intente de nuevo",
+      {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      }
+    );
   const { user, isAuthenticated } = useAuth0();
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState("");
@@ -63,6 +77,7 @@ const CreateData = forwardRef((props, ref) => {
         address: res.data.address,
         email: res.data.email,
         picture: res.data.picture,
+        birthdate: res.data.birthdate,
       });
     };
     if (user?.sub) {
@@ -114,17 +129,14 @@ const CreateData = forwardRef((props, ref) => {
   const cities = countrySelected
     ? countries.find((country) => country.country === countrySelected).cities
     : [];
-  console.log(myData);
   const handlerChange = (event) => {
     if (typeof event === "string" || event === undefined) {
-      console.log("1");
       setMyData({
         ...myData,
         phoneNumber: event,
       });
       return;
     } else {
-      console.log(event);
       setMyData({
         ...myData,
         [event.target.name]: event.target.value,
@@ -142,8 +154,13 @@ const CreateData = forwardRef((props, ref) => {
       notify();
       TogglePopUp("created");
     } catch (error) {
-      console.log(error);
+      errorHandler(error);
     }
+  };
+  const errorHandler = async (error) => {
+    await TogglePopUp("created");
+    console.log(error);
+    errorNotify();
   };
 
   return (
