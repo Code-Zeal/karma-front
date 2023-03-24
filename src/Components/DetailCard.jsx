@@ -2,6 +2,7 @@ import Card from "./Card";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Rating from "./Rating";
 
 import { useEffect, useState } from "react";
 import NavBar from "./NavBar";
@@ -21,6 +22,19 @@ export default function DetailsCard() {
     }
     fetchData(id);
   }, [id]);
+
+  // const [commentsRaiting, setCommentsRaiting] = useState(null);
+
+  // useEffect(() => {
+  //   async function DataCommentsRaiting(id) {
+  //     const response = await axios.get(
+  //       `http://localhost:4000/commentsRaiting/getCommentsRaiting?id=${id}`
+  //     );
+  //     const data = response.data;
+  //     setCommentsRaiting(data);
+  //   }
+  //   DataCommentsRaiting(id);
+  // }, [id]);
 
   const [cantidad, setCantidad] = useState(1);
   const precioUnitario = detailProduct?.price;
@@ -102,14 +116,6 @@ export default function DetailsCard() {
           <section>
             <div>
               <p>{detailProduct.description}</p>
-              {/* {detailProduct.Laptop ? <p>{detailProduct.description}</p> : <></>}
-          {detailProduct.Tablet ? (
-            <p>{detailProduct.description}</p>
-          ) : (
-            <></>
-          )}
-                    {detailProduct.CellPhone ? <p>{detailProduct.description}</p> : <></>}
-                    {detailProduct.Television ? <p>{detailProduct.description}</p> : <></>} */}
             </div>
 
             <div>
@@ -124,37 +130,10 @@ export default function DetailsCard() {
                   <tr>
                     <td>Modelo</td>
                     <td>{detailProduct.model}</td>
-                    {/* {detailProduct.Laptop ? <td>{detailProduct.model}</td> : <></>}
-                {detailProduct.Tablet ? <td>{detailProduct.model}</td> : <></>}
-                {detailProduct.CellPhone ? (
-                  <td>{detailProduct.model}</td>
-                ) : (
-                  <></>
-                )}
-                {detailProduct.Television ? (
-                  <td>{detailProduct.model}</td>
-                ) : (
-                  <></>
-                )} */}
                   </tr>
                   <tr>
                     <td>Marca</td>
                     <td>{detailProduct.brand}</td>
-                    {/* {detailProduct.Laptop ? <td>{detailProduct.brand}</td> : <></>}
-
-                {detailProduct.Tablet ? <td>{detailProduct.brand}</td> : <></>}
-
-                {detailProduct.CellPhone ? (
-                  <td>{detailProduct.brand}</td>
-                ) : (
-                  <></>
-                )}
-
-                {detailProduct.Television ? (
-                  <td>{detailProduct.brand}</td>
-                ) : (
-                  <></>
-                )} */}
                   </tr>
                   <tr>
                     {detailProduct.Laptop ? (
@@ -239,16 +218,6 @@ export default function DetailsCard() {
                     )}
                   </tr>
                   <tr>
-                    {/* {detailProduct.Laptop ? (
-                  <>
-                    <td>Procesador</td>
-
-                    <td>{detailProduct.Laptop.internalMemory}</td>
-                  </>
-                ) : (
-                  <></>
-                )} */}
-
                     {detailProduct.CellPhone ? (
                       <>
                         <td>Colores</td>
@@ -330,6 +299,18 @@ export default function DetailsCard() {
               </table>
             </div>
           </section>
+
+          {/* <section>
+            <p>
+              Valoración: <Rating rating={detailProduct.averageRating} />
+            </p>
+            <h1>Comentarios</h1>
+            {console.log(commentsRaiting.comments)}
+
+            {commentsRaiting.map((comment) => (
+          <li key={comment.id}>{comment.text}</li>
+        ))}
+          </section> */}
         </>
       ) : (
         <></>
