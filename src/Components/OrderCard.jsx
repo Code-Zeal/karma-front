@@ -3,12 +3,12 @@ import React, { useState } from "react";
 export default function OrderCard(props) {
   const [inProcess, setInProcess] = useState(true);
   const [sent, setSent] = useState(true);
-  const [delivered, setDelivered] = useState(false);
+  const [delivered, setDelivered] = useState(true);
   return (
-    <section className="bg-[#171717] mx-auto w-3/5 h-96">
+    <section className="bg-[#171717] mx-auto w-8/12 h-96 rounded-2xl">
       <section className="w-full   h-72 text-white flex mt-4 b">
         <img
-          className=" rounded-br-2xl w-4/12"
+          className=" rounded-br-2xl rounded-tl-xl w-4/12 h-72"
           src="https://m.media-amazon.com/images/I/617Q3DbKyPL._AC_SL1500_.jpg"
           alt=""
         />
@@ -43,7 +43,7 @@ export default function OrderCard(props) {
                 rel="noreferrer"
                 re
               >
-                <button className="bg-[#1AD03F] px-2 py-1 rounded-lg flex">
+                <button className="bg-[#1AD03F] px-3 py-1 rounded-lg flex">
                   <svg
                     className="mr-1"
                     xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +89,7 @@ export default function OrderCard(props) {
                   Whatsapp
                 </button>
               </a>
-              <button className="text-[#171717] bg-white px-2 py-1 rounded-lg">
+              <button className="text-[#171717] bg-white px-3 py-1 rounded-lg">
                 Enviar Feedback
               </button>
             </div>
