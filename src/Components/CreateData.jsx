@@ -10,8 +10,31 @@ import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {
+  faCheck,
+  faTimes,
+  faInfoCircle,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRef } from "react";
+
+const NAME_REGEX = /^([a-zA-ZùÙüÜäàáëèéïìíöòóüùúÄÀÁËÈÉÏÌÍÖÒÓÜÚñÑ\s]+)$/;
+const ADDRESS_REGEX = /([a-z ]{2,}\s{0,1})(\d{0,3})(\s{0,1}\S{2,})?/i;
 
 const CreateData = forwardRef((props, ref) => {
+  const userRef = useRef();
+
+  const [name, setName] = useState("");
+  const [validName, setValidName] = useState(false);
+
+  useEffect(() => {
+    if (type === "name" || type === "lastName") {
+      setValidName(NAME_REGEX.test(name));
+    } else {
+      setValidName(ADDRESS_REGEX.test(name));
+    }
+  }, [name]);
+
   const notify = () =>
     toast.success(`Información agregada correctamente :)`, {
       position: "top-center",
@@ -21,13 +44,13 @@ const CreateData = forwardRef((props, ref) => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "colored",
+      theme: "dark",
     });
   const errorNotify = () =>
     toast.error(
-      "Ups,la información no se agregó correctamente, intente de nuevo",
+      "Ha ocurrido un error al agregar la información, verifica que el dato es correcto e intente de nuevo",
       {
-        position: "top-right",
+        position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -37,7 +60,7 @@ const CreateData = forwardRef((props, ref) => {
         theme: "dark",
       }
     );
-  const { user, isAuthenticated } = useAuth0();
+  const { user } = useAuth0();
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState("");
   const [countries, setCountries] = useState(null);
@@ -61,6 +84,7 @@ const CreateData = forwardRef((props, ref) => {
     };
     getCountries();
   }, []);
+
   useEffect(() => {
     const getData = async () => {
       const res = await axios.get(
@@ -108,10 +132,11 @@ const CreateData = forwardRef((props, ref) => {
     };
   });
   const TogglePopUp = async (type) => {
+    await setName("");
     if (type === "created") {
-      await setVisible(false);
       await setType("");
       await setMyData("");
+      await setVisible(false);
       props.create();
     } else {
       setVisible(type);
@@ -137,6 +162,7 @@ const CreateData = forwardRef((props, ref) => {
       });
       return;
     } else {
+      setName(event.target.value);
       setMyData({
         ...myData,
         [event.target.name]: event.target.value,
@@ -144,28 +170,71 @@ const CreateData = forwardRef((props, ref) => {
       return;
     }
   };
-
   const handlerCreate = async () => {
-    try {
-      const res = await axios.put(
-        "http://localhost:4000/user/updateUser",
-        myData
-      );
-      notify();
-      TogglePopUp("created");
-    } catch (error) {
-      errorHandler(error);
+    if (type === "name" || type === "lastName") {
+      if (!NAME_REGEX.test(name)) {
+        errorHandler();
+      } else {
+        try {
+          await axios.put("http://localhost:4000/user/updateUser", myData);
+          notify();
+          TogglePopUp("created");
+        } catch (error) {
+          errorHandler(error);
+        }
+      }
+    } else if (type === "address") {
+      if (!ADDRESS_REGEX.test(name)) {
+        errorHandler();
+      } else {
+        try {
+          await axios.put("http://localhost:4000/user/updateUser", myData);
+          notify();
+          TogglePopUp("created");
+        } catch (error) {
+          errorHandler(error);
+        }
+      }
+    } else {
+      if (
+        (myData.phoneNumber === "none" ||
+          myData.phoneNumber === undefined ||
+          myData.phoneNumber === props.phoneNumber) &&
+        (myData.city === "none" ||
+          myData.city === undefined ||
+          myData.city === props.city)
+      ) {
+        errorHandler();
+      } else {
+        try {
+          await axios.put("http://localhost:4000/user/updateUser", myData);
+          notify();
+          TogglePopUp("created");
+        } catch (error) {
+          errorHandler(error);
+        }
+      }
     }
   };
-  const errorHandler = async (error) => {
+  const errorHandler = async () => {
     await TogglePopUp("created");
-    console.log(error);
     errorNotify();
   };
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
 
       {visible !== false ? (
         <section className=" fixed z-10 inset-0 flex justify-center items-center bg-[#000000ab] ">
@@ -173,6 +242,18 @@ const CreateData = forwardRef((props, ref) => {
             <h3 className="text-black text-xl mx-auto text-center">
               Introduce tu {visible} y presiona en "Crear"
             </h3>
+            <p
+              id="uidnote"
+              className={
+                name && !validName
+                  ? "instructions bg-black text-white px-2 py-1 text-xl rounded-lg"
+                  : "hidden"
+              }
+            >
+              <FontAwesomeIcon icon={faInfoCircle} className="text-lg" />
+              Porfavor Ingrese un dato valido
+            </p>
+
             {type && type === "tel" ? (
               <PhoneInput
                 name="phoneNumber"
@@ -216,13 +297,36 @@ const CreateData = forwardRef((props, ref) => {
                     </select>
                   </>
                 ) : (
-                  <input
-                    name={type}
-                    type="text"
-                    onChange={handlerChange}
-                    placeholder={`Ingresa tu ${visible}`}
-                    className="w-1/2 border-black rounded-lg focus:border-black focus:border-2"
-                  />
+                  <div className="flex w-full items-center justify-center ">
+                    <input
+                      name={type}
+                      ref={userRef}
+                      value={name}
+                      required
+                      aria-invalid={validName ? "false" : "true"}
+                      aria-describedby="uidnote"
+                      type="text"
+                      onChange={handlerChange}
+                      placeholder={`Ingresa tu ${visible}`}
+                      className="w-1/2 border-black rounded-lg focus:border-black focus:border-2 mr-4"
+                    />
+                    <FontAwesomeIcon
+                      icon={faCheck}
+                      className={
+                        validName === true
+                          ? "valid text-lg text-white bg-[#1bc61b] rounded-full p-2"
+                          : "hidden"
+                      }
+                    />
+                    <FontAwesomeIcon
+                      icon={faTimes}
+                      className={
+                        validName || !name
+                          ? "hidden"
+                          : "invalid text-xl text-white bg-[#ed0f0f] rounded-full p-2"
+                      }
+                    />
+                  </div>
                 )}
               </>
             )}
