@@ -1,6 +1,16 @@
 import React, { useState } from "react";
+import CommentsAndRatings from "./CommentsAndRatings";
 
 export default function OrderCard(props) {
+  const [popupOpen, setPopupOpen] = useState(false);
+
+  const handleOpenPopup = () => {
+    setPopupOpen(true);
+  };
+
+  const handleClosePopup = () => {
+    setPopupOpen(false);
+  };
   const [inProcess, setInProcess] = useState(true);
   const [sent, setSent] = useState(true);
   const [delivered, setDelivered] = useState(true);
@@ -21,9 +31,18 @@ export default function OrderCard(props) {
             <h3>¡Pedido Entregado Correctamente!</h3>
             <div className="bg-gray-800 py-6 rounded-lg mx-2 text-md font-bold">
               <h3 className="mx-2">Dejanos tu opinion sobre el producto</h3>
-              <button className="bg-white text-[#171717] px-3 py-1 rounded-lg font-bold mt-4">
+              <button
+                onClick={handleOpenPopup}
+                className="bg-white text-[#171717] px-3 py-1 rounded-lg font-bold mt-4"
+              >
                 Dejar Valoración
               </button>
+              {popupOpen && (
+                <CommentsAndRatings
+                  productId="123"
+                  onClose={handleClosePopup}
+                />
+              )}
             </div>
           </div>
         ) : (
