@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import {} from "./Actions";
+import { POST_REGISTER, POST_COMMENTS_RATING } from "./Actions";
 
 const persistConfig = {
   key: "root",
@@ -20,6 +20,15 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         searchedProducts: action.payload,
+      };
+
+    case POST_REGISTER:
+      return {
+        ...state,
+      };
+    case POST_COMMENTS_RATING:
+      return {
+        ...state,
       };
 
     default:
