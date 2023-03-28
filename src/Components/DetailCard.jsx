@@ -23,19 +23,6 @@ export default function DetailsCard() {
     fetchData(id);
   }, [id]);
 
-  // const [commentsRaiting, setCommentsRaiting] = useState(null);
-
-  // useEffect(() => {
-  //   async function DataCommentsRaiting(id) {
-  //     const response = await axios.get(
-  //       `http://localhost:4000/commentsRaiting/getCommentsRaiting?id=${id}`
-  //     );
-  //     const data = response.data;
-  //     setCommentsRaiting(data);
-  //   }
-  //   DataCommentsRaiting(id);
-  // }, [id]);
-
   const [cantidad, setCantidad] = useState(1);
   const precioUnitario = detailProduct?.price;
   const precioTotal = cantidad * precioUnitario;
@@ -300,17 +287,16 @@ export default function DetailsCard() {
             </div>
           </section>
 
-          {/* <section>
+          <section>
             <p>
               Valoración: <Rating rating={detailProduct.averageRating} />
             </p>
             <h1>Comentarios</h1>
-            {console.log(commentsRaiting.comments)}
 
-            {commentsRaiting.map((comment) => (
-          <li key={comment.id}>{comment.text}</li>
-        ))}
-          </section> */}
+            {detailProduct.CommentsRatings.map((comment) => (
+              <p key={comment.id}>{comment.comments}</p>
+            ))}
+          </section>
         </>
       ) : (
         <></>
