@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
+import Footer from "./Footer";
 
 export default function FiltersAndCards(props) {
   const [type, setType] = useState("");
@@ -147,27 +148,37 @@ export default function FiltersAndCards(props) {
 
   return (
     <section className="w-full flex flex-col">
-      <section className="flex items-center justify-end">
-        <div className="w-9/12 flex justify-evenly ">
-          <div id="order" className="flex items-center ">
-            <label htmlFor="">Ordenar por: </label>
-            <select onChange={handlerOrder} name="order" id="">
-              <option value="default" selected>
-                Más relevantes
-              </option>
-              <option value="cheap">Menor precio</option>
-              <option value="expensive">Mayor precio</option>
-            </select>
-          </div>
-        </div>
-      </section>
-      <section className="w-full h-96 flex">
-        <div className="w-3/12  flex flex-col items-center bg-black">
-          <h3 className="text-white">Filtros</h3>
-
+      <section className="w-full flex pt-4">
+        <div className="w-3/12  flex flex-col items-center">
+          <section className="flex items-center justify-center pt-4">
+            <div className="flex justify-evenly ">
+              <div id="order" className="flex items-center mb-4">
+                <label htmlFor="" className="pr-2">
+                  Orden
+                </label>
+                <select
+                  onChange={handlerOrder}
+                  name="order"
+                  id=""
+                  className="border border-neutral-900"
+                >
+                  <option value="default" selected>
+                    Más relevantes
+                  </option>
+                  <option value="cheap">Menor precio</option>
+                  <option value="expensive">Mayor precio</option>
+                </select>
+              </div>
+            </div>
+          </section>
           {props.info[0]?.Tablet && (
-            <section id="Tablet" className="flex flex-col">
-              <select onChange={handlerFilter} name="brand" id="">
+            <section id="Tablet" className="flex flex-col m-4">
+              <select
+                onChange={handlerFilter}
+                name="brand"
+                id=""
+                className="mb-4 border border-neutral-900"
+              >
                 <option value="default" selected disabled="true">
                   Marca
                 </option>
@@ -182,7 +193,12 @@ export default function FiltersAndCards(props) {
                   );
                 })}
               </select>
-              <select onChange={handlerFilter} name="color" id="">
+              <select
+                onChange={handlerFilter}
+                name="color"
+                id=""
+                className="mb-4 border border-neutral-900"
+              >
                 <option value="default" selected disabled="true">
                   Color
                 </option>
@@ -203,7 +219,12 @@ export default function FiltersAndCards(props) {
                   );
                 })}
               </select>
-              <select onChange={handlerFilter} name="internalMemory" id="">
+              <select
+                onChange={handlerFilter}
+                name="internalMemory"
+                id=""
+                className="mb-4 border border-neutral-900"
+              >
                 <option value="default" selected disabled="true">
                   Almacenamiento
                 </option>
@@ -221,7 +242,12 @@ export default function FiltersAndCards(props) {
                   );
                 })}
               </select>
-              <select onChange={handlerFilter} name="ramMemory" id="">
+              <select
+                onChange={handlerFilter}
+                name="ramMemory"
+                id=""
+                className="mb-4 border border-neutral-900"
+              >
                 <option value="default" selected disabled="true">
                   Memoria RAM
                 </option>
@@ -239,7 +265,12 @@ export default function FiltersAndCards(props) {
                   );
                 })}
               </select>
-              <select onChange={handlerFilter} name="screenSize" id="">
+              <select
+                onChange={handlerFilter}
+                name="screenSize"
+                id=""
+                className="border border-neutral-900"
+              >
                 <option value="default" selected disabled="true">
                   Tamaño de pantalla
                 </option>
@@ -261,7 +292,12 @@ export default function FiltersAndCards(props) {
           )}
           {props.info[0]?.Laptop && (
             <section id="Laptop" className="flex flex-col">
-              <select onChange={handlerFilter} name="brand" id="">
+              <select
+                onChange={handlerFilter}
+                name="brand"
+                id=""
+                className="mb-4 border border-neutral-900"
+              >
                 <option value="default" selected disabled="true">
                   Marca
                 </option>
@@ -276,7 +312,12 @@ export default function FiltersAndCards(props) {
                   );
                 })}
               </select>
-              <select onChange={handlerFilter} name="internalMemory" id="">
+              <select
+                onChange={handlerFilter}
+                name="internalMemory"
+                id=""
+                className="mb-4 border border-neutral-900"
+              >
                 <option value="default" selected disabled="true">
                   Almacenamiento
                 </option>
@@ -294,7 +335,12 @@ export default function FiltersAndCards(props) {
                   );
                 })}
               </select>
-              <select onChange={handlerFilter} name="ramMemory" id="">
+              <select
+                onChange={handlerFilter}
+                name="ramMemory"
+                id=""
+                className="mb-4 border border-neutral-900"
+              >
                 <option value="default" selected disabled="true">
                   Memoria RAM
                 </option>
@@ -312,7 +358,12 @@ export default function FiltersAndCards(props) {
                   );
                 })}
               </select>
-              <select onChange={handlerFilter} name="processor" id="">
+              <select
+                onChange={handlerFilter}
+                name="processor"
+                id=""
+                className="border border-neutral-900"
+              >
                 <option value="default" selected disabled="true">
                   Procesador
                 </option>
@@ -334,7 +385,12 @@ export default function FiltersAndCards(props) {
           )}
           {props.info[0]?.CellPhone && (
             <section id="CellPhone" className="sectionFilter flex flex-col">
-              <select onChange={handlerFilter} name="brand" id="">
+              <select
+                onChange={handlerFilter}
+                name="brand"
+                id=""
+                className="mb-4 border border-neutral-900"
+              >
                 <option value="default" selected disabled="true">
                   Marca
                 </option>
@@ -349,7 +405,12 @@ export default function FiltersAndCards(props) {
                   );
                 })}
               </select>
-              <select onChange={handlerFilter} name="color" id="">
+              <select
+                onChange={handlerFilter}
+                name="color"
+                id=""
+                className="mb-4 border border-neutral-900"
+              >
                 <option value="default" selected disabled="true">
                   Color
                 </option>
@@ -370,7 +431,12 @@ export default function FiltersAndCards(props) {
                   );
                 })}
               </select>
-              <select onChange={handlerFilter} name="internalMemory" id="">
+              <select
+                onChange={handlerFilter}
+                name="internalMemory"
+                id=""
+                className="mb-4 border border-neutral-900"
+              >
                 <option value="default" selected disabled="true">
                   Almacenamiento
                 </option>
@@ -388,7 +454,12 @@ export default function FiltersAndCards(props) {
                   );
                 })}
               </select>
-              <select onChange={handlerFilter} name="ramMemory" id="">
+              <select
+                onChange={handlerFilter}
+                name="ramMemory"
+                id=""
+                className="mb-4 border border-neutral-900"
+              >
                 <option value="default" selected disabled="true">
                   Memoria RAM
                 </option>
@@ -406,7 +477,12 @@ export default function FiltersAndCards(props) {
                   );
                 })}
               </select>
-              <select onChange={handlerFilter} name="mainCamera" id="">
+              <select
+                onChange={handlerFilter}
+                name="mainCamera"
+                id=""
+                className="border border-neutral-900"
+              >
                 <option value="default" selected disabled="true">
                   Camara Trasera
                 </option>
@@ -428,7 +504,12 @@ export default function FiltersAndCards(props) {
           )}
           {props.info[0]?.Television && (
             <section id="Television" className="flex flex-col">
-              <select onChange={handlerFilter} name="brand" id="">
+              <select
+                onChange={handlerFilter}
+                name="brand"
+                id=""
+                className="mb-4 border border-neutral-900"
+              >
                 <option value="default" selected disabled="true">
                   Marca
                 </option>
@@ -443,7 +524,12 @@ export default function FiltersAndCards(props) {
                   );
                 })}
               </select>
-              <select onChange={handlerFilter} name="screenSize" id="">
+              <select
+                onChange={handlerFilter}
+                name="screenSize"
+                id=""
+                className="mb-4 border border-neutral-900"
+              >
                 <option value="default" selected disabled="true">
                   Tamaño de la pantalla
                 </option>
@@ -461,7 +547,12 @@ export default function FiltersAndCards(props) {
                   );
                 })}
               </select>
-              <select onChange={handlerFilter} name="typeResolution" id="">
+              <select
+                onChange={handlerFilter}
+                name="typeResolution"
+                id=""
+                className="mb-4 border border-neutral-900"
+              >
                 <option value="default" selected disabled="true">
                   Resolución
                 </option>
@@ -479,7 +570,12 @@ export default function FiltersAndCards(props) {
                   );
                 })}
               </select>
-              <select onChange={handlerFilter} name="systemOperating" id="">
+              <select
+                onChange={handlerFilter}
+                name="systemOperating"
+                id=""
+                className="mb-4 border border-neutral-900"
+              >
                 <option value="default" selected disabled="true">
                   Sistema operativo
                 </option>
@@ -499,13 +595,15 @@ export default function FiltersAndCards(props) {
               </select>
             </section>
           )}
-          <button onClick={resetFilters} className="bg-white py-1 px-3">
-            Reset Filters
+          <button
+            onClick={resetFilters}
+            className="bg-white py-1 px-3 m-4 border border-neutral-900"
+          >
+            Limpiar filtros
           </button>
         </div>
-        <div className="w-9/12 flex flex-col items-center bg-slate-600">
-          <h3 className="text-white">Cards</h3>
-          <div className="flex row-auto">
+        <div className="w-9/12 flex flex-col">
+          <div className="flex row-auto flex-wrap">
             {cardsScreen &&
               cardsScreen.map((el) => {
                 return <Card card={el}></Card>;
