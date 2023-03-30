@@ -10,8 +10,29 @@ import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {
+  faCheck,
+  faTimes,
+  faInfoCircle,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRef } from "react";
+
+const NAME_REGEX = /^([a-zA-ZùÙüÜäàáëèéïìíöòóüùúÄÀÁËÈÉÏÌÍÖÒÓÜÚñÑ\s]+)$/;
+const ADDRESS_REGEX = /([a-z ]{2,}\s{0,1})(\d{0,3})(\s{0,1}\S{2,})?/i;
 
 const EditData = forwardRef((props, ref) => {
+  const userRef = useRef();
+
+  const [name, setName] = useState("");
+  const [validName, setValidName] = useState(false);
+  useEffect(() => {
+    if (type === "name" || type === "lastName") {
+      setValidName(NAME_REGEX.test(name));
+    } else {
+      setValidName(ADDRESS_REGEX.test(name));
+    }
+  }, [name]);
   const notify = () =>
     toast.success(`Información editada correctamente `, {
       position: "top-center",
@@ -25,9 +46,9 @@ const EditData = forwardRef((props, ref) => {
     });
   const errorNotify = () =>
     toast.error(
-      "Ups, la información no se editó correctamente, intente de nuevo",
+      "Ha ocurrido un error al editar la información, verifica que el dato es correcto e intente de nuevo",
       {
-        position: "top-right",
+        position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -37,7 +58,7 @@ const EditData = forwardRef((props, ref) => {
         theme: "dark",
       }
     );
-  const { user, isAuthenticated } = useAuth0();
+  const { user } = useAuth0();
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState("");
   const [countries, setCountries] = useState(null);
@@ -114,6 +135,7 @@ const EditData = forwardRef((props, ref) => {
       await setMyData("");
       props.create();
     } else {
+      setName("");
       setVisible(type);
       setType("");
       setMyData("");
@@ -137,6 +159,7 @@ const EditData = forwardRef((props, ref) => {
       });
       return;
     } else {
+      setName(event.target.value);
       setMyData({
         ...myData,
         [event.target.name]: event.target.value,
@@ -146,27 +169,60 @@ const EditData = forwardRef((props, ref) => {
   };
 
   const handlerCreate = async () => {
-    try {
-      const res = await axios.put(
-        "http://localhost:4000/user/updateUser",
-        myData
-      );
-      notify();
-      TogglePopUp("edited");
-    } catch (error) {
-      errorHandler(error);
+    if (type === "name" || type === "lastName") {
+      if (!NAME_REGEX.test(name)) {
+        errorHandler();
+      } else {
+        try {
+          await axios.put("http://localhost:4000/user/updateUser", myData);
+          notify();
+          TogglePopUp("edited");
+        } catch (error) {
+          errorHandler(error);
+        }
+      }
+    } else if (type === "address") {
+      if (!ADDRESS_REGEX.test(name)) {
+        errorHandler();
+      } else {
+        try {
+          await axios.put("http://localhost:4000/user/updateUser", myData);
+          notify();
+          TogglePopUp("edited");
+        } catch (error) {
+          errorHandler(error);
+        }
+      }
+    } else {
+      if (
+        (myData.phoneNumber === props.phoneNumber ||
+          myData.phoneNumber === "none" ||
+          myData.phoneNumber === undefined) &&
+        (myData.city === props.city ||
+          myData.city === undefined ||
+          myData.city === "none")
+      ) {
+        errorHandler();
+      } else {
+        try {
+          await axios.put("http://localhost:4000/user/updateUser", myData);
+          notify();
+          TogglePopUp("edited");
+        } catch (error) {
+          errorHandler(error);
+        }
+      }
     }
   };
-  const errorHandler = async (error) => {
+  const errorHandler = async () => {
     await TogglePopUp("edited");
-    console.log(error);
     errorNotify();
   };
 
   return (
     <>
       <ToastContainer
-        position="top-right"
+        position="top-center"
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -185,6 +241,17 @@ const EditData = forwardRef((props, ref) => {
               Si deseas cambiar tu {visible}, introduce el nuevo y presiona en
               "Guardar"
             </h3>
+            <p
+              id="uidnote"
+              className={
+                name && !validName
+                  ? "instructions bg-black text-white px-2 py-1 text-xl rounded-lg"
+                  : "hidden"
+              }
+            >
+              <FontAwesomeIcon icon={faInfoCircle} className="text-lg" />
+              Porfavor Ingrese un dato valido
+            </p>
             {type && type === "tel" ? (
               <PhoneInput
                 name="phoneNumber"
@@ -229,13 +296,36 @@ const EditData = forwardRef((props, ref) => {
                     </select>
                   </>
                 ) : (
-                  <input
-                    type="text"
-                    name={type}
-                    onChange={handlerChange}
-                    placeholder={`Ingresa tu nuevo ${visible}`}
-                    className="w-1/2 border-black rounded-lg focus:border-black focus:border-2"
-                  />
+                  <div className="flex w-full items-center justify-center ">
+                    <input
+                      name={type}
+                      ref={userRef}
+                      value={name}
+                      required
+                      aria-invalid={validName ? "false" : "true"}
+                      aria-describedby="uidnote"
+                      type="text"
+                      onChange={handlerChange}
+                      placeholder={`Ingresa tu nuevo ${visible}`}
+                      className="w-1/2 border-black rounded-lg focus:border-black focus:border-2 mr-4"
+                    />
+                    <FontAwesomeIcon
+                      icon={faCheck}
+                      className={
+                        validName === true
+                          ? "valid text-lg text-white bg-[#1bc61b] rounded-full p-2"
+                          : "hidden"
+                      }
+                    />
+                    <FontAwesomeIcon
+                      icon={faTimes}
+                      className={
+                        validName || !name
+                          ? "hidden"
+                          : "invalid text-xl text-white bg-[#ed0f0f] rounded-full p-2"
+                      }
+                    />
+                  </div>
                 )}
               </>
             )}

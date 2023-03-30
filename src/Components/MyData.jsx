@@ -41,8 +41,18 @@ export default function MyData() {
     <section className="absolute w-full">
       <NavBar></NavBar>
 
-      <EditData create={getData} ref={editRef}></EditData>
-      <CreateData create={getData} ref={createRef}></CreateData>
+      <EditData
+        create={getData}
+        city={myData.city}
+        phoneNumber={myData.phoneNumber}
+        ref={editRef}
+      ></EditData>
+      <CreateData
+        city={myData.city}
+        create={getData}
+        phoneNumber={myData.phoneNumber}
+        ref={createRef}
+      ></CreateData>
 
       <BottomNavigation></BottomNavigation>
       <div className="border-black border-[1px] rounded-lg w-1/2 m-auto  my-16">
