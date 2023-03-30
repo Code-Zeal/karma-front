@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Rating from "./Rating";
 
 import { useEffect, useState } from "react";
 import NavBar from "./NavBar";
@@ -21,6 +22,19 @@ export default function DetailsCard() {
     }
     fetchData(id);
   }, [id]);
+
+  // const [commentsRaiting, setCommentsRaiting] = useState(null);
+
+  // useEffect(() => {
+  //   async function DataCommentsRaiting(id) {
+  //     const response = await axios.get(
+  //       `http://localhost:4000/commentsRaiting/getCommentsRaiting?id=${id}`
+  //     );
+  //     const data = response.data;
+  //     setCommentsRaiting(data);
+  //   }
+  //   DataCommentsRaiting(id);
+  // }, [id]);
 
   const [cantidad, setCantidad] = useState(1);
   const precioUnitario = detailProduct?.price;
@@ -103,6 +117,7 @@ export default function DetailsCard() {
               </button>
             </div>
           </section>
+
 
           <section className="flex justify-center items-center flex-row px-8 py-8">
             <div className="w-6/12 mx-32 ">

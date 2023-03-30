@@ -9,6 +9,8 @@ import Card from "./Components/Card";
 import Details from "./Components/DetailCard";
 import Shop from "./Components/Shop";
 import Checkout from "./Components/Checkout";
+import MyOrders from "./Components/MyOrders";
+import MyData from "./Components/MyData";
 import Search from "./Components/Search";
 
 function App() {
@@ -22,6 +24,8 @@ function App() {
         <Route exact path="/detail" element={<Details />} />
         <Route exact path="/shop/:category" element={<Shop />} />
         <Route exact path="/checkout" element={<Checkout />} />
+        <Route exact path="/profile/orders" element={<MyOrders />} />
+        <Route exact path="/profile/data" element={<MyData />} />
         <Route path="/search" element={<Search />} />
       </Routes>
     </BrowserRouter>

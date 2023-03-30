@@ -3,14 +3,67 @@ import PaymentMethods from "./PaymentMethods";
 import OffersAndNews from "./OffersAndNews";
 import { Button, Tooltip } from "flowbite-react";
 import OffersSamsung from "./OffersSamsung";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useDispatch } from "react-redux";
+import { postRegisterAuth0 } from "../Redux/Actions";
+
 import NavBar from "./NavBar";
 import Footer from "./Footer";
 import OffersHuawei from "./OffersHuawei";
 import { FeedbackHome } from "./FeedbackHome";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function Home() {
+  const dispatch = useDispatch();
+
+  const { isAuthenticated, user } = useAuth0();
+  const dataRegister = {
+    id: user?.sub,
+    email: user?.email,
+    picture: user?.picture,
+  };
+
+  const notifyError = () => {
+    toast.error("🦄 Aun no has Inició sesión", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
+
+  const notifySuccess = () => {
+    toast.success("🦄 Inició sesión exitosamente!", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+    console.log(dataRegister);
+    dispatch(postRegisterAuth0(dataRegister));
+  };
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      notifyError();
+    } else {
+      notifySuccess();
+    }
+  }, [isAuthenticated]);
   return (
     <section>
+      <ToastContainer />
+
       <NavBar></NavBar>
       <div className="relative bg-neutral-900 ">
         <div className="absolute inset-x-0 bottom-0">
