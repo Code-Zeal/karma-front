@@ -297,22 +297,23 @@ export default function DetailsCard() {
             </div>
           </section>
 
-          <section>
-            <p>
-              Valoración: <Rating rating={detailProduct.averageRating} />
+          <section className="border border-neutral-900 p-8 m-8">
+            <p className="text-lg font-mono font-bold m-2">
+              Promedio de valoración{" "}
+              <Rating rating={detailProduct.averageRating} />
             </p>
-            <h1>Comentarios</h1>
+            <p className="text-md font-mono m-2 underline">Comentarios</p>
             {detailProduct.CommentsRatings ? (
               detailProduct.CommentsRatings.map((comment) => (
-                <p key={comment.id}>{comment.comments}</p>
+                <p key={comment.id} className="p-2 ml-8 font-mono">
+                  {comment.comments}
+                  {<Rating rating={comment.rating} />}
+                  <hr className="border-neutral-400" />
+                </p>
               ))
             ) : (
               <></>
             )}
-
-            {/* {detailProduct.CommentsRatings.map((comment) => (
-              <p key={comment.id}>{comment.comments}</p>
-            ))} */}
           </section>
           <Footer />
         </>
