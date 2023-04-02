@@ -5,34 +5,74 @@ import SearchBar from "./SearchBar";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate, redirect, NavLink } from "react-router-dom";
 import { Router } from "react-router-dom";
+import { useState } from "react";
 
 export default function NavBar() {
+  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
-  const navegador = () => {
-    navigate("/shop/CellPhone");
-    window.location.reload();
-  };
+
   return (
     <header aria-label="Site Header" class="border-b border-neutral-300">
       <div class="mx-auto flex h-16 max-w-screen-2xl items-center justify-between sm:px-6 lg:px-8">
         <div class="flex items-center gap-4">
-          <button type="button" class="p-2 lg:hidden">
+          <button
+            type="button"
+            className="p-2 lg:hidden"
+            onClick={() => setIsOpen(!isOpen)}
+          >
             <svg
-              class="h-6 w-6"
+              className="h-6 w-6"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M4 6h16M4 12h16M4 18h16"
               />
             </svg>
           </button>
 
+          <div
+            className={`${
+              isOpen ? "block" : "hidden"
+            } lg:hidden absolute z-10 bg-white w-full mt-2 border border-neutral-700 rounded-sm`}
+            style={{ top: "3rem", transform: "translateY(0.5rem)" }}
+          >
+            <a
+              href="/"
+              className="font-bold font-mono block px-3 py-2 rounded-sm text-sm text-center text-neutral-900 hover:text-white hover:bg-neutral-900"
+            >
+              INICIO
+            </a>
+            <hr />
+            <div className="flex font-bold font-mono px-3 py-2 rounded-sm text-sm text-center justify-center text-neutral-900 hover:text-white hover:bg-neutral-900">
+              <Dropdown inline={true} label="CATEGORIAS" color="white">
+                <a href="/shop/CellPhone">
+                  <Dropdown.Item>Celulares</Dropdown.Item>
+                </a>
+                <a href="/shop/Laptop">
+                  <Dropdown.Item>Laptops</Dropdown.Item>
+                </a>
+                <a href="/shop/Tablet">
+                  <Dropdown.Item>Tablets</Dropdown.Item>
+                </a>
+                <a href="/shop/TV">
+                  <Dropdown.Item>Televisores</Dropdown.Item>
+                </a>
+              </Dropdown>
+            </div>
+            <hr />
+            <a
+              href="#"
+              className="font-bold font-mono block px-3 py-2 rounded-sm text-sm text-center text-neutral-900 hover:text-white hover:bg-neutral-900"
+            >
+              Opción 3
+            </a>
+          </div>
           <a href="/" class="flex">
             <span class="sr-only">Logo</span>
             <img

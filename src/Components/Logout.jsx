@@ -12,7 +12,7 @@ const Logout = () => {
   };
   return (
     <div>
-      <button onClick={result}>Cerrar Sesion</button>
+      <button onClick={result}>CERRAR SESIÓN</button>
     </div>
   );
 };
