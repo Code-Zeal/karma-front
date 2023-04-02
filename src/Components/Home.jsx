@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import PaymentMethods from "./PaymentMethods";
 import OffersAndNews from "./OffersAndNews";
 import { Button, Tooltip } from "flowbite-react";
@@ -15,6 +15,8 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CreateProduct from "./CreateProduct";
+
 function Home() {
   const dispatch = useDispatch();
 
@@ -24,6 +26,7 @@ function Home() {
     email: user?.email,
     picture: user?.picture,
   };
+  const createProductRef = useRef();
 
   const notifyError = () => {
     toast.error("🦄 Aun no has Inició sesión", {
@@ -136,6 +139,15 @@ function Home() {
           </div>
         </div>
       </div>
+      {/* <div className=" flex items-center justify-center">
+        <CreateProduct ref={createProductRef}></CreateProduct>
+        <button
+          onClick={() => createProductRef.current.togglePopUp()}
+          className="bg-green-700 px-3 py-1 rounded-lg text-white"
+        >
+          Create Product
+        </button>
+      </div> */}
       <OffersAndNews />
       <PaymentMethods></PaymentMethods>
       <OffersSamsung></OffersSamsung>
