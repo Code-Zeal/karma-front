@@ -1,13 +1,29 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import { Transition } from "@headlessui/react";
+import { useAuth0 } from "@auth0/auth0-react";
+import CartCard from "./CartCard";
+import axios from "axios";
 
 export default function CartPopup() {
   const [isOpen, setIsOpen] = useState(false);
+  const [cartProducts, setCartProducts] = useState(null);
+  const { user } = useAuth0();
+  const idUser = user?.sub;
 
   function togglePopup() {
     setIsOpen(!isOpen);
   }
+  useEffect(() => {
+    async function fetchData(id) {
+      const response = await axios.get(
+        `http://localhost:4000/product/getProductsFromUserShoppingCart?id=${id}`
+      );
+      const data = response.data;
+      setCartProducts(data);
+    }
+    fetchData(idUser);
+  }, [user?.sub, isOpen]);
 
   return (
     <span>
@@ -50,77 +66,29 @@ export default function CartPopup() {
 
             <div class="mt-6 space-y-6">
               <ul class="space-y-4">
-                <li class="flex items-center gap-4">
-                  <img
-                    src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80"
-                    alt=""
-                    class="h-16 w-16 rounded object-cover"
-                  />
+                {cartProducts ? (
+                  cartProducts.map((cart) => {
+                    return (
+                      <li class="flex items-center gap-4">
+                        <img
+                          src={cart.Product.images[0]}
+                          alt=""
+                          class="h-16 w-16 rounded object-cover"
+                        />
 
-                  <div>
-                    <h3 class="text-sm text-gray-900">Basic Tee 6-Pack</h3>
+                        <div>
+                          <h3 class="text-sm text-gray-900">
+                            {cart.Product.model}
+                          </h3>
 
-                    <dl class="mt-0.5 space-y-px text-[10px] text-gray-600">
-                      <div>
-                        <dt class="inline">Size:</dt>{" "}
-                        <dd class="inline">XXS</dd>
-                      </div>
-
-                      <div>
-                        <dt class="inline">Color:</dt>{" "}
-                        <dd class="inline">White</dd>
-                      </div>
-                    </dl>
-                  </div>
-                </li>
-
-                <li class="flex items-center gap-4">
-                  <img
-                    src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80"
-                    alt=""
-                    class="h-16 w-16 rounded object-cover"
-                  />
-
-                  <div>
-                    <h3 class="text-sm text-gray-900">Basic Tee 6-Pack</h3>
-
-                    <dl class="mt-0.5 space-y-px text-[10px] text-gray-600">
-                      <div>
-                        <dt class="inline">Size:</dt>{" "}
-                        <dd class="inline">XXS</dd>
-                      </div>
-
-                      <div>
-                        <dt class="inline">Color:</dt>{" "}
-                        <dd class="inline">White</dd>
-                      </div>
-                    </dl>
-                  </div>
-                </li>
-
-                <li class="flex items-center gap-4">
-                  <img
-                    src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80"
-                    alt=""
-                    class="h-16 w-16 rounded object-cover"
-                  />
-
-                  <div>
-                    <h3 class="text-sm text-gray-900">Basic Tee 6-Pack</h3>
-
-                    <dl class="mt-0.5 space-y-px text-[10px] text-gray-600">
-                      <div>
-                        <dt class="inline">Size:</dt>{" "}
-                        <dd class="inline">XXS</dd>
-                      </div>
-
-                      <div>
-                        <dt class="inline">Color:</dt>{" "}
-                        <dd class="inline">White</dd>
-                      </div>
-                    </dl>
-                  </div>
-                </li>
+                          <dl class="mt-0.5 space-y-px text-[10px] text-gray-600"></dl>
+                        </div>
+                      </li>
+                    );
+                  })
+                ) : (
+                  <></>
+                )}
               </ul>
 
               <div class="space-y-4 text-center">
@@ -128,7 +96,7 @@ export default function CartPopup() {
                   href="/cart"
                   class="block rounded border border-neutral-600 px-5 py-3 text-sm text-neutral-600 transition hover:ring-1 hover:ring-neutral-600"
                 >
-                  Ver mi carrito (2)
+                  Ver mi carrito ({cartProducts.length})
                 </a>
 
                 <a

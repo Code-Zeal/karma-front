@@ -1,7 +1,14 @@
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { POST_REGISTER, POST_COMMENTS_RATING } from "./Actions";
+import {
+  POST_REGISTER,
+  POST_COMMENTS_RATING,
+  ADD_ITEMS,
+  REMOVE_ITEMS,
+  DELETE_ITEMS,
+  CREATE_ITEMS,
+} from "./Actions";
 
 const persistConfig = {
   key: "root",
@@ -23,6 +30,22 @@ export const userReducer = (state = initialState, action) => {
       };
 
     case POST_REGISTER:
+      return {
+        ...state,
+      };
+    case CREATE_ITEMS:
+      return {
+        ...state,
+      };
+    case ADD_ITEMS:
+      return {
+        ...state,
+      };
+    case DELETE_ITEMS:
+      return {
+        ...state,
+      };
+    case REMOVE_ITEMS:
       return {
         ...state,
       };

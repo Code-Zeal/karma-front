@@ -1,6 +1,9 @@
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Rating from "./Rating";
+import { useAuth0 } from "@auth0/auth0-react";
+import { createAddToShoppingCart } from "../Redux/Actions";
+import { useDispatch } from "react-redux";
 
 import { useEffect, useState } from "react";
 import NavBar from "./NavBar";
@@ -8,6 +11,10 @@ import Footer from "./Footer";
 import "../custom.css";
 
 export default function DetailsCard() {
+  const dispatch = useDispatch();
+
+  const { user } = useAuth0();
+
   const { id } = useParams();
   // el id del Producto para hacer la request para los detalles del producto
   const [detailProduct, setDetailProduct] = useState(null);
@@ -28,6 +35,16 @@ export default function DetailsCard() {
   const precioTotal = cantidad * precioUnitario;
   console.log(id);
   console.log(detailProduct);
+
+  const handleAddCart = () => {
+    const dataAddCart = {
+      UserId: user?.sub,
+      ProductId: id,
+      amount: cantidad,
+    };
+    console.log(dataAddCart);
+    dispatch(createAddToShoppingCart(dataAddCart));
+  };
 
   function handleCantidadChange(event) {
     setCantidad(event.target.value);
@@ -99,7 +116,10 @@ export default function DetailsCard() {
                 <span className="ml-4 text-lg font-medium">Total</span>
                 <span className="ml-2 text-2xl font-bold">$ {precioTotal}</span>
               </div>
-              <button className="bg-neutral-900 bg text-white py-3 px-8 rounded-lg hover:bg-primary-600 transition duration-200 ease-in-out w-3/12 my-3">
+              <button
+                onClick={handleAddCart}
+                className="bg-neutral-900 bg text-white py-3 px-8 rounded-lg hover:bg-primary-600 transition duration-200 ease-in-out w-3/12 my-3"
+              >
                 Agregar al carrito
               </button>
             </div>

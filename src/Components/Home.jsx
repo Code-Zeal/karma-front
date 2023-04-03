@@ -25,38 +25,13 @@ function Home() {
     picture: user?.picture,
   };
 
-  const notifyError = () => {
-    toast.error("🦄 Aun no has Inició sesión", {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
-  };
-
   const notifySuccess = () => {
-    toast.success("🦄 Inició sesión exitosamente!", {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
     console.log(dataRegister);
     dispatch(postRegisterAuth0(dataRegister));
   };
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      notifyError();
-    } else {
+    if (isAuthenticated) {
       notifySuccess();
     }
   }, [isAuthenticated]);
