@@ -100,6 +100,7 @@ const CreateProduct = forwardRef((props, ref) => {
     } else if (category === "Tablet") {
       let newData = {
         ...data,
+        screenSize: parseInt(data.screenSize),
         colors: data.colors.split(" "),
         price: parseInt(data.price),
         stock: parseInt(data.stock),
@@ -107,7 +108,6 @@ const CreateProduct = forwardRef((props, ref) => {
       };
 
       try {
-        console.log(newData);
         const res = await axios.post(
           "http://localhost:4000/tablet/createTablet",
           newData
@@ -166,7 +166,6 @@ const CreateProduct = forwardRef((props, ref) => {
         transformations: [{ effect: "remove_background" }],
       },
       function (error, result) {
-        console.log(result.info);
         if (result.event === "success") {
           let newArray = someData.images;
           newArray.push(result.info.secure_url);
@@ -220,7 +219,7 @@ const CreateProduct = forwardRef((props, ref) => {
       />
       {visible ? (
         <div className="fixed z-10 inset-0 flex justify-center items-center bg-[#000000ab] ">
-          <div className="w-7/12 bg-white h-[620px] rounded-lg flex flex-col items-center justify-evenly ">
+          <div className="w-7/12 bg-white h-[750px] rounded-lg flex flex-col items-center justify-evenly ">
             <div
               className="w-full mt-4 flex items-start justify-around 
             "
@@ -336,7 +335,7 @@ const CreateProduct = forwardRef((props, ref) => {
                       </Carousel>
                     )}
                     <button
-                      className="border-2 border-[black] mt-2 hover:bg-[#961d1d] bg-[#e54848] text-[white] py-1 px-3 text-lg rounded-lg font-bold"
+                      className="border-2 border-[black] mt-2 hover:bg-[#3d3c3ce9] bg-[black] text-[white] py-1 px-3 text-lg rounded-lg font-bold"
                       onClick={() => widgetRef.current.open()}
                     >
                       Subir Imagenes
@@ -363,130 +362,158 @@ const CreateProduct = forwardRef((props, ref) => {
             flex-col items-center justify-center"
               >
                 <div className="w-full flex m-2 justify-evenly items-center">
-                  <input
-                    name="model"
-                    {...register("model", { required: true })}
-                    className={
-                      errors.model
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Modelo"
-                    type="text"
-                  />
-                  <input
-                    name="brand"
-                    {...register("brand", { required: true })}
-                    className={
-                      errors.brand
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Marca"
-                    type="text"
-                  />
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">Modelo</label>
+                    <input
+                      autocomplete="off"
+                      name="model"
+                      {...register("model", { required: true })}
+                      className={
+                        errors.model
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Modelo, Ej: 'Y9A 2019'"
+                      type="text"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">Marca</label>
+                    <input
+                      autocomplete="off"
+                      name="brand"
+                      {...register("brand", { required: true })}
+                      className={
+                        errors.brand
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Marca, Ej: 'Huawei'"
+                      type="text"
+                    />
+                  </div>
                 </div>
                 <div className="w-full flex m-2 justify-evenly">
-                  <input
-                    {...register("description", { required: true })}
-                    name="description"
-                    className={
-                      errors.description
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Descripción"
-                    type="text"
-                  />
-                  <input
-                    {...register("price", { required: true })}
-                    name="price"
-                    className={
-                      errors.price
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Precio"
-                    type="number"
-                  />
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">Descripción</label>
+                    <input
+                      autocomplete="off"
+                      {...register("description", { required: true })}
+                      name="description"
+                      className={
+                        errors.description
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Descripción del producto"
+                      type="text"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">Precio</label>
+                    <input
+                      autocomplete="off"
+                      {...register("price", { required: true })}
+                      name="price"
+                      className={
+                        errors.price
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Precio por unidad, Ej: '300'"
+                      type="number"
+                    />
+                  </div>
                 </div>
                 <div className="w-full flex m-2 justify-evenly">
-                  <input
-                    {...register("stock", { required: true })}
-                    name="stock"
-                    className={
-                      errors.stock
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Stock"
-                    type="number"
-                  />
-                  <input
-                    {...register("ramMemory", { required: true })}
-                    name="ramMemory"
-                    className={
-                      errors.ramMemory
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Memoria Ram"
-                    type="text"
-                  />
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">Inventario</label>
+                    <input
+                      autocomplete="off"
+                      {...register("stock", { required: true })}
+                      name="stock"
+                      className={
+                        errors.stock
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Inventario del producto, Ej: '13'"
+                      type="number"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">Memoria RAM</label>
+                    <input
+                      autocomplete="off"
+                      {...register("ramMemory", { required: true })}
+                      name="ramMemory"
+                      className={
+                        errors.ramMemory
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Memoria Ram, Ej: '4GB'"
+                      type="text"
+                    />
+                  </div>
                 </div>
                 <div className="w-full flex m-2 justify-evenly">
-                  <input
-                    {...register("internalMemory", { required: true })}
-                    name="internalMemory"
-                    className={
-                      errors.internalMemory
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Memoria Interna"
-                    type="text"
-                  />
-                  <input
-                    {...register("mainCamera", { required: true })}
-                    name="mainCamera"
-                    className={
-                      errors.mainCamera
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Camara Principal"
-                    type="text"
-                  />
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">
+                      Memoria interna
+                    </label>
+                    <input
+                      autocomplete="off"
+                      {...register("internalMemory", { required: true })}
+                      name="internalMemory"
+                      className={
+                        errors.internalMemory
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Memoria Interna, Ej: '128GB'"
+                      type="text"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">
+                      Camara Principal
+                    </label>
+                    <input
+                      autocomplete="off"
+                      {...register("mainCamera", { required: true })}
+                      name="mainCamera"
+                      className={
+                        errors.mainCamera
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Camara Principal, Ej: '64MP'"
+                      type="text"
+                    />
+                  </div>
                 </div>
                 <div className="w-full flex m-2 justify-evenly">
-                  <input
-                    {...register("colors", { required: true })}
-                    name="colors"
-                    className={
-                      errors.colors
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Colores Ej: 'Azul Rojo Verde'"
-                    type="text"
-                  />
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">Colores</label>
+                    <input
+                      autocomplete="off"
+                      {...register("colors", { required: true })}
+                      name="colors"
+                      className={
+                        errors.colors
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Colores Ej: 'Blanco Rojo Negro'"
+                      type="text"
+                    />
+                  </div>
                 </div>
-                <div className="w-full flex m-2 justify-evenly">
-                  <input
-                    {...register("name", { required: true })}
-                    name="name"
-                    className={
-                      errors.name
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Nombre del Producto"
-                    type="text"
-                  />
-                </div>
+
                 <button
                   type="submit"
-                  className="bg-black text-white px-3 py-1 rounded-md"
+                  className="bg-black text-white px-3 py-1 m-4 rounded-md"
                 >
                   Crear Producto
                 </button>
@@ -500,124 +527,174 @@ const CreateProduct = forwardRef((props, ref) => {
             flex-col items-center justify-center"
               >
                 <div className="w-full flex m-2 justify-evenly items-center">
-                  <input
-                    name="model"
-                    {...register("model", { required: true })}
-                    className={
-                      errors.model
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Modelo"
-                    type="text"
-                  />
-                  <input
-                    name="brand"
-                    {...register("brand", { required: true })}
-                    className={
-                      errors.brand
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Marca"
-                    type="text"
-                  />
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">Modelo</label>
+                    <input
+                      autocomplete="off"
+                      name="model"
+                      {...register("model", { required: true })}
+                      className={
+                        errors.model
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Modelo, Ej: 'GalaxyTab S8 Ultra'"
+                      type="text"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">Marca</label>
+                    <input
+                      autocomplete="off"
+                      name="brand"
+                      {...register("brand", { required: true })}
+                      className={
+                        errors.brand
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Marca, Ej: 'Samsung'"
+                      type="text"
+                    />
+                  </div>
                 </div>
                 <div className="w-full flex m-2 justify-evenly">
-                  <input
-                    {...register("description", { required: true })}
-                    name="description"
-                    className={
-                      errors.description
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Descripción"
-                    type="text"
-                  />
-                  <input
-                    {...register("price", { required: true })}
-                    name="price"
-                    className={
-                      errors.price
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Precio"
-                    type="number"
-                  />
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">Descripción</label>
+                    <input
+                      autocomplete="off"
+                      {...register("description", { required: true })}
+                      name="description"
+                      className={
+                        errors.description
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Descripción del producto"
+                      type="text"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">Precio</label>
+                    <input
+                      autocomplete="off"
+                      {...register("price", { required: true })}
+                      name="price"
+                      className={
+                        errors.price
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Precio por unidad, Ej: '520'"
+                      type="number"
+                    />
+                  </div>
                 </div>
                 <div className="w-full flex m-2 justify-evenly">
-                  <input
-                    {...register("screenSize", { required: true })}
-                    name="screenSize"
-                    className={
-                      errors.screenSize
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Tamaño de la pantalla"
-                    type="text"
-                  />
-                  <input
-                    {...register("ramMemory", { required: true })}
-                    name="ramMemory"
-                    className={
-                      errors.ramMemory
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Memoria Ram"
-                    type="text"
-                  />
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">
+                      Tamaño de pantalla
+                    </label>
+                    <input
+                      autocomplete="off"
+                      {...register(
+                        "screenSize",
+
+                        { min: 1, max: 999 }
+                      )}
+                      name="screenSize"
+                      className={
+                        errors.screenSize
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600 placeholder:text-sm"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600 placeholder:text-sm"
+                      }
+                      placeholder="Tamaño de pantalla en pulgadas, Ej: '12'"
+                      type="number"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">Memoria RAM</label>
+                    <input
+                      autocomplete="off"
+                      {...register("ramMemory", { required: true })}
+                      name="ramMemory"
+                      className={
+                        errors.ramMemory
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Memoria Ram, Ej: '12GB'"
+                      type="text"
+                    />
+                  </div>
                 </div>
                 <div className="w-full flex m-2 justify-evenly">
-                  <input
-                    {...register("internalMemory", { required: true })}
-                    name="internalMemory"
-                    className={
-                      errors.internalMemory
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Memoria Interna"
-                    type="text"
-                  />
-                  <input
-                    {...register("mainCamera", { required: true })}
-                    name="mainCamera"
-                    className={
-                      errors.mainCamera
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Camara Principal"
-                    type="text"
-                  />
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">
+                      Memoria interna
+                    </label>
+                    <input
+                      autocomplete="off"
+                      {...register("internalMemory", { required: true })}
+                      name="internalMemory"
+                      className={
+                        errors.internalMemory
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Memoria Interna, Ej: '256GB'"
+                      type="text"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">
+                      Camara principal
+                    </label>
+                    <input
+                      autocomplete="off"
+                      {...register("mainCamera", { required: true })}
+                      name="mainCamera"
+                      className={
+                        errors.mainCamera
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Camara Principal, Ej: '12MP'"
+                      type="text"
+                    />
+                  </div>
                 </div>
                 <div className="w-full flex m-2 justify-evenly">
-                  <input
-                    {...register("stock", { required: true })}
-                    name="stock"
-                    className={
-                      errors.stock
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Stock"
-                    type="number"
-                  />
-                  <input
-                    {...register("colors", { required: true })}
-                    name="colors"
-                    className={
-                      errors.colors
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Colores Ej: 'Azul Rojo Verde'"
-                    type="text"
-                  />
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">Inventario</label>
+                    <input
+                      autocomplete="off"
+                      {...register("stock", { required: true })}
+                      name="stock"
+                      className={
+                        errors.stock
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Inventario del producto, Ej: '23'"
+                      type="number"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">Colores</label>
+                    <input
+                      autocomplete="off"
+                      {...register("colors", { required: true })}
+                      name="colors"
+                      className={
+                        errors.colors
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Colores Ej: 'Blanco Rojo Negro'"
+                      type="text"
+                    />
+                  </div>
                 </div>
                 <button
                   type="submit"
@@ -635,115 +712,145 @@ const CreateProduct = forwardRef((props, ref) => {
             flex-col items-center justify-center"
               >
                 <div className="w-full flex m-2 justify-evenly items-center">
-                  <input
-                    name="model"
-                    {...register("model", { required: true })}
-                    className={
-                      errors.model
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Modelo"
-                    type="text"
-                  />
-                  <input
-                    name="brand"
-                    {...register("brand", { required: true })}
-                    className={
-                      errors.brand
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Marca"
-                    type="text"
-                  />
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">Modelo</label>
+                    <input
+                      autocomplete="off"
+                      name="model"
+                      {...register("model", { required: true })}
+                      className={
+                        errors.model
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Modelo, Ej: 'AU7000 SMART TV 2021'"
+                      type="text"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">Marca</label>
+                    <input
+                      autocomplete="off"
+                      name="brand"
+                      {...register("brand", { required: true })}
+                      className={
+                        errors.brand
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Marca, Ej: 'Samsung'"
+                      type="text"
+                    />
+                  </div>
                 </div>
                 <div className="w-full flex m-2 justify-evenly">
-                  <input
-                    {...register("description", { required: true })}
-                    name="description"
-                    className={
-                      errors.description
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Descripción"
-                    type="text"
-                  />
-                  <input
-                    {...register("price", { required: true })}
-                    name="price"
-                    className={
-                      errors.price
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Precio"
-                    type="number"
-                  />
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">Descripción</label>
+                    <input
+                      autocomplete="off"
+                      {...register("description", { required: true })}
+                      name="description"
+                      className={
+                        errors.description
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Descripción del producto"
+                      type="text"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">Precio</label>
+                    <input
+                      autocomplete="off"
+                      {...register("price", { required: true })}
+                      name="price"
+                      className={
+                        errors.price
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Precio por unidad, Ej:'609'"
+                      type="number"
+                    />
+                  </div>
                 </div>
                 <div className="w-full flex m-2 justify-evenly">
-                  <input
-                    {...register("screenSize", { min: 1, max: 999 })}
-                    name="screenSize"
-                    className={
-                      errors.screenSize
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Tamaño de la pantalla en Pulgadas"
-                    type="number"
-                  />
-                  <input
-                    {...register("typeResolution", { required: true })}
-                    name="typeResolution"
-                    className={
-                      errors.typeResolution
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Tipo de resolución"
-                    type="text"
-                  />
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">
+                      Tamaño de pantalla
+                    </label>
+                    <input
+                      autocomplete="off"
+                      {...register(
+                        "screenSize",
+
+                        { min: 1, max: 999 }
+                      )}
+                      name="screenSize"
+                      className={
+                        errors.screenSize
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600 placeholder:text-sm"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600 placeholder:text-sm"
+                      }
+                      placeholder="Tamaño de pantalla en pulgadas, Ej: '58'"
+                      type="number"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">
+                      Tipo de resolución
+                    </label>
+                    <input
+                      autocomplete="off"
+                      {...register("typeResolution", { required: true })}
+                      name="typeResolution"
+                      className={
+                        errors.typeResolution
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Tipo de resolución, Ej: 'LED UHD 4K'"
+                      type="text"
+                    />
+                  </div>
                 </div>
 
                 <div className="w-full flex m-2 justify-evenly">
-                  <input
-                    {...register("stock", { required: true })}
-                    name="stock"
-                    className={
-                      errors.stock
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Stock"
-                    type="number"
-                  />
-                  <input
-                    {...register("systemOperating", { required: true })}
-                    name="systemOperating"
-                    className={
-                      errors.systemOperating
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Sistema Operativo"
-                    type="text"
-                  />
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">Inventario</label>
+                    <input
+                      autocomplete="off"
+                      {...register("stock", { required: true })}
+                      name="stock"
+                      className={
+                        errors.stock
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Inventario del producto, Ej: '6'"
+                      type="number"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">
+                      Sistema operativo
+                    </label>
+                    <input
+                      autocomplete="off"
+                      {...register("systemOperating", { required: true })}
+                      name="systemOperating"
+                      className={
+                        errors.systemOperating
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Sistema Operativo, Ej: 'Android'"
+                      type="text"
+                    />
+                  </div>
                 </div>
-                <div className="w-full flex m-2 justify-evenly">
-                  <input
-                    {...register("nameTV", { required: true })}
-                    name="nameTV"
-                    className={
-                      errors.nameTV
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Nombre del producto"
-                    type="text"
-                  />
-                </div>
+
                 <button
                   type="submit"
                   className="bg-black text-white px-3 py-1 rounded-md"
@@ -760,100 +867,134 @@ const CreateProduct = forwardRef((props, ref) => {
             flex-col items-center justify-center"
               >
                 <div className="w-full flex m-2 justify-evenly items-center">
-                  <input
-                    name="model"
-                    {...register("model", { required: true })}
-                    className={
-                      errors.model
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Modelo"
-                    type="text"
-                  />
-                  <input
-                    name="brand"
-                    {...register("brand", { required: true })}
-                    className={
-                      errors.brand
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Marca"
-                    type="text"
-                  />
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">Modelo</label>
+                    <input
+                      autocomplete="off"
+                      name="model"
+                      {...register("model", { required: true })}
+                      className={
+                        errors.model
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Modelo, Ej: 'EliteBook 840 G3'"
+                      type="text"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">Marca</label>
+                    <input
+                      autocomplete="off"
+                      name="brand"
+                      {...register("brand", { required: true })}
+                      className={
+                        errors.brand
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Marca, Ej:'HP'"
+                      type="text"
+                    />
+                  </div>
                 </div>
                 <div className="w-full flex m-2 justify-evenly">
-                  <input
-                    {...register("description", { required: true })}
-                    name="description"
-                    className={
-                      errors.description
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Descripción"
-                    type="text"
-                  />
-                  <input
-                    {...register("price", { required: true })}
-                    name="price"
-                    className={
-                      errors.price
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Precio"
-                    type="number"
-                  />
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">Descripción</label>
+                    <input
+                      autocomplete="off"
+                      {...register("description", { required: true })}
+                      name="description"
+                      className={
+                        errors.description
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Descripción del producto"
+                      type="text"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">Precio</label>
+                    <input
+                      autocomplete="off"
+                      {...register("price", { required: true })}
+                      name="price"
+                      className={
+                        errors.price
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Precio por unidad, Ej: '425'"
+                      type="number"
+                    />
+                  </div>
                 </div>
                 <div className="w-full flex m-2 justify-evenly">
-                  <input
-                    {...register("processor", { required: true })}
-                    name="processor"
-                    className={
-                      errors.processor
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Procesador"
-                    type="text"
-                  />
-                  <input
-                    {...register("ramMemory", { required: true })}
-                    name="ramMemory"
-                    className={
-                      errors.ramMemory
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Memoria Ram"
-                    type="text"
-                  />
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">Procesador</label>
+                    <input
+                      autocomplete="off"
+                      {...register("processor", { required: true })}
+                      name="processor"
+                      className={
+                        errors.processor
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Procesador, Ej: 'Core i5 6ta'"
+                      type="text"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">Memoria RAM</label>
+                    <input
+                      autocomplete="off"
+                      {...register("ramMemory", { required: true })}
+                      name="ramMemory"
+                      className={
+                        errors.ramMemory
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Memoria Ram, Ej: '16GB'"
+                      type="text"
+                    />
+                  </div>
                 </div>
                 <div className="w-full flex m-2 justify-evenly">
-                  <input
-                    {...register("internalMemory", { required: true })}
-                    name="internalMemory"
-                    className={
-                      errors.internalMemory
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Memoria Interna"
-                    type="text"
-                  />
-                  <input
-                    {...register("stock", { required: true })}
-                    name="stock"
-                    className={
-                      errors.stock
-                        ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                    }
-                    placeholder="Stock"
-                    type="number"
-                  />
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">
+                      Memoria interna
+                    </label>
+                    <input
+                      autocomplete="off"
+                      {...register("internalMemory", { required: true })}
+                      name="internalMemory"
+                      className={
+                        errors.internalMemory
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Memoria Interna, Ej:'512GB SSD'"
+                      type="text"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-start items-start">
+                    <label className="text-lg font-medium">Inventario</label>
+                    <input
+                      autocomplete="off"
+                      {...register("stock", { required: true })}
+                      name="stock"
+                      className={
+                        errors.stock
+                          ? "rounded-md w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
+                          : "rounded-md w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                      }
+                      placeholder="Inventario del producto, Ej: '11'"
+                      type="number"
+                    />
+                  </div>
                 </div>
 
                 <button
