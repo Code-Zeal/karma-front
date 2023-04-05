@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CreateProduct from "./CreateProduct";
+import AllProductsAdm from "./AllProductsAdm";
 
 function Home() {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ function Home() {
     picture: user?.picture,
   };
   const createProductRef = useRef();
+  const allProductsRef = useRef();
 
   const notifySuccess = () => {
     console.log(dataRegister);
@@ -114,15 +116,15 @@ function Home() {
           </div>
         </div>
       </div>
-      {/* <div className=" flex items-center justify-center">
-        <CreateProduct ref={createProductRef}></CreateProduct>
+      <div className=" flex items-center justify-center">
+        <AllProductsAdm ref={allProductsRef}></AllProductsAdm>
         <button
-          onClick={() => createProductRef.current.togglePopUp()}
+          onClick={() => allProductsRef.current.togglePopUp()}
           className="bg-green-700 px-3 py-1 rounded-lg text-white"
         >
-          Create Product
+          All Products
         </button>
-      </div> */}
+      </div>
       <OffersAndNews />
       <PaymentMethods></PaymentMethods>
       <OffersSamsung></OffersSamsung>
