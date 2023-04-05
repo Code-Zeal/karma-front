@@ -4,6 +4,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import NavBar from "./NavBar";
+import Footer from "./Footer";
 
 const CreateProduct = (props) => {
   const notify = () =>
@@ -191,8 +193,9 @@ const CreateProduct = (props) => {
         pauseOnHover
         theme="dark"
       />
+      <NavBar></NavBar>
 
-      <div className="bg-white h-[750px] rounded-lg flex flex-col items-center justify-evenly ">
+      <div className="bg-white w-full h-[750px] rounded-lg flex flex-col items-center justify-evenly ">
         <div
           className="w-full mt-4 flex items-start justify-around 
             "
@@ -953,6 +956,7 @@ const CreateProduct = (props) => {
           </form>
         )}
       </div>
+      <Footer></Footer>
     </>
   );
 };
