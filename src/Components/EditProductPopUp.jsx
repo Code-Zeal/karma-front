@@ -442,7 +442,7 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
         uploadPreset: "hauiebsf",
       },
       function (error, result) {
-        if (result.event === "success" && route === "add") {
+        if (result.event === "success") {
           let newArray = productData.images;
           newArray.push(result.info.secure_url);
           setProductData({
@@ -484,9 +484,19 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
                   Subir Imagenes
                 </button>
               ) : (
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form
+                  className="flex flex-col w-full"
+                  onSubmit={handleSubmit(onSubmit)}
+                >
                   <input
+                    autoComplete="off"
+                    placeholder={`Introduce el nuevo ${route}, y luego presiona editar`}
                     {...register(type, { required: true })}
+                    className={
+                      errors[type]
+                        ? "rounded-md w-[600px] border-l-[20px] border-red-600 focus:border-red-600"
+                        : "rounded-md w-[600px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                    }
                     type={
                       type === "price" || type === "screenSize"
                         ? "number"

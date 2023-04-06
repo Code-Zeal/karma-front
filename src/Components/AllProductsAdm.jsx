@@ -74,7 +74,12 @@ const AllProductsAdm = () => {
       <NavBar></NavBar>
       <div className=" w-full bg-white h-1/2 rounded-lg flex flex-col items-center justify-evenly">
         <div className=" w-full flex justify-around">
-          <input onChange={handlerChange} type="text" placeholder="buscar" />
+          <input
+            className="w-4/12"
+            onChange={handlerChange}
+            type="text"
+            placeholder="Buscar por Marca o Modelo"
+          />
         </div>
         <div className="w-full flex flex-wrap">
           {data ? (
@@ -82,8 +87,10 @@ const AllProductsAdm = () => {
               return <EditProductCard card={product}></EditProductCard>;
             })
           ) : (
-            <div className="flex w-full items-center justify-center">
-              <h3>VACIO...</h3>
+            <div className="flex w-full h-[700px] items-center justify-center">
+              <h3 className="text-2xl font-bold">
+                No hemos encontrado ningún producto :(
+              </h3>
             </div>
           )}
         </div>

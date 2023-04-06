@@ -52,7 +52,10 @@ export default function EditProductDetails() {
                 src={detailProduct.images[0]}
                 alt=""
               />
-              <button onClick={() => toggleEdit("images", "add")}>
+              <button
+                className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
+                onClick={() => toggleEdit("images", "imagen")}
+              >
                 Agregar nuevas imagenes
               </button>
             </div>
@@ -63,7 +66,7 @@ export default function EditProductDetails() {
                   <h5 className="text-2xl font-bold my-3">{`${detailProduct.Laptop[0].name}`}</h5>
                   <button
                     className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
-                    onClick={() => toggleEdit("name", "Laptop[0].name")}
+                    onClick={() => toggleEdit("name", "nombre")}
                   >
                     Editar
                   </button>
@@ -75,7 +78,7 @@ export default function EditProductDetails() {
                   <button
                     className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
                     name="Tablet"
-                    onClick={() => toggleEdit("name", "Tablet[0].name")}
+                    onClick={() => toggleEdit("name", "nombre")}
                   >
                     Editar
                   </button>
@@ -87,7 +90,7 @@ export default function EditProductDetails() {
                   <button
                     className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
                     name="CellPhone"
-                    onClick={() => toggleEdit("name", "CellPhone[0].name")}
+                    onClick={() => toggleEdit("name", "nombre")}
                   >
                     Editar
                   </button>
@@ -99,7 +102,7 @@ export default function EditProductDetails() {
                   <button
                     className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
                     name="Television"
-                    onClick={() => toggleEdit("name", "Television[0].name")}
+                    onClick={() => toggleEdit("name", "nombre")}
                   >
                     Editar
                   </button>
@@ -112,7 +115,7 @@ export default function EditProductDetails() {
                 <button
                   className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
                   name="price"
-                  onClick={() => toggleEdit("price", "price")}
+                  onClick={() => toggleEdit("price", "precio")}
                 >
                   Editar
                 </button>
@@ -126,7 +129,7 @@ export default function EditProductDetails() {
                 <p className="text-lg font-medium mb-2">Descripción</p>
                 <button
                   className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
-                  onClick={() => toggleEdit("description", "description")}
+                  onClick={() => toggleEdit("description", "descripción")}
                 >
                   Editar
                 </button>
@@ -152,7 +155,7 @@ export default function EditProductDetails() {
                       Modelo{" "}
                       <button
                         className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
-                        onClick={() => toggleEdit("model", "model")}
+                        onClick={() => toggleEdit("model", "modelo")}
                       >
                         Editar
                       </button>
@@ -164,7 +167,7 @@ export default function EditProductDetails() {
                       Marca{" "}
                       <button
                         className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
-                        onClick={() => toggleEdit("brand", "brand")}
+                        onClick={() => toggleEdit("brand", "marca")}
                       >
                         Editar
                       </button>
@@ -179,7 +182,7 @@ export default function EditProductDetails() {
                           <button
                             className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
                             onClick={() =>
-                              toggleEdit("ramMemory", "Laptop.ramMemory")
+                              toggleEdit("ramMemory", "memoria ram")
                             }
                           >
                             Editar
@@ -200,7 +203,7 @@ export default function EditProductDetails() {
                             className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
                             name="Tablet.ramMemory"
                             onClick={() =>
-                              toggleEdit("ramMemory", "Tablet.ramMemory")
+                              toggleEdit("ramMemory", "memoria ram")
                             }
                           >
                             Editar
@@ -221,7 +224,7 @@ export default function EditProductDetails() {
                             className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
                             name="CellPhone.ramMemory"
                             onClick={() =>
-                              toggleEdit("ramMemory", "CellPhone.ramMemory")
+                              toggleEdit("ramMemory", "memoria ram")
                             }
                           >
                             Editar
@@ -242,10 +245,7 @@ export default function EditProductDetails() {
                             className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
                             name="Television.typeResolution"
                             onClick={() =>
-                              toggleEdit(
-                                "typeResolution",
-                                "Television.typeResolution"
-                              )
+                              toggleEdit("typeResolution", "tipo de resolución")
                             }
                           >
                             Editar
@@ -267,10 +267,7 @@ export default function EditProductDetails() {
                             className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
                             name="Laptop.internalMemory"
                             onClick={() =>
-                              toggleEdit(
-                                "internalMemory",
-                                "Laptop.internalMemory"
-                              )
+                              toggleEdit("internalMemory", "almacenamiento")
                             }
                           >
                             Editar
@@ -291,10 +288,7 @@ export default function EditProductDetails() {
                             className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
                             name="Tablet.internalMemory"
                             onClick={() =>
-                              toggleEdit(
-                                "internalMemory",
-                                "Tablet.internalMemory"
-                              )
+                              toggleEdit("internalMemory", "almacenamiento")
                             }
                           >
                             Editar
@@ -315,10 +309,7 @@ export default function EditProductDetails() {
                             className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
                             name="CellPhone.internalMemory"
                             onClick={() =>
-                              toggleEdit(
-                                "internalMemory",
-                                "CellPhone.internalMemory"
-                              )
+                              toggleEdit("internalMemory", "almacenamiento")
                             }
                           >
                             Editar
@@ -339,10 +330,7 @@ export default function EditProductDetails() {
                             className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
                             name="Television.systemOperating"
                             onClick={() =>
-                              toggleEdit(
-                                "systemOperating",
-                                "Television.systemOperating"
-                              )
+                              toggleEdit("systemOperating", "sistema operativo")
                             }
                           >
                             Editar
@@ -363,15 +351,19 @@ export default function EditProductDetails() {
                           <button
                             className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
                             onClick={() =>
-                              toggleEdit("colors", "CellPhone.colors")
+                              toggleEdit(
+                                "colors",
+                                "colores separados por un espacio"
+                              )
                             }
                           >
                             Editar
                           </button>
                         </td>
                         <td>
+                          |{" "}
                           {detailProduct.CellPhone[0].colors.map((c) => {
-                            return `${c} `;
+                            return ` ${c} |`;
                           })}
                         </td>
                       </>
@@ -387,15 +379,21 @@ export default function EditProductDetails() {
                             className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
                             name="Tablet.colors"
                             onClick={() =>
-                              toggleEdit("colors", "Tablet.colors")
+                              toggleEdit(
+                                "colors",
+                                "colores separados por un espacio"
+                              )
                             }
                           >
                             Editar
                           </button>
                         </td>
-                        {detailProduct.Tablet[0].colors.map((c) => (
-                          <td>{c}</td>
-                        ))}
+                        <td>
+                          |{" "}
+                          {detailProduct.Tablet[0].colors.map((c) => {
+                            return ` ${c} |`;
+                          })}
+                        </td>
                       </>
                     ) : (
                       <></>
@@ -409,7 +407,10 @@ export default function EditProductDetails() {
                             className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
                             name="Television.screenSize"
                             onClick={() =>
-                              toggleEdit("screenSize", "Television.screenSize")
+                              toggleEdit(
+                                "screenSize",
+                                "tamaño de pantalla(en pulgadas)"
+                              )
                             }
                           >
                             Editar
@@ -431,7 +432,7 @@ export default function EditProductDetails() {
                           className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
                           name="Tablet.mainCamera"
                           onClick={() =>
-                            toggleEdit("mainCamera", "Tablet.mainCamera")
+                            toggleEdit("mainCamera", "camara principal")
                           }
                         >
                           Editar
@@ -450,9 +451,7 @@ export default function EditProductDetails() {
                         <button
                           className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
                           name="Laptop.processor"
-                          onClick={() =>
-                            toggleEdit("processor", "Laptop.processor")
-                          }
+                          onClick={() => toggleEdit("processor", "procesador")}
                         >
                           Editar
                         </button>
@@ -471,7 +470,7 @@ export default function EditProductDetails() {
                           className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
                           name="CellPhone.mainCamera"
                           onClick={() =>
-                            toggleEdit("mainCamera", "CellPhone.mainCamera")
+                            toggleEdit("mainCamera", "camara principal")
                           }
                         >
                           Editar
@@ -491,7 +490,10 @@ export default function EditProductDetails() {
                           className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
                           name="Tablet.screenSize"
                           onClick={() =>
-                            toggleEdit("screenSize", "Tablet.screenSize")
+                            toggleEdit(
+                              "screenSize",
+                              "tamaño de pantalla(en pulgadas)"
+                            )
                           }
                         >
                           Editar
@@ -507,7 +509,7 @@ export default function EditProductDetails() {
                       Stock{" "}
                       <button
                         className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
-                        onClick={() => toggleEdit("stock", "stock")}
+                        onClick={() => toggleEdit("stock", "inventario")}
                       >
                         Editar
                       </button>
