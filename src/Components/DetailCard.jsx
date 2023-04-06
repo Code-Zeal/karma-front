@@ -238,9 +238,12 @@ export default function DetailsCard() {
                     {detailProduct.CellPhone ? (
                       <>
                         <td>Colores</td>
-                        {detailProduct.CellPhone[0].colors.map((c) => (
-                          <td>{c}</td>
-                        ))}
+                        <td>
+                          |{" "}
+                          {detailProduct.CellPhone[0].colors.map(
+                            (c) => ` ${c} |`
+                          )}
+                        </td>
                       </>
                     ) : (
                       <></>
@@ -249,9 +252,10 @@ export default function DetailsCard() {
                     {detailProduct.Tablet ? (
                       <>
                         <td>Colores</td>
-                        {detailProduct.Tablet[0].colors.map((c) => (
-                          <td>{c}</td>
-                        ))}
+                        <td>
+                          |{" "}
+                          {detailProduct.Tablet[0].colors.map((c) => ` ${c} |`)}
+                        </td>
                       </>
                     ) : (
                       <></>

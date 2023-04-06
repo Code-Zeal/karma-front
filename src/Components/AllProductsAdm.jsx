@@ -1,39 +1,95 @@
-import React, {
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useState,
-} from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import EditProductCard from "./EditProductCard";
+import NavBar from "./NavBar";
+import Footer from "./Footer";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const AllProductsAdm = forwardRef((props, ref) => {
-  const [input, setInput] = useState("");
-  useEffect(() => {}, []);
-
-  const [visible, setVisible] = useState(false);
-  const togglePopUp = () => {
-    setVisible(!visible);
-  };
-  useImperativeHandle(ref, () => {
-    return {
-      togglePopUp,
+const AllProductsAdm = () => {
+  const errorNotify = (msg) =>
+    toast.error(msg, {
+      toastId: "error",
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  const [data, setData] = useState(false);
+  const [input, setInput] = useState("noInput");
+  useEffect(() => {
+    const searchAll = async () => {
+      try {
+        let res = await axios.get("http://localhost:4000/product/getProducts");
+        setData(res.data);
+      } catch (error) {
+        setData(false);
+        errorNotify(error.response.data);
+      }
     };
-  });
+    const searchByInput = async (input) => {
+      try {
+        let res = await axios.get(
+          `http://localhost:4000/product/getProductsByInput?input=${input}`
+        );
+        setData(res.data);
+      } catch (error) {
+        setData(false);
+        errorNotify(error.response.data);
+      }
+    };
+    if (input === "noInput") {
+      searchAll();
+    } else {
+      searchByInput(input);
+    }
+  }, [input]);
+
+  const handlerChange = (event) => {
+    if (event.target.value === "") {
+      setInput("noInput");
+    } else {
+      setInput(event.target.value);
+    }
+  };
+
   return (
     <>
-      {visible ? (
-        <div className="fixed z-10 inset-0 flex justify-center items-center bg-[#000000ab] ">
-          <div className="w-7/12 bg-white h-1/2 rounded-lg flex flex-col items-center justify-evenly">
-            <div className=" w-full flex justify-around">
-              <input type="text" placeholder="buscar" />
-              <button onClick={togglePopUp}>X</button>
-            </div>
-            <div className="w-full"> </div>
-          </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
+      <NavBar></NavBar>
+      <div className=" w-full bg-white h-1/2 rounded-lg flex flex-col items-center justify-evenly">
+        <div className=" w-full flex justify-around">
+          <input onChange={handlerChange} type="text" placeholder="buscar" />
         </div>
-      ) : (
-        <></>
-      )}
+        <div className="w-full flex flex-wrap">
+          {data ? (
+            data.map((product) => {
+              return <EditProductCard card={product}></EditProductCard>;
+            })
+          ) : (
+            <div className="flex w-full items-center justify-center">
+              <h3>VACIO...</h3>
+            </div>
+          )}
+        </div>
+      </div>
+      <Footer></Footer>
     </>
   );
-});
+};
 export default AllProductsAdm;

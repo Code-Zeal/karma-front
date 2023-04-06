@@ -116,15 +116,6 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className=" flex items-center justify-center">
-        <AllProductsAdm ref={allProductsRef}></AllProductsAdm>
-        <button
-          onClick={() => allProductsRef.current.togglePopUp()}
-          className="bg-green-700 px-3 py-1 rounded-lg text-white"
-        >
-          All Products
-        </button>
-      </div>
       <OffersAndNews />
       <PaymentMethods></PaymentMethods>
       <OffersSamsung></OffersSamsung>
