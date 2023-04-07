@@ -240,7 +240,7 @@ const CreateData = forwardRef((props, ref) => {
         <section className=" fixed z-10 inset-0 flex justify-center items-center bg-[#000000ab] ">
           <div className="w-7/12 bg-white h-1/2 rounded-lg flex flex-col items-center justify-evenly">
             <h3 className="text-black text-xl mx-auto text-center">
-              Introduce tu {visible} y presiona en "Crear"
+              Introduce tu {visible} y presiona en "Agregar"
             </h3>
             <p
               id="uidnote"
@@ -333,7 +333,7 @@ const CreateData = forwardRef((props, ref) => {
             <div className="flex justify-evenly w-full">
               <button
                 onClick={handlerCreate}
-                className="bg-teal-600 hover:bg-teal-800 text-white px-3 py-1 rounded-lg text-lg"
+                className="bg-green-600 hover:bg-green-800 text-white px-3 py-1 rounded-lg text-lg"
               >
                 Agregar
               </button>
