@@ -15,6 +15,7 @@ import Search from "./Components/Search";
 import CreateProduct from "./Components/CreateProduct";
 import AllProductsAdm from "./Components/AllProductsAdm";
 import EditProductDetails from "./Components/EditProductDetails";
+import Profile from "./Components/Profile";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route exact path="/detail" element={<Details />} />
         <Route exact path="/shop/:category" element={<Shop />} />
         <Route exact path="/checkout" element={<Checkout />} />
+        <Route exact path="/profile" element={<Profile />} />
         <Route exact path="/profile/orders" element={<MyOrders />} />
         <Route exact path="/profile/data" element={<MyData />} />
         <Route path="/search" element={<Search />} />
