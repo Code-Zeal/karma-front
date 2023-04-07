@@ -12,6 +12,9 @@ import Checkout from "./Components/Checkout";
 import MyOrders from "./Components/MyOrders";
 import MyData from "./Components/MyData";
 import Search from "./Components/Search";
+import CreateProduct from "./Components/CreateProduct";
+import AllProductsAdm from "./Components/AllProductsAdm";
+import EditProductDetails from "./Components/EditProductDetails";
 import Profile from "./Components/Profile";
 
 function App() {
@@ -29,6 +32,9 @@ function App() {
         <Route exact path="/profile/orders" element={<MyOrders />} />
         <Route exact path="/profile/data" element={<MyData />} />
         <Route path="/search" element={<Search />} />
+        <Route path="/createProduct" element={<CreateProduct />} />
+        <Route path="/allProducts" element={<AllProductsAdm />} />
+        <Route path="/editDetail/:id" element={<EditProductDetails />} />
       </Routes>
     </BrowserRouter>
   );
