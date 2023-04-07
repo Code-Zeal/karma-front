@@ -7,7 +7,7 @@ import { useEffect } from "react";
 // Then some document.querySelector('.cho-container') to get the element
 // and then use the mp.checkout() method
 
-export default function MPButton() {
+export default function MPButton(props) {
   useEffect(() => {
     const fetchCheckout = async () => {
       const res = await fetch("http://localhost:4000/payment", {
