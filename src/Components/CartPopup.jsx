@@ -80,6 +80,7 @@ export default function CartPopup() {
                           <h3 class="text-sm text-gray-900">
                             {cart.Product.model}
                           </h3>
+                          <p>{cart.amount}</p>
 
                           <dl class="mt-0.5 space-y-px text-[10px] text-gray-600"></dl>
                         </div>
@@ -96,7 +97,7 @@ export default function CartPopup() {
                   href="/cart"
                   class="block rounded border border-neutral-600 px-5 py-3 text-sm text-neutral-600 transition hover:ring-1 hover:ring-neutral-600"
                 >
-                  Ver mi carrito ({cartProducts.length})
+                  Ver mi carrito ({cartProducts?.length})
                 </a>
 
                 <a
