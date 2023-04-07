@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import BottomNavigation from "./BottomNavigation";
 import EditData from "./EditData";
 import Footer from "./Footer";
 import NavBar from "./NavBar";
@@ -52,7 +51,6 @@ export default function MyDataCheckOut(props) {
         ref={createRef}
       ></CreateData>
 
-      <BottomNavigation></BottomNavigation>
       <div className="border-black border-[1px] rounded-lg w-1/2 m-auto  my-16">
         <div className="flex justify-between py-2 pr-8 pl-4  border-black border-b-[1px]">
           <div className="border-block flex flex-col">
