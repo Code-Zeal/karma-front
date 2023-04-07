@@ -8,6 +8,7 @@ import {
   REMOVE_ITEMS,
   DELETE_ITEMS,
   CREATE_ITEMS,
+  POST_COMMENTS_PAGE,
 } from "./Actions";
 
 const persistConfig = {
@@ -50,6 +51,10 @@ export const userReducer = (state = initialState, action) => {
         ...state,
       };
     case POST_COMMENTS_RATING:
+      return {
+        ...state,
+      };
+    case POST_COMMENTS_PAGE:
       return {
         ...state,
       };
