@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CommentsAndRatings from "./CommentsAndRatings";
+import CommentsPage from "./CommentsPage";
 
 export default function OrderCard(props) {
   const [popupOpen, setPopupOpen] = useState(false);
@@ -108,9 +109,13 @@ export default function OrderCard(props) {
                   Whatsapp
                 </button>
               </a>
-              <button className="text-[#171717] bg-white px-3 py-1 rounded-lg">
+              <button
+                onClick={handleOpenPopup}
+                className="text-[#171717] bg-white px-3 py-1 rounded-lg"
+              >
                 Enviar Feedback
               </button>
+              {popupOpen && <CommentsPage onClose={handleClosePopup} />}
             </div>
           </div>
         )}
