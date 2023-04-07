@@ -1,4 +1,16 @@
+import CommentsPage from "./CommentsPage";
+import React, { useState } from "react";
+
 export const FeedbackHome = () => {
+  const [popupOpen, setPopupOpen] = useState(false);
+
+  const handleOpenPopup = () => {
+    setPopupOpen(true);
+  };
+
+  const handleClosePopup = () => {
+    setPopupOpen(false);
+  };
   return (
     <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
       <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
@@ -179,8 +191,8 @@ export const FeedbackHome = () => {
         </div>
       </div>
       <div className="text-center">
-        <a
-          href="/"
+        <button
+          onClick={handleOpenPopup}
           className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-slate-900 hover:bg-slate-600 focus:shadow-outline focus:outline-none"
         >
           Dejanos tu valoración
@@ -199,7 +211,8 @@ export const FeedbackHome = () => {
               />
             </svg>
           </span>
-        </a>
+        </button>
+        {popupOpen && <CommentsPage onClose={handleClosePopup} />}
       </div>
     </div>
   );

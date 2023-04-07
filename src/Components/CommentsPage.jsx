@@ -2,36 +2,28 @@ import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch } from "react-redux";
 
-import { postCommentsAndRatings } from "../Redux/Actions";
+import { postCommentsPage } from "../Redux/Actions";
 
-function CommentsAndRatings(props) {
+function CommentsPage(props) {
   const dispatch = useDispatch();
   const { user } = useAuth0();
 
   const [comment, setComment] = useState("");
-  const [rating, setRating] = useState(0);
 
   const handleCommentChange = (e) => {
     setComment(e.target.value);
   };
 
-  const handleRatingChange = (e) => {
-    setRating(e.target.value);
-  };
-
   const handleSubmit = async (e) => {
-    const dataCommentAndRating = {
+    const dataCommentPage = {
       comments: comment,
-      rating: rating,
       user_id: user?.sub,
-      product_id: props.productId,
     };
     e.preventDefault();
 
-    await dispatch(postCommentsAndRatings(dataCommentAndRating));
+    await dispatch(postCommentsPage(dataCommentPage));
 
     setComment("");
-    setRating(0);
 
     props.onClose();
   };
@@ -57,7 +49,7 @@ function CommentsAndRatings(props) {
           </svg>
         </button>
         <h2 className="text-2xl font-bold mb-4  text-black">
-          Comentarios y Valoraciones
+          Comentarios para la pagina KARMA
         </h2>
         <form onSubmit={handleSubmit}>
           <label className="block mb-2">
@@ -68,24 +60,12 @@ function CommentsAndRatings(props) {
               onChange={handleCommentChange}
             />
           </label>
-          <label className="block mb-2">
-            <span className="font-bold text-black">
-              Valoración{"(1 al 5)"}:
-            </span>
-            <input
-              className="block w-full border border-gray-400 p-2 rounded-md"
-              type="number"
-              min="0"
-              max="5"
-              value={rating}
-              onChange={handleRatingChange}
-            />
-          </label>
+
           <button
             className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
             type="submit"
           >
-            Agregar comentario y valoración
+            Agregar comentario
           </button>
         </form>
       </div>
@@ -93,4 +73,4 @@ function CommentsAndRatings(props) {
   );
 }
 
-export default CommentsAndRatings;
+export default CommentsPage;

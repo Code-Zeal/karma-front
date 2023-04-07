@@ -7,6 +7,7 @@ export const ADD_ITEMS = "ADD_ITEMS";
 export const REMOVE_ITEMS = "REMOVE_ITEMS";
 export const DELETE_ITEMS = "DELETE_ITEMS";
 export const CREATE_ITEMS = "CREATE_ITEMS";
+export const POST_COMMENTS_PAGE = "POST_COMMENTS_PAGE";
 
 export const putRegister = (fromRegister, token) => async (dispatch) => {
   const response = await axios.put(
@@ -120,6 +121,19 @@ export const toShoppingCartDelete = (id) => async (dispatch) => {
 
   dispatch({
     type: DELETE_ITEMS,
+    // DATA SERIA POR EL EXIOS
+    payload: response.data,
+  });
+};
+export const postCommentsPage = (fromCommentsPage) => async (dispatch) => {
+  console.log(fromCommentsPage);
+  const response = await axios.post(
+    "http://localhost:4000/commentsRaiting/createCommentsRaiting",
+    fromCommentsPage
+  );
+
+  dispatch({
+    type: POST_COMMENTS_PAGE,
     // DATA SERIA POR EL EXIOS
     payload: response.data,
   });
