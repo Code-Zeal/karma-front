@@ -171,3 +171,14 @@ export const postCommentsPage = (fromCommentsPage) => async (dispatch) => {
     errorNotify("Ha ocurrido un error, intente de nuevo");
   }
 };
+
+export const userIsAdmin = (id) => async (dispatch) => {
+  const res = await axios.get(
+    `http://localhost:4000/admin/getUserRoleById?userId=${id}`
+  );
+
+  dispatch({
+    type: "GET_USER_IS_ADMIN",
+    payload: res.data,
+  });
+};
