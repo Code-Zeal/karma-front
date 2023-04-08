@@ -4,6 +4,7 @@ import { Transition } from "@headlessui/react";
 import { useAuth0 } from "@auth0/auth0-react";
 import CartCard from "./CartCard";
 import axios from "axios";
+import { Tooltip } from "flowbite-react";
 
 export default function CartPopup() {
   const [isOpen, setIsOpen] = useState(false);
@@ -92,20 +93,31 @@ export default function CartPopup() {
                 )}
               </ul>
 
-              <div class="space-y-4 text-center">
+              <div class="space-y-4 text-center flex flex-col items-stretch">
                 <a
                   href="/cart"
                   class="block rounded border border-neutral-600 px-5 py-3 text-sm text-neutral-600 transition hover:ring-1 hover:ring-neutral-600"
                 >
                   Ver mi carrito ({cartProducts?.length})
                 </a>
-
-                <a
-                  href="/checkout"
-                  class="block rounded bg-neutral-900 px-5 py-3 text-sm text-gray-100 transition hover:bg-neutral-600"
-                >
-                  Comprar
-                </a>
+                {cartProducts && cartProducts.length < 1 ? (
+                  <div class=" rounded  px-5 py-3 text-sm text-gray-100 transition bg-neutral-600 flex w-full items-center justify-center cursor-pointer">
+                    <Tooltip
+                      placement="bottom"
+                      style="dark"
+                      content="Agrega productos para poder comprar!"
+                    >
+                      Comprar
+                    </Tooltip>
+                  </div>
+                ) : (
+                  <a
+                    href="/checkout"
+                    class="block rounded bg-neutral-900 px-5 py-3 text-sm text-gray-100 transition hover:bg-neutral-600"
+                  >
+                    Comprar
+                  </a>
+                )}
 
                 <a
                   class="inline-block text-sm text-neutral-600 underline underline-offset-4 transition hover:text-gray-800 cursor-pointer"

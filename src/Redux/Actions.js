@@ -1,5 +1,32 @@
 import axios from "axios";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+const notify = () =>
+  toast.success(`El producto se agregó al carrito`, {
+    position: "top-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+  });
+const errorNotify = () =>
+  toast.error(
+    "Ha ocurrido un error al agregar el producto al carrito, intente de nuevo",
+    {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    }
+  );
 export const POST_REGISTER = "POST_REGISTER";
 export const POST_COMMENTS_RATING = "POST_COMMENTS_RATING";
 
@@ -73,17 +100,20 @@ export const postCommentsAndRatings =
   };
 
 export const createAddToShoppingCart = (data) => async (dispatch) => {
-  console.log(data);
-  const response = await axios.post(
-    `http://localhost:4000/shoppingCart/createShoppingCart`,
-    data
-  );
-
-  dispatch({
-    type: CREATE_ITEMS,
-    // DATA SERIA POR EL EXIOS
-    payload: response.data,
-  });
+  try {
+    const response = await axios.post(
+      `http://localhost:4000/shoppingCart/createShoppingCart`,
+      data
+    );
+    notify();
+    dispatch({
+      type: CREATE_ITEMS,
+      // DATA SERIA POR EL EXIOS
+      payload: response.data,
+    });
+  } catch (error) {
+    errorNotify();
+  }
 };
 
 export const addItemsToShoppingCart = (data) => async (dispatch) => {

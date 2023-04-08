@@ -5,6 +5,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import CartCard from "./CartCard";
+import { Tooltip } from "flowbite-react";
 
 export default function Cart() {
   const [cartProducts, setCartProducts] = useState(null);
@@ -74,12 +75,24 @@ export default function Cart() {
                 </dl>
 
                 <div class="flex justify-end">
-                  <a
-                    href="/checkout"
-                    class="block rounded bg-neutral-900 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
-                  >
-                    Checkout
-                  </a>
+                  {cartProducts && cartProducts.length > 0 ? (
+                    <a
+                      href="/checkout"
+                      class="block rounded bg-neutral-900 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
+                    >
+                      Comprar
+                    </a>
+                  ) : (
+                    <Tooltip
+                      placement="bottom"
+                      style="dark"
+                      content="Agrega productos para poder comprar!"
+                    >
+                      <div class="block rounded  px-5 py-3 text-sm text-gray-100 transition bg-gray-600 cursor-pointer">
+                        Comprar
+                      </div>
+                    </Tooltip>
+                  )}
                 </div>
               </div>
             </div>
