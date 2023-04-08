@@ -51,7 +51,7 @@ export default function MyDataCheckOut(props) {
         ref={createRef}
       ></CreateData>
 
-      <div className="border-black border-[1px] rounded-lg w-1/2 m-auto  my-16">
+      <div className="   w-1/2 m-auto  mb-5  bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm ">
         <div className="flex justify-between py-2 pr-8 pl-4  border-black border-b-[1px]">
           <div className="border-block flex flex-col">
             <label className="text-black font-bold">Nombre:</label>
@@ -65,7 +65,7 @@ export default function MyDataCheckOut(props) {
             <button
               name="nombre"
               onClick={handlerPopUpEdit}
-              className="bg-[#E8EAEE] hover:bg-slate-800 h-9  text-black  hover:text-white font-semibold my-auto  px-6 rounded-lg border-[1px] border-black"
+              className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
             >
               Editar
             </button>
@@ -73,7 +73,7 @@ export default function MyDataCheckOut(props) {
             <button
               name="nombre"
               onClick={handlerPopUpCreate}
-              className="bg-[#E8EAEE] hover:bg-slate-800 h-9  text-black  hover:text-white font-semibold my-auto  px-6 rounded-lg border-[1px] border-black"
+              className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
             >
               Agregar
             </button>
@@ -92,7 +92,7 @@ export default function MyDataCheckOut(props) {
             <button
               name="apellido"
               onClick={handlerPopUpEdit}
-              className="bg-[#E8EAEE] hover:bg-slate-800 h-9  text-black  hover:text-white font-semibold my-auto  px-6 rounded-lg border-[1px] border-black"
+              className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
             >
               Editar
             </button>
@@ -100,7 +100,7 @@ export default function MyDataCheckOut(props) {
             <button
               name="apellido"
               onClick={handlerPopUpCreate}
-              className="bg-[#E8EAEE] hover:bg-slate-800 h-9  text-black  hover:text-white font-semibold my-auto  px-6 rounded-lg border-[1px] border-black"
+              className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
             >
               Agregar
             </button>
@@ -119,7 +119,7 @@ export default function MyDataCheckOut(props) {
             <button
               name="número de celular"
               onClick={handlerPopUpEdit}
-              className="bg-[#E8EAEE] hover:bg-slate-800 h-9  text-black  hover:text-white font-semibold my-auto  px-6 rounded-lg border-[1px] border-black"
+              className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
             >
               Editar
             </button>
@@ -127,7 +127,7 @@ export default function MyDataCheckOut(props) {
             <button
               name="número de celular"
               onClick={handlerPopUpCreate}
-              className="bg-[#E8EAEE] hover:bg-slate-800 h-9  text-black  hover:text-white font-semibold my-auto  px-6 rounded-lg border-[1px] border-black"
+              className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
             >
               Agregar
             </button>
@@ -135,7 +135,7 @@ export default function MyDataCheckOut(props) {
         </div>
 
         <div className="flex justify-between py-2 pr-8 pl-4 border-black border-b-[1px]">
-          <div className="border-block flex flex-col">
+          <div className="border-block flex flex-col ">
             <div className="flex flex-col mb-1">
               <label className="text-black font-bold">Pais:</label>
               <h3>
@@ -144,7 +144,7 @@ export default function MyDataCheckOut(props) {
                   : "Aun no tienes este dato"}
               </h3>
             </div>
-            <div className="flex flex-col mt-1">
+            <div className="flex flex-col   mt-1">
               <label className="text-black font-bold">Ciudad:</label>
               <h3>
                 {myData && myData.city !== "none"
@@ -153,24 +153,25 @@ export default function MyDataCheckOut(props) {
               </h3>
             </div>
           </div>
-
-          {myData && myData.city !== "none" ? (
-            <button
-              name="pais y ciudad"
-              onClick={handlerPopUpEdit}
-              className="bg-[#E8EAEE] hover:bg-slate-800 h-9  text-black  hover:text-white font-semibold my-auto  px-6 rounded-lg border-[1px] border-black"
-            >
-              Editar
-            </button>
-          ) : (
-            <button
-              name="pais y ciudad"
-              onClick={handlerPopUpCreate}
-              className="bg-[#E8EAEE] hover:bg-slate-800 h-9  text-black  hover:text-white font-semibold my-auto  px-6 rounded-lg border-[1px] border-black"
-            >
-              Agregar
-            </button>
-          )}
+          <div className="w-[23%] 2xl:w-[21%] flex flex-col justify-center items-center">
+            {myData && myData.city !== "none" ? (
+              <button
+                name="pais y ciudad"
+                onClick={handlerPopUpEdit}
+                className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
+              >
+                Editar
+              </button>
+            ) : (
+              <button
+                name="pais y ciudad"
+                onClick={handlerPopUpCreate}
+                className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
+              >
+                Agregar
+              </button>
+            )}
+          </div>
         </div>
 
         <div className="flex justify-between py-2 pr-8 pl-4">
@@ -186,7 +187,7 @@ export default function MyDataCheckOut(props) {
             <button
               name="domicilio"
               onClick={handlerPopUpEdit}
-              className="bg-[#E8EAEE] hover:bg-slate-800 h-9  text-black  hover:text-white font-semibold my-auto  px-6 rounded-lg border-[1px] border-black"
+              className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
             >
               Editar
             </button>
@@ -194,7 +195,7 @@ export default function MyDataCheckOut(props) {
             <button
               name="domicilio"
               onClick={handlerPopUpCreate}
-              className="bg-[#E8EAEE] hover:bg-slate-800 h-9  text-black  hover:text-white font-semibold my-auto  px-6 rounded-lg border-[1px] border-black"
+              className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
             >
               Agregar
             </button>

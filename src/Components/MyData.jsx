@@ -56,7 +56,7 @@ export default function MyData() {
             ref={createRef}
           ></CreateData>
 
-          <div className="border-black border-[1px] rounded-sm w-1/2 m-auto  my-16">
+          <div className="  w-1/2  bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm  m-auto ">
             <div className="flex justify-between py-2 pr-8 pl-4  border-black border-b-[1px]">
               <div className="border-block flex flex-col">
                 <label className="text-black font-bold">Nombre:</label>
@@ -70,7 +70,7 @@ export default function MyData() {
                 <button
                   name="nombre"
                   onClick={handlerPopUpEdit}
-                  className="bg-neutral-900 hover:bg-white h-9  text-white hover:text-neutral-900 font-semibold my-auto  px-6 rounded-lg border-[1px] border-black"
+                  className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                 >
                   Editar
                 </button>
@@ -78,7 +78,7 @@ export default function MyData() {
                 <button
                   name="nombre"
                   onClick={handlerPopUpCreate}
-                  className="bg-neutral-900 hover:bg-white h-9  text-white hover:text-neutral-900 font-semibold my-auto  px-6 rounded-lg border-[1px] border-black"
+                  className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                 >
                   Agregar
                 </button>
@@ -97,7 +97,7 @@ export default function MyData() {
                 <button
                   name="apellido"
                   onClick={handlerPopUpEdit}
-                  className="bg-neutral-900 hover:bg-white h-9  text-white hover:text-neutral-900 font-semibold my-auto  px-6 rounded-lg border-[1px] border-black"
+                  className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                 >
                   Editar
                 </button>
@@ -105,7 +105,7 @@ export default function MyData() {
                 <button
                   name="apellido"
                   onClick={handlerPopUpCreate}
-                  className="bg-neutral-900 hover:bg-white h-9  text-white hover:text-neutral-900 font-semibold my-auto  px-6 rounded-lg border-[1px] border-black"
+                  className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                 >
                   Agregar
                 </button>
@@ -126,7 +126,7 @@ export default function MyData() {
                 <button
                   name="número de celular"
                   onClick={handlerPopUpEdit}
-                  className="bg-neutral-900 hover:bg-white h-9  text-white hover:text-neutral-900 font-semibold my-auto  px-6 rounded-lg border-[1px] border-black"
+                  className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                 >
                   Editar
                 </button>
@@ -134,7 +134,7 @@ export default function MyData() {
                 <button
                   name="número de celular"
                   onClick={handlerPopUpCreate}
-                  className="bg-neutral-900 hover:bg-white h-9  text-white hover:text-neutral-900 font-semibold my-auto  px-6 rounded-lg border-[1px] border-black"
+                  className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                 >
                   Agregar
                 </button>
@@ -160,24 +160,25 @@ export default function MyData() {
                   </h3>
                 </div>
               </div>
-
-              {myData && myData.city !== "none" ? (
-                <button
-                  name="pais y ciudad"
-                  onClick={handlerPopUpEdit}
-                  className="bg-neutral-900 hover:bg-white h-9  text-white hover:text-neutral-900 font-semibold my-auto  px-6 rounded-lg border-[1px] border-black"
-                >
-                  Editar
-                </button>
-              ) : (
-                <button
-                  name="pais y ciudad"
-                  onClick={handlerPopUpCreate}
-                  className="bg-neutral-900 hover:bg-white h-9  text-white hover:text-neutral-900 font-semibold my-auto  px-6 rounded-lg border-[1px] border-black"
-                >
-                  Agregar
-                </button>
-              )}
+              <div className="w-[18%] 2xl:w-[12%] flex flex-col justify-center items-center">
+                {myData && myData.city !== "none" ? (
+                  <button
+                    name="pais y ciudad"
+                    onClick={handlerPopUpEdit}
+                    className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
+                  >
+                    Editar
+                  </button>
+                ) : (
+                  <button
+                    name="pais y ciudad"
+                    onClick={handlerPopUpCreate}
+                    className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
+                  >
+                    Agregar
+                  </button>
+                )}
+              </div>
             </div>
 
             <div className="flex justify-between py-2 pr-8 pl-4">
@@ -193,7 +194,7 @@ export default function MyData() {
                 <button
                   name="domicilio"
                   onClick={handlerPopUpEdit}
-                  className="bg-neutral-900 hover:bg-white h-9  text-white hover:text-neutral-900 font-semibold my-auto  px-6 rounded-lg border-[1px] border-black"
+                  className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                 >
                   Editar
                 </button>
@@ -201,7 +202,7 @@ export default function MyData() {
                 <button
                   name="domicilio"
                   onClick={handlerPopUpCreate}
-                  className="bg-neutral-900 hover:bg-white h-9  text-white hover:text-neutral-900 font-semibold my-auto  px-6 rounded-lg border-[1px] border-black"
+                  className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                 >
                   Agregar
                 </button>

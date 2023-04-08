@@ -237,7 +237,7 @@ const EditData = forwardRef((props, ref) => {
       {visible !== false ? (
         <section className=" fixed z-10 inset-0 flex justify-center items-center bg-[#000000ab] ">
           <div className="w-7/12 bg-white h-1/2 rounded-lg flex flex-col items-center justify-evenly">
-            <h3 className="text-black text-xl mx-auto text-center">
+            <h3 className="text-black text-xl mx-auto text-center font-light">
               Si deseas cambiar tu {visible}, introduce el nuevo y presiona en
               "Guardar"
             </h3>
@@ -307,7 +307,7 @@ const EditData = forwardRef((props, ref) => {
                       type="text"
                       onChange={handlerChange}
                       placeholder={`Ingresa tu nuevo ${visible}`}
-                      className="w-1/2 border-black rounded-lg focus:border-black focus:border-2 mr-4"
+                      className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm w-1/2 placeholder:font-light"
                     />
                     <FontAwesomeIcon
                       icon={faCheck}
@@ -332,13 +332,13 @@ const EditData = forwardRef((props, ref) => {
             <div className="flex justify-evenly w-full">
               <button
                 onClick={handlerCreate}
-                className="bg-teal-600 hover:bg-teal-800 text-white px-3 py-1 rounded-lg text-lg"
+                className="bg-white text-black border border-neutral-900 font-normal px-3 py-1 rounded-sm text-lg"
               >
                 Guardar
               </button>
               <button
                 onClick={() => TogglePopUp(false)}
-                className="bg-red-600 hover:bg-red-800 text-white px-3 py-1 rounded-lg text-lg"
+                className="bg-black text-white border border-neutral-900 font-normal px-3 py-1 rounded-sm text-lg"
               >
                 Cancelar
               </button>
