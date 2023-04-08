@@ -16,6 +16,7 @@ import CreateProduct from "./Components/CreateProduct";
 import AllProductsAdm from "./Components/AllProductsAdm";
 import EditProductDetails from "./Components/EditProductDetails";
 import Profile from "./Components/Profile";
+import DetailOrder from "./Components/DetailOrder";
 
 function App() {
   return (
@@ -24,6 +25,8 @@ function App() {
         <Route exact path="/" element={<Home />} />
         <Route exact path="/cart" element={<Cart />} />
         <Route path="/detail/:id" element={<DetailCard />} />
+        <Route path="/detailOrder/:id" element={<DetailOrder />} />
+
         <Route exact path="/card" element={<Card />} />
         <Route exact path="/detail" element={<Details />} />
         <Route exact path="/shop/:category" element={<Shop />} />
