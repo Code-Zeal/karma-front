@@ -19,6 +19,7 @@ const persistConfig = {
 const initialState = {
   estadoInicial: [],
   searchedProducts: [],
+  userIsAdmin: "",
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -57,6 +58,11 @@ export const userReducer = (state = initialState, action) => {
     case POST_COMMENTS_PAGE:
       return {
         ...state,
+      };
+    case "GET_USER_IS_ADMIN":
+      return {
+        ...state,
+        userIsAdmin: action.payload,
       };
 
     default:
