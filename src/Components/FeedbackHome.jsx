@@ -1,8 +1,11 @@
 import CommentsPage from "./CommentsPage";
 import React, { useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Tooltip } from "flowbite-react";
 
 export const FeedbackHome = () => {
   const [popupOpen, setPopupOpen] = useState(false);
+  const { isAuthenticated } = useAuth0();
 
   const handleOpenPopup = () => {
     setPopupOpen(true);
@@ -190,28 +193,56 @@ export const FeedbackHome = () => {
           </h6>
         </div>
       </div>
-      <div className="text-center">
-        <button
-          onClick={handleOpenPopup}
-          className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-slate-900 hover:bg-slate-600 focus:shadow-outline focus:outline-none"
-        >
-          Dejanos tu valoración
-          <span className="ml-1 -mr-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="30px"
-              height="30px"
-              viewBox="0 0 1024 1024"
-              class="icon"
-              version="1.1"
-            >
-              <path
-                d="M415.808 755.2L512 851.392 608.192 755.2H883.2V204.8H704V128h256v704h-320l-128 128-128-128H64V128h256v76.8H140.8v550.4h275.008zM473.6 64h76.8v448H473.6V64z m0 512h76.8v76.8H473.6V576z"
-                fill="#FFFFFF"
-              />
-            </svg>
-          </span>
-        </button>
+      <div className="text-center flex justify-center items-center m-auto">
+        {!isAuthenticated ? (
+          <Tooltip
+            placement="bottom"
+            style="dark"
+            content="Debes ingresar a tu cuenta para poder dejar una valoración"
+          >
+            <button className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-slate-600 focus:shadow-outline focus:outline-none">
+              Dejanos tu valoración
+              <span className="ml-1 -mr-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30px"
+                  height="30px"
+                  viewBox="0 0 1024 1024"
+                  class="icon"
+                  version="1.1"
+                >
+                  <path
+                    d="M415.808 755.2L512 851.392 608.192 755.2H883.2V204.8H704V128h256v704h-320l-128 128-128-128H64V128h256v76.8H140.8v550.4h275.008zM473.6 64h76.8v448H473.6V64z m0 512h76.8v76.8H473.6V576z"
+                    fill="#FFFFFF"
+                  />
+                </svg>
+              </span>
+            </button>
+          </Tooltip>
+        ) : (
+          <button
+            onClick={handleOpenPopup}
+            className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-slate-900 hover:bg-slate-600 focus:shadow-outline focus:outline-none"
+          >
+            Dejanos tu valoración
+            <span className="ml-1 -mr-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="30px"
+                height="30px"
+                viewBox="0 0 1024 1024"
+                class="icon"
+                version="1.1"
+              >
+                <path
+                  d="M415.808 755.2L512 851.392 608.192 755.2H883.2V204.8H704V128h256v704h-320l-128 128-128-128H64V128h256v76.8H140.8v550.4h275.008zM473.6 64h76.8v448H473.6V64z m0 512h76.8v76.8H473.6V576z"
+                  fill="#FFFFFF"
+                />
+              </svg>
+            </span>
+          </button>
+        )}
+
         {popupOpen && <CommentsPage onClose={handleClosePopup} />}
       </div>
     </div>
