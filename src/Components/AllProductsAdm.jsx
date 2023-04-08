@@ -5,6 +5,7 @@ import NavBar from "./NavBar";
 import Footer from "./Footer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SideBar from "./SideBar";
 
 const AllProductsAdm = () => {
   const errorNotify = (msg) =>
@@ -58,45 +59,51 @@ const AllProductsAdm = () => {
   };
 
   return (
-    <>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
-      <NavBar></NavBar>
-      <div className=" w-full bg-white h-1/2 rounded-lg flex flex-col items-center justify-evenly">
-        <div className=" w-full flex justify-around">
-          <input
-            className="w-4/12"
-            onChange={handlerChange}
-            type="text"
-            placeholder="Buscar por Marca o Modelo"
+    <div>
+      <NavBar />
+      <div className="flex">
+        <SideBar />
+        <div className="container mx-auto mt-12">
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
           />
-        </div>
-        <div className="w-full flex flex-wrap">
-          {data ? (
-            data.map((product) => {
-              return <EditProductCard card={product}></EditProductCard>;
-            })
-          ) : (
-            <div className="flex w-full h-[700px] items-center justify-center">
-              <h3 className="text-2xl font-bold">
-                No hemos encontrado ningún producto :(
-              </h3>
+
+          <div className="flex row-auto flex-wrap">
+            <div className="w-full flex justify-around">
+              <input
+                className="w-4/12"
+                onChange={handlerChange}
+                type="text"
+                placeholder="Buscar por Marca o Modelo"
+              />
             </div>
-          )}
+            <div className="w-full flex flex-wrap justify-center">
+              {data ? (
+                data.map((product) => {
+                  return <EditProductCard card={product}></EditProductCard>;
+                })
+              ) : (
+                <div className="flex w-full h-[700px] items-center justify-center">
+                  <h3 className="text-2xl font-bold">
+                    No hemos encontrado ningún producto :(
+                  </h3>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
       <Footer></Footer>
-    </>
+    </div>
   );
 };
 export default AllProductsAdm;

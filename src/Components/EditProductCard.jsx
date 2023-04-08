@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export default function EditProductCard(props) {
   console.log(props);
   return (
-    <Link to={`/editDetail/${props.card.id}`} className="m-4">
+    <Link to={`/admin/editdetail/${props.card.id}`} className="m-4">
       <div className="max-w-sm overflow-hidden shadow-lg border border-neutral-600">
         <div className="h-[400px] w-[400px] flex items-center justify-center">
           <img
