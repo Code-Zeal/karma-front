@@ -17,6 +17,8 @@ import AllProductsAdm from "./Components/AllProductsAdm";
 import EditProductDetails from "./Components/EditProductDetails";
 import Profile from "./Components/Profile";
 import DetailOrder from "./Components/DetailOrder";
+import CommentsAdm from "./Components/CommentsAdm";
+import CommentDetails from "./Components/CommentDetails";
 
 function App() {
   return (
@@ -35,9 +37,11 @@ function App() {
         <Route exact path="/profile/orders" element={<MyOrders />} />
         <Route exact path="/profile/data" element={<MyData />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/createProduct" element={<CreateProduct />} />
-        <Route path="/allProducts" element={<AllProductsAdm />} />
-        <Route path="/editDetail/:id" element={<EditProductDetails />} />
+        <Route path="/admin/createproduct" element={<CreateProduct />} />
+        <Route path="/admin/editproduct" element={<AllProductsAdm />} />
+        <Route path="/admin/editdetail/:id" element={<EditProductDetails />} />
+        <Route path="/admin/feedbacks" element={<CommentsAdm />} />
+        <Route path="/admin/feedback/:id" element={<CommentDetails />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,189 +1,171 @@
 import NavBar from "./NavBar";
 import Footer from "./Footer";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
+import CartCard from "./CartCard";
+import CheckOutCard from "./CheckOutCard";
+import MyData from "./MyData";
+import MyDataCheckOut from "./MyDataCheckOut";
+import MPButton from "./ButtonMercadoPago";
 
 export default function Checkout() {
+  const [isDataComplete, setisDataComplete] = useState(null);
+  const [cartProducts, setCartProducts] = useState(null);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [idOrder, setIdOrder] = useState(null);
+  function getIdOrdenCreada(orders) {
+    for (let i = 0; i < orders.length; i++) {
+      if (orders[i].orderStatus === "Orden Creada") {
+        return orders[i].id;
+      }
+    }
+    return null; // Si no se encuentra ninguna orden con orderStatus "Orden Creada"
+  }
+
+  const { user } = useAuth0();
+  const idUser = user?.sub;
+  let total = 0;
+  const [myData, setMyData] = useState("");
+  const Comprobador = async () => {
+    await getData();
+    if (
+      myData?.address !== "none" ||
+      myData?.city !== "none" ||
+      myData?.phoneNumber !== "none" ||
+      myData?.lastName !== "none" ||
+      myData?.name !== "none"
+    ) {
+      setisDataComplete(true);
+      try {
+        const res = await axios.post(
+          "http://localhost:4000/order/createOrder",
+          {
+            idUser: user?.sub,
+          }
+        );
+        console.log(res.status);
+
+        console.log(res.data);
+        setIdOrder(res.data.id);
+      } catch (error) {
+        const resId = await axios.get(
+          `http://localhost:4000/user/getOrdersByUserId?id=${user.sub}`
+        );
+        console.log(resId.data.Orders);
+        setIdOrder(getIdOrdenCreada(resId.data.Orders));
+      }
+    } else {
+      setisDataComplete(false);
+    }
+  };
+
+  const getData = async () => {
+    const res = await axios.get(
+      `http://localhost:4000/user/getUser?id=${user?.sub}`
+    );
+    setMyData(res.data);
+  };
+  useEffect(() => {
+    if (user?.sub) {
+      getData();
+    }
+  }, [user?.sub]);
+  console.log(idOrder);
+  useEffect(() => {
+    async function fetchData(id) {
+      const response = await axios.get(
+        `http://localhost:4000/product/getProductsFromUserShoppingCart?id=${id}`
+      );
+      const data = response.data;
+      setCartProducts(data);
+
+      data.forEach((product) => {
+        product.pricePerUnit = product.Product.price * product.amount;
+        return (total += product.pricePerUnit);
+      });
+      setTotalPrice(total);
+    }
+    fetchData(idUser);
+  }, [user?.sub, total]);
   return (
     <section>
       <NavBar />
-      <h1 class="sr-only">Checkout</h1>
+      {cartProducts && cartProducts.length < 1 ? (
+        <></>
+      ) : (
+        <div class="mx-auto h-[600px]  max-w-screen-2xl w-full flex  justify-between">
+          <div class="bg-white border-[#D4D4D4] border-r-[1px] py-12 w-[50%] md:py-10">
+            <div class="mx-auto max-w-lg space-y-8 px-4 lg:px-8">
+              <div>
+                <p class="text-2xl font-thin tracking-tight text-black">
+                  TOTAL: ${totalPrice}
+                </p>
 
-      <div class="mx-auto grid max-w-screen-2xl grid-cols-1 md:grid-cols-2">
-        <div class="bg-gray-50 py-12 md:py-24">
-          <div class="mx-auto max-w-lg space-y-8 px-4 lg:px-8">
-            <div class="flex items-center gap-4">
-              <span class="h-10 w-10 rounded-full bg-blue-700"></span>
+                <p class="mt-1 text-sm font-thin text-black">
+                  Por la compra de
+                </p>
+              </div>
 
-              <h2 class="font-medium text-gray-900">Nombre del usuario</h2>
-            </div>
-
-            <div>
-              <p class="text-2xl font-medium tracking-tight text-gray-900">
-                $99.99
-              </p>
-
-              <p class="mt-1 text-sm text-gray-600">Por la compra de</p>
-            </div>
-
-            <div>
-              <div class="flow-root">
-                <ul class="-my-4 divide-y divide-gray-100">
-                  <li class="flex items-center gap-4 py-4">
-                    <img
-                      src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80"
-                      alt=""
-                      class="h-16 w-16 rounded object-cover"
-                    />
-
-                    <div>
-                      <h3 class="text-sm text-gray-900">Basic Tee 6-Pack</h3>
-
-                      <dl class="mt-0.5 space-y-px text-[10px] text-gray-600">
-                        <div>
-                          <dt class="inline">Size:</dt>
-                          <dd class="inline">XXS</dd>
-                        </div>
-
-                        <div>
-                          <dt class="inline">Color:</dt>
-                          <dd class="inline">White</dd>
-                        </div>
-                      </dl>
-                    </div>
-                  </li>
-
-                  <li class="flex items-center gap-4 py-4">
-                    <img
-                      src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80"
-                      alt=""
-                      class="h-16 w-16 rounded object-cover"
-                    />
-
-                    <div>
-                      <h3 class="text-sm text-gray-900">Basic Tee 6-Pack</h3>
-
-                      <dl class="mt-0.5 space-y-px text-[10px] text-gray-600">
-                        <div>
-                          <dt class="inline">Size:</dt>
-                          <dd class="inline">XXS</dd>
-                        </div>
-
-                        <div>
-                          <dt class="inline">Color:</dt>
-                          <dd class="inline">White</dd>
-                        </div>
-                      </dl>
-                    </div>
-                  </li>
-                </ul>
+              <div className="">
+                <div class="flow-root">
+                  <ul class=" divide-gray-100">
+                    {cartProducts?.map((product) => {
+                      return (
+                        <CheckOutCard
+                          images={product.Product.images[0]}
+                          amount={product.amount}
+                          model={product.Product.model}
+                          priceXProduct={product.pricePerUnit}
+                        ></CheckOutCard>
+                      );
+                    })}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="bg-white py-12 md:py-24">
-          <div class="mx-auto max-w-lg px-4 lg:px-8">
-            <form class="grid grid-cols-6 gap-4">
-              <div class="col-span-3">
-                <label class="block text-xs font-medium text-gray-700">
-                  Nombre
-                </label>
-
-                <input
-                  type="text"
-                  class="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
-                />
-              </div>
-
-              <div class="col-span-3">
-                <label class="block text-xs font-medium text-gray-700">
-                  Apellido
-                </label>
-
-                <input
-                  type="text"
-                  class="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
-                />
-              </div>
-
-              <div class="col-span-6">
-                <label class="block text-xs font-medium text-gray-700">
-                  Email
-                </label>
-
-                <input
-                  type="email"
-                  class="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
-                />
-              </div>
-
-              <div class="col-span-6">
-                <label class="block text-xs font-medium text-gray-700">
-                  Teléfono
-                </label>
-
-                <input
-                  type="tel"
-                  class="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
-                />
-              </div>
-
-              <div class="col-span-6">
-                <label class="block text-xs font-medium text-gray-700">
-                  País
-                </label>
-
-                <select class="relative mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm">
-                  <option>Argentina</option>
-                  <option>Brasil</option>
-                  <option>Chile</option>
-                  <option>Colombia</option>
-                  <option>Perú</option>
-                  <option>Venezuela</option>
-                </select>
-              </div>
-
-              <div class="col-span-6">
-                <label class="block text-xs font-medium text-gray-700">
-                  Estado/Provincia/Región
-                </label>
-
-                <input
-                  type="text"
-                  class="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
-                />
-              </div>
-
-              <div class="col-span-6">
-                <label class="block text-xs font-medium text-gray-700">
-                  Localidad
-                </label>
-
-                <input
-                  type="text"
-                  class="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
-                />
-              </div>
-
-              <div class="col-span-6">
-                <label class="block text-xs font-medium text-gray-700">
-                  Dirección
-                </label>
-
-                <input
-                  type="text"
-                  class="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
-                />
-              </div>
-
-              <div class="col-span-6">
-                <button class="block w-full rounded-md bg-black p-2.5 text-sm text-white transition hover:shadow-lg">
-                  Pagar
-                </button>
-              </div>
-            </form>
+          <div class="bg-white w-full flex flex-col items-center justify-center">
+            <MyDataCheckOut></MyDataCheckOut>
+            <button
+              className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
+              onClick={Comprobador}
+            >
+              Ver metodos de pago
+            </button>
+            {isDataComplete === false ? (
+              <>
+                <h3 className="text-red-600 font-bold text-lg">
+                  Tienes datos que no has rellenado aún, por favor completa
+                  todos tus datos y vuelve a presionar "Ver metodos de pago"
+                </h3>
+              </>
+            ) : (
+              <>
+                {isDataComplete === null ? (
+                  <></>
+                ) : (
+                  <>
+                    {isDataComplete === true ? (
+                      <>
+                        {idOrder && (
+                          <MPButton
+                            idOrder={idOrder}
+                            idUser={user?.sub}
+                          ></MPButton>
+                        )}
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </>
+                )}
+              </>
+            )}
           </div>
         </div>
-      </div>
+      )}
       <Footer />
     </section>
   );

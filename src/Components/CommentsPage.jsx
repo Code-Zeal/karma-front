@@ -5,6 +5,8 @@ import { useDispatch } from "react-redux";
 import { postCommentsPage } from "../Redux/Actions";
 
 function CommentsPage(props) {
+  const { isAuthenticated } = useAuth0();
+
   const dispatch = useDispatch();
   const { user } = useAuth0();
 
@@ -16,8 +18,8 @@ function CommentsPage(props) {
 
   const handleSubmit = async (e) => {
     const dataCommentPage = {
-      comments: comment,
-      user_id: user?.sub,
+      comment: comment,
+      userId: user?.sub,
     };
     e.preventDefault();
 
@@ -31,7 +33,7 @@ function CommentsPage(props) {
   return (
     <div className="fixed inset-0 z-10 flex items-center justify-center">
       <div className="absolute inset-0 bg-gray-900 opacity-50"></div>
-      <div className="relative bg-white p-8 rounded-md">
+      <div className="relative bg-white p-8 rounded-md w-1/2 items-center justify-center flex flex-col">
         <button
           className="absolute right-4 top-4 text-gray-500 hover:text-gray-900"
           onClick={props.onClose}
@@ -48,22 +50,23 @@ function CommentsPage(props) {
             />
           </svg>
         </button>
-        <h2 className="text-2xl font-bold mb-4  text-black">
-          Comentarios para la pagina KARMA
-        </h2>
+        <h3 className="text-xl font-light mb-4  text-black w-full">
+          ¡Hola! Nos encantaría saber tu opinión sobre tu experiencia de compra
+          con nosotros. Si tienes un momento, por favor comparte tus comentarios
+          y sugerencias en la sección de feedback a continuación. ¡Agradecemos
+          tu tiempo y esperamos verte de nuevo pronto en Karma!
+        </h3>
         <form onSubmit={handleSubmit}>
-          <label className="block mb-2">
-            <span className="font-bold  text-black">Comentario:</span>
+          <label className="block mb-2 w-full">
             <textarea
-              className="block w-full border border-gray-400 p-2 rounded-md"
+              className="block w-[400px] h-[150px] border border-neutral-900 text-neutral-900  p-2 rounded-md"
               value={comment}
               onChange={handleCommentChange}
             />
           </label>
-
           <button
-            className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
             type="submit"
+            className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
           >
             Agregar comentario
           </button>

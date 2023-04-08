@@ -4,12 +4,15 @@ import { Transition } from "@headlessui/react";
 import { useAuth0 } from "@auth0/auth0-react";
 import CartCard from "./CartCard";
 import axios from "axios";
+import { Tooltip } from "flowbite-react";
+import Login from "./Login";
 
 export default function CartPopup() {
   const [isOpen, setIsOpen] = useState(false);
   const [cartProducts, setCartProducts] = useState(null);
   const { user } = useAuth0();
   const idUser = user?.sub;
+  const { isAuthenticated } = useAuth0();
 
   function togglePopup() {
     setIsOpen(!isOpen);
@@ -64,57 +67,78 @@ export default function CartPopup() {
               </svg>
             </button>
 
-            <div class="mt-6 space-y-6">
-              <ul class="space-y-4">
-                {cartProducts ? (
-                  cartProducts.map((cart) => {
-                    return (
-                      <li class="flex items-center gap-4">
-                        <img
-                          src={cart.Product.images[0]}
-                          alt=""
-                          class="h-16 w-16 rounded object-cover"
-                        />
+            {isAuthenticated ? (
+              <div class="mt-6 space-y-6">
+                <ul class="space-y-4">
+                  {cartProducts ? (
+                    cartProducts.map((cart) => {
+                      return (
+                        <li class="flex items-center gap-4">
+                          <img
+                            src={cart.Product.images[0]}
+                            alt=""
+                            class="h-16 w-16 rounded object-cover"
+                          />
 
-                        <div>
-                          <h3 class="text-sm text-gray-900">
-                            {cart.Product.model}
-                          </h3>
-                          <p>{cart.amount}</p>
+                          <div>
+                            <h3 class="text-sm text-gray-900">
+                              {cart.Product.model}
+                            </h3>
+                            <p>{cart.amount}</p>
 
-                          <dl class="mt-0.5 space-y-px text-[10px] text-gray-600"></dl>
-                        </div>
-                      </li>
-                    );
-                  })
-                ) : (
-                  <></>
-                )}
-              </ul>
+                            <dl class="mt-0.5 space-y-px text-[10px] text-gray-600"></dl>
+                          </div>
+                        </li>
+                      );
+                    })
+                  ) : (
+                    <></>
+                  )}
+                </ul>
 
-              <div class="space-y-4 text-center">
-                <a
-                  href="/cart"
-                  class="block rounded border border-neutral-600 px-5 py-3 text-sm text-neutral-600 transition hover:ring-1 hover:ring-neutral-600"
-                >
-                  Ver mi carrito ({cartProducts?.length})
-                </a>
+                <div class="space-y-4 text-center flex flex-col items-stretch">
+                  <a
+                    href="/cart"
+                    class="block rounded border border-neutral-600 px-5 py-3 text-sm text-neutral-600 transition hover:ring-1 hover:ring-neutral-600"
+                  >
+                    Ver mi carrito ({cartProducts?.length})
+                  </a>
+                  {cartProducts && cartProducts.length < 1 ? (
+                    <div class=" rounded  px-5 py-3 text-sm text-gray-100 transition bg-neutral-600 flex w-full items-center justify-center cursor-pointer">
+                      <Tooltip
+                        placement="bottom"
+                        style="dark"
+                        content="Agrega productos para poder comprar!"
+                      >
+                        Comprar
+                      </Tooltip>
+                    </div>
+                  ) : (
+                    <a
+                      href="/checkout"
+                      class="block rounded bg-neutral-900 px-5 py-3 text-sm text-gray-100 transition hover:bg-neutral-600"
+                    >
+                      Comprar
+                    </a>
+                  )}
 
-                <a
-                  href="/checkout"
-                  class="block rounded bg-neutral-900 px-5 py-3 text-sm text-gray-100 transition hover:bg-neutral-600"
-                >
-                  Comprar
-                </a>
-
-                <a
-                  class="inline-block text-sm text-neutral-600 underline underline-offset-4 transition hover:text-gray-800 cursor-pointer"
-                  onClick={togglePopup}
-                >
-                  Seguir comprando
-                </a>
+                  <a
+                    class="inline-block text-sm text-neutral-600 underline underline-offset-4 transition hover:text-gray-800 cursor-pointer"
+                    onClick={togglePopup}
+                  >
+                    Seguir comprando
+                  </a>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center text-center font-thin">
+                Debes ingresar a tu cuenta para poder acceder a tu carrito de
+                compras
+                <button className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white">
+                  <Login></Login>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}

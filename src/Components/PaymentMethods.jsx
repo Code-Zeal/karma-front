@@ -26,9 +26,20 @@ export const PaymentMethods = () => {
           <div className="grid gap-5 row-gap-8 sm:grid-cols-2">
             <div className="bg-white border-l-4 shadow-sm border-[#a0c7d9]">
               <div className="h-full p-5 border border-l-0 rounded-r">
-                <h6 className="mb-2 font-bold leading-5 text-2xl py-2">
-                  Mercado Pago
-                </h6>
+                <a
+                  href="https://www.mercadopago.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Tooltip
+                    placement="top"
+                    content="Haz clic en este botón para ser redirigido a Mercado Pago"
+                  >
+                    <h6 className="mb-2 font-bold leading-5 text-2xl py-2">
+                      Mercado Pago
+                    </h6>
+                  </Tooltip>
+                </a>
                 <p className="text-sm text-gray-900">
                   Mercado Pago es una plataforma de pagos en línea muy popular
                   en América Latina. Al igual que PayPal, Mercado Pago es seguro
@@ -42,9 +53,20 @@ export const PaymentMethods = () => {
             </div>
             <div className="bg-white border-l-4 shadow-sm border-[#a0c7d9]">
               <div className="h-full p-5 border border-l-0 rounded-r">
-                <h6 className="mb-2 font-bold leading-5 text-2xl py-2">
-                  Paypal
-                </h6>
+                <a
+                  href="https://www.paypal.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Tooltip
+                    placement="top"
+                    content="Haz clic en este botón para ser redirigido a Paypal"
+                  >
+                    <h6 className="mb-2 font-bold leading-5 text-2xl py-2">
+                      Paypal
+                    </h6>
+                  </Tooltip>
+                </a>
                 <p className="text-sm text-gray-900">
                   PayPal es uno de los sistemas de pago más populares y seguros
                   del mundo. Cuenta con millones de usuarios y ofrece una
@@ -65,33 +87,6 @@ export const PaymentMethods = () => {
             src="https://res.cloudinary.com/dx2me9gqm/image/upload/v1678830141/D_NQ_NP_991501-MLA45229459134_032021-OO_pxxwsy.jpg"
             alt=""
           />
-          <div className="flex justify-evenly my-8">
-            <Link
-              to="https://www.mercadopago.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Tooltip
-                placement="bottom"
-                content="Haz clic en este botón para ser redirigido a Mercado Pago"
-              >
-                <Button color="dark">Mercado Pago</Button>
-              </Tooltip>
-            </Link>
-
-            <Tooltip
-              placement="bottom"
-              content="Haz clic en este botón para ser redirigido a Paypal"
-            >
-              <Link
-                to="https://www.paypal.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button color="dark">Paypal</Button>
-              </Link>
-            </Tooltip>
-          </div>
         </div>
       </div>
     </div>

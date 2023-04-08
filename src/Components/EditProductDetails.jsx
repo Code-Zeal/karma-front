@@ -38,8 +38,11 @@ export default function EditProductDetails() {
         ref={popUpRef}
       ></EditProductPopUp>
       <NavBar />
-      <div className="w-full flex justify-center items-center">
-        <a href="/allProducts" className="bg-black text-white p-2">
+      <div className="w-full flex justify-center items-center p-4">
+        <a
+          href="/admin/editproduct"
+          className="bg-black text-white py-2 px-4 rounded-sm"
+        >
           Volver
         </a>
       </div>
@@ -53,7 +56,7 @@ export default function EditProductDetails() {
                 alt=""
               />
               <button
-                className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
+                className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                 onClick={() => toggleEdit("images", "imagen")}
               >
                 Agregar nuevas imagenes
@@ -65,7 +68,7 @@ export default function EditProductDetails() {
                 <div className="flex">
                   <h5 className="text-2xl font-bold my-3">{`${detailProduct.Laptop[0].name}`}</h5>
                   <button
-                    className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
+                    className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                     onClick={() => toggleEdit("name", "nombre")}
                   >
                     Editar
@@ -76,7 +79,7 @@ export default function EditProductDetails() {
                 <div className="flex">
                   <h5 className="text-2xl font-bold my-3">{` ${detailProduct.Tablet[0].name}`}</h5>
                   <button
-                    className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
+                    className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                     name="Tablet"
                     onClick={() => toggleEdit("name", "nombre")}
                   >
@@ -88,7 +91,7 @@ export default function EditProductDetails() {
                 <div className="flex">
                   <h5 className="text-2xl font-bold my-3">{`${detailProduct.CellPhone[0].name}`}</h5>
                   <button
-                    className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
+                    className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                     name="CellPhone"
                     onClick={() => toggleEdit("name", "nombre")}
                   >
@@ -100,7 +103,7 @@ export default function EditProductDetails() {
                 <div className="flex">
                   <h5 className="text-2xl font-bold my-3">{`${detailProduct.Television[0].name}`}</h5>
                   <button
-                    className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
+                    className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                     name="Television"
                     onClick={() => toggleEdit("name", "nombre")}
                   >
@@ -113,7 +116,7 @@ export default function EditProductDetails() {
                   Precio ${precioUnitario}
                 </span>
                 <button
-                  className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
+                  className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                   name="price"
                   onClick={() => toggleEdit("price", "precio")}
                 >
@@ -128,7 +131,7 @@ export default function EditProductDetails() {
               <div className="flex">
                 <p className="text-lg font-medium mb-2">Descripción</p>
                 <button
-                  className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
+                  className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                   onClick={() => toggleEdit("description", "descripción")}
                 >
                   Editar
@@ -154,7 +157,7 @@ export default function EditProductDetails() {
                     <td>
                       Modelo{" "}
                       <button
-                        className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
+                        className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                         onClick={() => toggleEdit("model", "modelo")}
                       >
                         Editar
@@ -166,7 +169,7 @@ export default function EditProductDetails() {
                     <td>
                       Marca{" "}
                       <button
-                        className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
+                        className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                         onClick={() => toggleEdit("brand", "marca")}
                       >
                         Editar
@@ -180,7 +183,7 @@ export default function EditProductDetails() {
                         <td>
                           RAM{" "}
                           <button
-                            className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
+                            className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                             onClick={() =>
                               toggleEdit("ramMemory", "memoria ram")
                             }
@@ -200,7 +203,7 @@ export default function EditProductDetails() {
                         <td>
                           RAM{" "}
                           <button
-                            className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
+                            className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                             name="Tablet.ramMemory"
                             onClick={() =>
                               toggleEdit("ramMemory", "memoria ram")
@@ -221,7 +224,7 @@ export default function EditProductDetails() {
                         <td>
                           RAM{" "}
                           <button
-                            className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
+                            className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                             name="CellPhone.ramMemory"
                             onClick={() =>
                               toggleEdit("ramMemory", "memoria ram")
@@ -242,7 +245,7 @@ export default function EditProductDetails() {
                         <td>
                           Resolucion{" "}
                           <button
-                            className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
+                            className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                             name="Television.typeResolution"
                             onClick={() =>
                               toggleEdit("typeResolution", "tipo de resolución")
@@ -264,7 +267,7 @@ export default function EditProductDetails() {
                         <td>
                           Almacenamiento{" "}
                           <button
-                            className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
+                            className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                             name="Laptop.internalMemory"
                             onClick={() =>
                               toggleEdit("internalMemory", "almacenamiento")
@@ -285,7 +288,7 @@ export default function EditProductDetails() {
                         <td>
                           Almacenamiento{" "}
                           <button
-                            className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
+                            className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                             name="Tablet.internalMemory"
                             onClick={() =>
                               toggleEdit("internalMemory", "almacenamiento")
@@ -306,7 +309,7 @@ export default function EditProductDetails() {
                         <td>
                           Almacenamiento{" "}
                           <button
-                            className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
+                            className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                             name="CellPhone.internalMemory"
                             onClick={() =>
                               toggleEdit("internalMemory", "almacenamiento")
@@ -327,7 +330,7 @@ export default function EditProductDetails() {
                         <td>
                           sistema operativo{" "}
                           <button
-                            className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
+                            className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                             name="Television.systemOperating"
                             onClick={() =>
                               toggleEdit("systemOperating", "sistema operativo")
@@ -349,7 +352,7 @@ export default function EditProductDetails() {
                         <td>
                           Colores{" "}
                           <button
-                            className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
+                            className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                             onClick={() =>
                               toggleEdit(
                                 "colors",
@@ -376,7 +379,7 @@ export default function EditProductDetails() {
                         <td>
                           Colores{" "}
                           <button
-                            className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
+                            className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                             name="Tablet.colors"
                             onClick={() =>
                               toggleEdit(
@@ -404,7 +407,7 @@ export default function EditProductDetails() {
                         <td>
                           Tamaño pantalla{" "}
                           <button
-                            className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
+                            className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                             name="Television.screenSize"
                             onClick={() =>
                               toggleEdit(
@@ -429,7 +432,7 @@ export default function EditProductDetails() {
                       <td>
                         Cámara
                         <button
-                          className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
+                          className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                           name="Tablet.mainCamera"
                           onClick={() =>
                             toggleEdit("mainCamera", "camara principal")
@@ -449,7 +452,7 @@ export default function EditProductDetails() {
                       <td>
                         Procesador{" "}
                         <button
-                          className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
+                          className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                           name="Laptop.processor"
                           onClick={() => toggleEdit("processor", "procesador")}
                         >
@@ -467,7 +470,7 @@ export default function EditProductDetails() {
                       <td>
                         Cámara{" "}
                         <button
-                          className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
+                          className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                           name="CellPhone.mainCamera"
                           onClick={() =>
                             toggleEdit("mainCamera", "camara principal")
@@ -487,7 +490,7 @@ export default function EditProductDetails() {
                       <td>
                         Tamaño Pantalla
                         <button
-                          className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
+                          className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                           name="Tablet.screenSize"
                           onClick={() =>
                             toggleEdit(
@@ -508,7 +511,7 @@ export default function EditProductDetails() {
                     <td>
                       Stock{" "}
                       <button
-                        className="ml-2 bg-black text-white px-2 py-1 rounded-lg"
+                        className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
                         onClick={() => toggleEdit("stock", "inventario")}
                       >
                         Editar
