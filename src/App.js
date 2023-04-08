@@ -16,6 +16,8 @@ import CreateProduct from "./Components/CreateProduct";
 import AllProductsAdm from "./Components/AllProductsAdm";
 import EditProductDetails from "./Components/EditProductDetails";
 import Profile from "./Components/Profile";
+import CommentsAdm from "./Components/CommentsAdm";
+import CommentDetails from "./Components/CommentDetails";
 
 function App() {
   return (
@@ -35,6 +37,8 @@ function App() {
         <Route path="/admin/createproduct" element={<CreateProduct />} />
         <Route path="/admin/editproduct" element={<AllProductsAdm />} />
         <Route path="/admin/editdetail/:id" element={<EditProductDetails />} />
+        <Route path="/admin/feedbacks" element={<CommentsAdm />} />
+        <Route path="/admin/feedback/:id" element={<CommentDetails />} />
       </Routes>
     </BrowserRouter>
   );

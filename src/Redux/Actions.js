@@ -2,8 +2,8 @@ import axios from "axios";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const notify = () =>
-  toast.success(`El producto se agregó al carrito`, {
+const notify = (msg) =>
+  toast.success(msg, {
     position: "top-center",
     autoClose: 5000,
     hideProgressBar: false,
@@ -13,20 +13,17 @@ const notify = () =>
     progress: undefined,
     theme: "dark",
   });
-const errorNotify = () =>
-  toast.error(
-    "Ha ocurrido un error al agregar el producto al carrito, intente de nuevo",
-    {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    }
-  );
+const errorNotify = (msg) =>
+  toast.error(msg, {
+    position: "top-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+  });
 export const POST_REGISTER = "POST_REGISTER";
 export const POST_COMMENTS_RATING = "POST_COMMENTS_RATING";
 
@@ -105,14 +102,16 @@ export const createAddToShoppingCart = (data) => async (dispatch) => {
       `http://localhost:4000/shoppingCart/createShoppingCart`,
       data
     );
-    notify();
+    notify("El producto se agregó al carrito");
     dispatch({
       type: CREATE_ITEMS,
       // DATA SERIA POR EL EXIOS
       payload: response.data,
     });
   } catch (error) {
-    errorNotify();
+    errorNotify(
+      "Ha ocurrido un error al agregar el producto al carrito, intente de nuevo"
+    );
   }
 };
 
@@ -156,15 +155,19 @@ export const toShoppingCartDelete = (id) => async (dispatch) => {
   });
 };
 export const postCommentsPage = (fromCommentsPage) => async (dispatch) => {
-  console.log(fromCommentsPage);
-  const response = await axios.post(
-    "http://localhost:4000/commentsRaiting/createCommentsRaiting",
-    fromCommentsPage
-  );
+  try {
+    const response = await axios.post(
+      "http://localhost:4000/comments/createCommentByUser",
+      fromCommentsPage
+    );
 
-  dispatch({
-    type: POST_COMMENTS_PAGE,
-    // DATA SERIA POR EL EXIOS
-    payload: response.data,
-  });
+    dispatch({
+      type: POST_COMMENTS_PAGE,
+      // DATA SERIA POR EL EXIOS
+      payload: response.data,
+    });
+    notify("Comentario enviado correctamente, gracias!");
+  } catch (error) {
+    errorNotify("Ha ocurrido un error, intente de nuevo");
+  }
 };
