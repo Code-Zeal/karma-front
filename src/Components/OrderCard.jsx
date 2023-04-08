@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import CommentsAndRatings from "./CommentsAndRatings";
 import CommentsPage from "./CommentsPage";
+import axios from "axios";
 
 export default function OrderCard(props) {
+  const dateString = new Date(props.orderDate);
+  const dateObject = new Date(dateString);
+
+  const year = dateObject.getFullYear();
+  const month = dateObject.getMonth() + 1;
+  const day = dateObject.getDate();
+
   const [popupOpen, setPopupOpen] = useState(false);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const handleOpenPopup = () => {
     setPopupOpen(true);
@@ -12,25 +22,49 @@ export default function OrderCard(props) {
   const handleClosePopup = () => {
     setPopupOpen(false);
   };
+  let total = 0;
+
+  useEffect(() => {
+    async function fetchData(id) {
+      const responseOrder = await axios.get(
+        `http://localhost:4000/order/getOrder?id=${id}`
+      );
+      const dataOrder = responseOrder.data;
+      dataOrder.ShoppingCarts.forEach((order) => {
+        order.pricePerUnit = order.Product.price * order.amount;
+        return (total += order.pricePerUnit);
+      });
+      setTotalPrice(total);
+      console.log(dataOrder);
+    }
+    fetchData(props.idOrder);
+  }, [props.idOrder]);
+
+  //     setDetailOrder(dataOrder);
   const [inProcess, setInProcess] = useState(true);
   const [sent, setSent] = useState(true);
   const [delivered, setDelivered] = useState(true);
   return (
     <section className="bg-[#171717] mx-auto w-8/12 h-96 rounded-2xl">
       <section className="w-full   h-72 text-white flex mt-4 b">
-        <img
+        <Link to={`/detailOrder/${props.idOrder}`} className="m-4">
+          Ver detalles Del pedido
+        </Link>
+
+        {/* <img
           className=" rounded-br-2xl rounded-tl-xl w-4/12 h-72"
           src="https://m.media-amazon.com/images/I/617Q3DbKyPL._AC_SL1500_.jpg"
           alt=""
-        />
+        /> */}
         <div className="flex flex-col items-center justify-evenly w-4/12">
-          <h3>Nombre del producto</h3>
-          <h3>precio$</h3>
+          <h3>Tienes un Pedido con codigo {props.idOrder} </h3>
+          <p>La Fecha Creacion de tu Pedido es: {`${day}/${month}/${year}`}</p>
+          <h3>Total pagado es de {totalPrice}</h3>
         </div>
         {delivered === true ? (
           <div className="flex flex-col items-center justify-evenly text-center w-4/12">
             <h3>¡Pedido Entregado Correctamente!</h3>
-            <div className="bg-gray-800 py-6 rounded-lg mx-2 text-md font-bold">
+            {/* <div className="bg-gray-800 py-6 rounded-lg mx-2 text-md font-bold">
               <h3 className="mx-2">Dejanos tu opinion sobre el producto</h3>
               <button
                 onClick={handleOpenPopup}
@@ -44,7 +78,7 @@ export default function OrderCard(props) {
                   onClose={handleClosePopup}
                 />
               )}
-            </div>
+            </div> */}
           </div>
         ) : (
           <div className="flex flex-col items-center justify-evenly w-4/12 mx-2">
