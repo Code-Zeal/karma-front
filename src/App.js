@@ -19,6 +19,7 @@ import Profile from "./Components/Profile";
 import DetailOrder from "./Components/DetailOrder";
 import CommentsAdm from "./Components/CommentsAdm";
 import CommentDetails from "./Components/CommentDetails";
+import AllOrderHistory from "./Components/AllOrderHistory";
 
 function App() {
   return (
@@ -28,7 +29,6 @@ function App() {
         <Route exact path="/cart" element={<Cart />} />
         <Route path="/detail/:id" element={<DetailCard />} />
         <Route path="/detailOrder/:id" element={<DetailOrder />} />
-
         <Route exact path="/card" element={<Card />} />
         <Route exact path="/detail" element={<Details />} />
         <Route exact path="/shop/:category" element={<Shop />} />
@@ -42,6 +42,7 @@ function App() {
         <Route path="/admin/editdetail/:id" element={<EditProductDetails />} />
         <Route path="/admin/feedbacks" element={<CommentsAdm />} />
         <Route path="/admin/feedback/:id" element={<CommentDetails />} />
+        <Route path="/admin/orderhistory/" element={<AllOrderHistory />} />
       </Routes>
     </BrowserRouter>
   );

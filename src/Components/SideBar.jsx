@@ -87,6 +87,20 @@ export default function SideBar() {
                   </li>
                 </ul>
               </div>
+              <div>
+                Pedidos
+                <ul className={`pt-2 pb-4 space-y-1 text-sm`}>
+                  <li>
+                    <a
+                      href="/admin/orderhistory"
+                      className="flex items-center p-2 space-x-3 rounded-sm hover:bg-neutral-900 hover:text-white"
+                    >
+                      <ClipboardDocumentListIcon className="h-6 w-6" />
+                      <span>Historial de pedidos</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
           )}
         </div>
