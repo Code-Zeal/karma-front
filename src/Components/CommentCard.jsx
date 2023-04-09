@@ -83,7 +83,7 @@ const CommentCard = (props, ref) => {
         {props.comment}
       </textarea>
       <a
-        className=" bg-white border border-neutral-900 text-neutral-900 py-2 px-2 w-[200px] rounded-sm mr-4 cursor-pointer text-sm text-center"
+        className=" bg-white border border-neutral-900 text-neutral-900 py-2 px-2 w-[200px] rounded-sm ml-4 cursor-pointer text-sm text-center"
         href={`/admin/feedback/${props.userId}`}
       >
         Ver datos del usuario
