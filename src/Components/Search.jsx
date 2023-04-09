@@ -45,7 +45,7 @@ export default function Search() {
   useEffect(() => {
     const searchAll = async () => {
       try {
-        let res = await axios.get("http://localhost:4000/product/getProducts");
+        let res = await axios.get("/product/getProducts");
         setProducts(res.data.slice(indexOfFirstRecipes, indexOfLastRecipes));
         setAllCards(res.data);
       } catch (error) {
@@ -57,7 +57,7 @@ export default function Search() {
     const searchByInput = async (input) => {
       try {
         let res = await axios.get(
-          `http://localhost:4000/product/getProductsByInput?input=${input}`
+          `/product/getProductsByInput?input=${input}`
         );
         setProducts(res.data.slice(indexOfFirstRecipes, indexOfLastRecipes));
         setAllCards(res.data);

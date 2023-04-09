@@ -96,9 +96,7 @@ const CreateData = forwardRef((props, ref) => {
 
   useEffect(() => {
     const getData = async () => {
-      const res = await axios.get(
-        `http://localhost:4000/user/getUser?id=${user?.sub}`
-      );
+      const res = await axios.get(`/user/getUser?id=${user?.sub}`);
       setMyData({
         ...myData,
         id: user?.sub,
@@ -185,7 +183,7 @@ const CreateData = forwardRef((props, ref) => {
         errorHandler();
       } else {
         try {
-          await axios.put("http://localhost:4000/user/updateUser", myData);
+          await axios.put("/user/updateUser", myData);
           notify();
           TogglePopUp("created");
         } catch (error) {
@@ -197,7 +195,7 @@ const CreateData = forwardRef((props, ref) => {
         errorHandler();
       } else {
         try {
-          await axios.put("http://localhost:4000/user/updateUser", myData);
+          await axios.put("/user/updateUser", myData);
           notify();
           TogglePopUp("created");
         } catch (error) {
@@ -216,7 +214,7 @@ const CreateData = forwardRef((props, ref) => {
         errorHandler();
       } else {
         try {
-          await axios.put("http://localhost:4000/user/updateUser", myData);
+          await axios.put("/user/updateUser", myData);
           notify();
           TogglePopUp("created");
         } catch (error) {

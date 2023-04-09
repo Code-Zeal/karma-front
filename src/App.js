@@ -20,7 +20,10 @@ import DetailOrder from "./Components/DetailOrder";
 import CommentsAdm from "./Components/CommentsAdm";
 import CommentDetails from "./Components/CommentDetails";
 import AllOrderHistory from "./Components/AllOrderHistory";
-
+import axios from "axios";
+axios.defaults.baseURL = "http://localhost:4000";
+// http://localhost:4000
+// https://viator-backend-production.up.railway.app
 function App() {
   return (
     <BrowserRouter>

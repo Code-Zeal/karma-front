@@ -18,7 +18,7 @@ export default function CommentsAdm() {
 
   useEffect(() => {
     const getComments = async () => {
-      const res = await axios.get("http://localhost:4000/comments/getComments");
+      const res = await axios.get("/comments/getComments");
 
       setComments(sortByReadStatus(res.data));
     };

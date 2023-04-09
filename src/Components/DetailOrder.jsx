@@ -13,9 +13,7 @@ export default function DetailOrder(props) {
 
   useEffect(() => {
     async function fetchData(id) {
-      const responseOrder = await axios.get(
-        `http://localhost:4000/order/getOrder?id=${id}`
-      );
+      const responseOrder = await axios.get(`/order/getOrder?id=${id}`);
       const dataOrder = responseOrder.data;
 
       setDetailOrder(dataOrder);

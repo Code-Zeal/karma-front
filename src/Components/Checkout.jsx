@@ -38,20 +38,15 @@ export default function Checkout() {
     ) {
       setisDataComplete(true);
       try {
-        const res = await axios.post(
-          "http://localhost:4000/order/createOrder",
-          {
-            idUser: user?.sub,
-          }
-        );
+        const res = await axios.post("/order/createOrder", {
+          idUser: user?.sub,
+        });
         console.log(res.status);
 
         console.log(res.data);
         setIdOrder(res.data.id);
       } catch (error) {
-        const resId = await axios.get(
-          `http://localhost:4000/user/getOrdersByUserId?id=${user.sub}`
-        );
+        const resId = await axios.get(`/user/getOrdersByUserId?id=${user.sub}`);
         console.log(resId.data.Orders);
         setIdOrder(getIdOrdenCreada(resId.data.Orders));
       }
@@ -61,9 +56,7 @@ export default function Checkout() {
   };
 
   const getData = async () => {
-    const res = await axios.get(
-      `http://localhost:4000/user/getUser?id=${user?.sub}`
-    );
+    const res = await axios.get(`/user/getUser?id=${user?.sub}`);
     setMyData(res.data);
   };
   useEffect(() => {
@@ -75,7 +68,7 @@ export default function Checkout() {
   useEffect(() => {
     async function fetchData(id) {
       const response = await axios.get(
-        `http://localhost:4000/product/getProductsFromUserShoppingCart?id=${id}`
+        `/product/getProductsFromUserShoppingCart?id=${id}`
       );
       const data = response.data;
       setCartProducts(data);

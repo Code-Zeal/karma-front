@@ -7,15 +7,11 @@ const OffersAndNews = (props) => {
   const [offers2, setOffers2] = useState(null);
   useEffect(() => {
     const getOffers1 = async () => {
-      const res = await axios.get(
-        "http://localhost:4000/product/getproductPromo/3"
-      );
+      const res = await axios.get("/product/getproductPromo/3");
       setOffers1(res.data);
     };
     const getOffers2 = async () => {
-      const res = await axios.get(
-        "http://localhost:4000/product/getproductPromo/3"
-      );
+      const res = await axios.get("/product/getproductPromo/3");
       setOffers2(res.data);
     };
     getOffers1();

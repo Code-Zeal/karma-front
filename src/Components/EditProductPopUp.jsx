@@ -142,10 +142,7 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
         console.log(newData);
         const putData = async () => {
           try {
-            const res = await axios.put(
-              "http://localhost:4000/laptop/updateLaptop",
-              newData
-            );
+            const res = await axios.put("/laptop/updateLaptop", newData);
             notify(res.data);
             getData();
             togglePopUp();
@@ -160,10 +157,7 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
       } else if (type === "images") {
         const putData = async () => {
           try {
-            const res = await axios.put(
-              "http://localhost:4000/laptop/updateLaptop",
-              productData
-            );
+            const res = await axios.put("/laptop/updateLaptop", productData);
             notify(res.data);
             getData();
             togglePopUp();
@@ -180,10 +174,7 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
         };
         const putData = async () => {
           try {
-            const res = await axios.put(
-              "http://localhost:4000/laptop/updateLaptop",
-              newData
-            );
+            const res = await axios.put("/laptop/updateLaptop", newData);
             notify(res.data);
             getData();
             togglePopUp();
@@ -204,10 +195,7 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
         console.log(newData);
         const putData = async () => {
           try {
-            const res = await axios.put(
-              "http://localhost:4000/tablet/updateTablet",
-              newData
-            );
+            const res = await axios.put("/tablet/updateTablet", newData);
             notify(res.data);
             getData();
             togglePopUp();
@@ -221,10 +209,7 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
       } else if (type === "images") {
         const putData = async () => {
           try {
-            const res = await axios.put(
-              "http://localhost:4000/tablet/updateTablet",
-              productData
-            );
+            const res = await axios.put("/tablet/updateTablet", productData);
             notify(res.data);
             getData();
             togglePopUp();
@@ -242,10 +227,7 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
         console.log(newData);
         const putData = async () => {
           try {
-            const res = await axios.put(
-              "http://localhost:4000/tablet/updateTablet",
-              newData
-            );
+            const res = await axios.put("/tablet/updateTablet", newData);
             console.log(res.data);
             notify(res.data);
             getData();
@@ -265,10 +247,7 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
         };
         const putData = async () => {
           try {
-            const res = await axios.put(
-              "http://localhost:4000/tablet/updateTablet",
-              newData
-            );
+            const res = await axios.put("/tablet/updateTablet", newData);
             notify(res.data);
             getData();
             togglePopUp();
@@ -291,10 +270,7 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
         console.log(newData);
         const putData = async () => {
           try {
-            const res = await axios.put(
-              "http://localhost:4000/tv/updateTelevision",
-              newData
-            );
+            const res = await axios.put("/tv/updateTelevision", newData);
             await notify(res.data.message);
             getData();
             togglePopUp();
@@ -307,10 +283,7 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
       } else if (type === "images") {
         const putData = async () => {
           try {
-            const res = await axios.put(
-              "http://localhost:4000/tv/updateTelevision",
-              productData
-            );
+            const res = await axios.put("/tv/updateTelevision", productData);
             notify(res.data.message);
             getData();
             togglePopUp();
@@ -327,10 +300,7 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
         };
         const putData = async () => {
           try {
-            const res = await axios.put(
-              "http://localhost:4000/tv/updateTelevision",
-              newData
-            );
+            const res = await axios.put("/tv/updateTelevision", newData);
 
             notify(res.data.message);
             getData();
@@ -351,10 +321,7 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
         console.log(newData);
         const putData = async () => {
           try {
-            const res = await axios.put(
-              "http://localhost:4000/cellPhone/updateCellPhone",
-              newData
-            );
+            const res = await axios.put("/cellPhone/updateCellPhone", newData);
             console.log(res.data);
             notify(res.data);
             getData();
@@ -371,7 +338,7 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
         const putData = async () => {
           try {
             const res = await axios.put(
-              "http://localhost:4000/cellPhone/updateCellPhone",
+              "/cellPhone/updateCellPhone",
               productData
             );
             notify(res.data);
@@ -391,10 +358,7 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
         console.log(newData);
         const putData = async () => {
           try {
-            const res = await axios.put(
-              "http://localhost:4000/cellPhone/updateCellPhone",
-              newData
-            );
+            const res = await axios.put("/cellPhone/updateCellPhone", newData);
             console.log(res.data);
             notify(res.data);
             getData();
@@ -415,10 +379,7 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
         console.log(newData);
         const putData = async () => {
           try {
-            const res = await axios.put(
-              "http://localhost:4000/cellPhone/updateCellPhone",
-              newData
-            );
+            const res = await axios.put("/cellPhone/updateCellPhone", newData);
             await notify(res.data);
             await getData();
             await togglePopUp();

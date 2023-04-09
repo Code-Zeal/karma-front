@@ -25,7 +25,7 @@ const AllProductsAdm = () => {
   useEffect(() => {
     const searchAll = async () => {
       try {
-        let res = await axios.get("http://localhost:4000/product/getProducts");
+        let res = await axios.get("/product/getProducts");
         setData(res.data);
       } catch (error) {
         setData(false);
@@ -34,9 +34,7 @@ const AllProductsAdm = () => {
     };
     const searchByInput = async (input) => {
       try {
-        let res = await axios.get(
-          `http://localhost:4000/product/getProductsByInput?input=${input}`
-        );
+        let res = await axios.get(`/product/getProductsByInput?input=${input}`);
         setData(res.data);
       } catch (error) {
         setData(false);

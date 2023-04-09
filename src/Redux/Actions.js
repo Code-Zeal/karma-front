@@ -34,15 +34,11 @@ export const CREATE_ITEMS = "CREATE_ITEMS";
 export const POST_COMMENTS_PAGE = "POST_COMMENTS_PAGE";
 
 export const putRegister = (fromRegister, token) => async (dispatch) => {
-  const response = await axios.put(
-    "http://localhost:4000/setInfo",
-    fromRegister,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await axios.put("/setInfo", fromRegister, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   dispatch({
     type: "HOLA",
@@ -55,7 +51,7 @@ export function getProductsByInput(searchValue) {
   return async function (dispatch) {
     try {
       const res = await axios.get(
-        `http://localhost:4000/product/getProductsByInput?input=${searchValue}`
+        `/product/getProductsByInput?input=${searchValue}`
       );
       return dispatch({
         type: "GET_PRODUCTS_BY_INPUT",
@@ -69,10 +65,7 @@ export function getProductsByInput(searchValue) {
 
 export const postRegisterAuth0 = (fromRegister) => async (dispatch) => {
   console.log(fromRegister);
-  const response = await axios.post(
-    "http://localhost:4000/user/userAuth0Register",
-    fromRegister
-  );
+  const response = await axios.post("/user/userAuth0Register", fromRegister);
 
   dispatch({
     type: POST_REGISTER,
@@ -85,7 +78,7 @@ export const postCommentsAndRatings =
   (fromCommentsAndRatings) => async (dispatch) => {
     console.log(fromCommentsAndRatings);
     const response = await axios.post(
-      "http://localhost:4000/commentsRaiting/createCommentsRaiting",
+      "/commentsRaiting/createCommentsRaiting",
       fromCommentsAndRatings
     );
 
@@ -98,10 +91,7 @@ export const postCommentsAndRatings =
 
 export const createAddToShoppingCart = (data) => async (dispatch) => {
   try {
-    const response = await axios.post(
-      `http://localhost:4000/shoppingCart/createShoppingCart`,
-      data
-    );
+    const response = await axios.post(`/shoppingCart/createShoppingCart`, data);
     notify("El producto se agregó al carrito");
     dispatch({
       type: CREATE_ITEMS,
@@ -118,7 +108,7 @@ export const createAddToShoppingCart = (data) => async (dispatch) => {
 export const addItemsToShoppingCart = (data) => async (dispatch) => {
   console.log(data);
   const response = await axios.put(
-    "http://localhost:4000/shoppingCart/addItemsToShoppingCartByProduct",
+    "/shoppingCart/addItemsToShoppingCartByProduct",
     data
   );
 
@@ -132,7 +122,7 @@ export const addItemsToShoppingCart = (data) => async (dispatch) => {
 export const removeItemsToShoppingCart = (data) => async (dispatch) => {
   console.log(data);
   const response = await axios.put(
-    "http://localhost:4000/shoppingCart/removeItemsToShoppingCartByProduct",
+    "/shoppingCart/removeItemsToShoppingCartByProduct",
     data
   );
 
@@ -145,7 +135,7 @@ export const removeItemsToShoppingCart = (data) => async (dispatch) => {
 export const toShoppingCartDelete = (id) => async (dispatch) => {
   console.log(id);
   const response = await axios.delete(
-    `http://localhost:4000/shoppingCart/deleteShoppingCart?id=${id}`
+    `/shoppingCart/deleteShoppingCart?id=${id}`
   );
 
   dispatch({
@@ -157,7 +147,7 @@ export const toShoppingCartDelete = (id) => async (dispatch) => {
 export const postCommentsPage = (fromCommentsPage) => async (dispatch) => {
   try {
     const response = await axios.post(
-      "http://localhost:4000/comments/createCommentByUser",
+      "/comments/createCommentByUser",
       fromCommentsPage
     );
 
@@ -173,9 +163,7 @@ export const postCommentsPage = (fromCommentsPage) => async (dispatch) => {
 };
 
 export const userIsAdmin = (id) => async (dispatch) => {
-  const res = await axios.get(
-    `http://localhost:4000/admin/getUserRoleById?userId=${id}`
-  );
+  const res = await axios.get(`/admin/getUserRoleById?userId=${id}`);
 
   dispatch({
     type: "GET_USER_IS_ADMIN",
