@@ -35,7 +35,7 @@ export default function CommentsAdm() {
             BANDEJA DE COMENTARIOS
           </div>
           <hr />
-          <div className="w-10/12 h-[600px] flex items-start justify-center flex-wrap m-auto overflow-y-scroll bg-white border border-neutral-900 text-neutral-900">
+          <div className="w-10/12 h-[600px] flex items-center justify-start flex-col mx-auto overflow-y-scroll bg-white border border-neutral-900 text-neutral-900">
             {comments && comments.length > 0 ? (
               comments.map((commentInfo) => {
                 return (
