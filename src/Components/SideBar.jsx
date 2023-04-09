@@ -4,6 +4,7 @@ import {
   IdentificationIcon,
   PlusCircleIcon,
   PencilSquareIcon,
+  ClipboardDocumentListIcon,
 } from "@heroicons/react/24/outline";
 import { userIsAdmin } from "../Redux/Actions";
 import { useAuth0 } from "@auth0/auth0-react";
