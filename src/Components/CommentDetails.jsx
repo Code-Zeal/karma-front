@@ -12,9 +12,7 @@ export default function CommentDetails() {
 
   useEffect(() => {
     async function fetchData() {
-      const resUser = await axios.get(
-        `http://localhost:4000/user/getUser?id=${id}`
-      );
+      const resUser = await axios.get(`/user/getUser?id=${id}`);
       setUserData(resUser.data);
     }
     fetchData();

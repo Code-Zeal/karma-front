@@ -20,7 +20,7 @@ export default function CartPopup() {
   useEffect(() => {
     async function fetchData(id) {
       const response = await axios.get(
-        `http://localhost:4000/product/getProductsFromUserShoppingCart?id=${id}`
+        `/product/getProductsFromUserShoppingCart?id=${id}`
       );
       const data = response.data;
       setCartProducts(data);

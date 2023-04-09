@@ -8,7 +8,7 @@ const PaymentPage = () => {
 
   useEffect(() => {
     axios
-      .post("http://localhost:4000/api/paypal", { price: 10, currency: "USD" })
+      .post("/api/paypal", { price: 10, currency: "USD" })
       .then((response) => {
         setRedirectUrl(response.data.redirectUrl);
       });

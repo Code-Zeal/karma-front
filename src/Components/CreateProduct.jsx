@@ -61,10 +61,7 @@ const CreateProduct = (props) => {
       };
 
       try {
-        const res = await axios.post(
-          "http://localhost:4000/cellPhone/createCellPhone",
-          newData
-        );
+        const res = await axios.post("/cellPhone/createCellPhone", newData);
         if (res.status === 200) {
           console.log(1);
           reset();
@@ -84,10 +81,7 @@ const CreateProduct = (props) => {
 
       try {
         console.log(newData);
-        const res = await axios.post(
-          "http://localhost:4000/tv/createTelevision",
-          newData
-        );
+        const res = await axios.post("/tv/createTelevision", newData);
         console.log(res);
         if (res.status === 200) {
           reset();
@@ -107,10 +101,7 @@ const CreateProduct = (props) => {
       };
 
       try {
-        const res = await axios.post(
-          "http://localhost:4000/tablet/createTablet",
-          newData
-        );
+        const res = await axios.post("/tablet/createTablet", newData);
         console.log(res);
         if (res.status === 200) {
           reset();
@@ -129,10 +120,7 @@ const CreateProduct = (props) => {
 
       try {
         console.log(newData);
-        const res = await axios.post(
-          "http://localhost:4000/laptop/createLaptop",
-          newData
-        );
+        const res = await axios.post("/laptop/createLaptop", newData);
         console.log(res);
         if (res.status === 200) {
           reset();

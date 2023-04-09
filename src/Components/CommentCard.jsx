@@ -26,12 +26,9 @@ const CommentCard = (props, ref) => {
     });
   const markReaded = async (id) => {
     try {
-      const res = await axios.put(
-        "http://localhost:4000/comments/changeCommentToRead",
-        {
-          commentId: id,
-        }
-      );
+      const res = await axios.put("/comments/changeCommentToRead", {
+        commentId: id,
+      });
       notify(
         "Comentario marcado como leído(es necesario recargar la pagina para ver los cambios)"
       );

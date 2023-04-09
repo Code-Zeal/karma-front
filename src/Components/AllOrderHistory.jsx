@@ -9,7 +9,7 @@ export default function AllOrderHistory() {
 
   useEffect(() => {
     async function fetchData() {
-      const res = await axios.get("http://localhost:4000/order/getAllOrder");
+      const res = await axios.get("/order/getAllOrder");
       const data = res.data;
       setAllOrders(data);
     }
@@ -17,7 +17,7 @@ export default function AllOrderHistory() {
   }, []);
 
   async function updateOrderStatus(orderId, newStatus) {
-    await axios.put("http://localhost:4000/order/updateOrder", {
+    await axios.put("/order/updateOrder", {
       id: orderId,
       orderStatus: newStatus,
     });

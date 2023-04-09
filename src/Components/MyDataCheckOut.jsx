@@ -20,16 +20,12 @@ export default function MyDataCheckOut(props) {
     createRef.current.TogglePopUp(event.target.name);
   };
   const getData = async () => {
-    const res = await axios.get(
-      `http://localhost:4000/user/getUser?id=${user?.sub}`
-    );
+    const res = await axios.get(`/user/getUser?id=${user?.sub}`);
     setMyData(res.data);
   };
   useEffect(() => {
     const getData = async () => {
-      const res = await axios.get(
-        `http://localhost:4000/user/getUser?id=${user?.sub}`
-      );
+      const res = await axios.get(`/user/getUser?id=${user?.sub}`);
       setMyData(res.data);
     };
     if (user?.sub) {

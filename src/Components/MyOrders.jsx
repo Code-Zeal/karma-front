@@ -21,7 +21,7 @@ export default function MyOrders() {
   useEffect(() => {
     async function fetchData(id) {
       const responseIdOder = await axios.get(
-        `http://localhost:4000/user/getOrdersByUserId?id=${id}`
+        `/user/getOrdersByUserId?id=${id}`
       );
       const data = responseIdOder.data;
       setOrder(data);

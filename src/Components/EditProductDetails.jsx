@@ -15,9 +15,7 @@ export default function EditProductDetails() {
   const [detailProduct, setDetailProduct] = useState(null);
   console.log(detailProduct);
   async function fetchData() {
-    const response = await axios.get(
-      `http://localhost:4000/product/getProduct?id=${id}`
-    );
+    const response = await axios.get(`/product/getProduct?id=${id}`);
     const data = response.data;
     setDetailProduct(data);
   }

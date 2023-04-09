@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 // In this example i'm using React
 // Other way to use this is using the script tag in the html file
@@ -12,18 +13,11 @@ export default function MPButton(props) {
   useEffect(() => {
     const fetchCheckout = async () => {
       try {
-        const res = await fetch("http://localhost:4000/payments/mercadoPago", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userId: props.idUser,
-            orderId: props.idOrder,
-          }),
+        const res = await axios.post("/payments/mercadoPago", {
+          userId: props.idUser,
+          orderId: props.idOrder,
         });
-        const data = await res.json();
-        setUrlMP(data);
+        setUrlMP(res.data);
       } catch (error) {
         console.log(error);
       }

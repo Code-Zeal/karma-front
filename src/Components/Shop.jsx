@@ -12,7 +12,7 @@ export default function Shop() {
       case "/shop/CellPhone":
         const cellPhoneProducts = async () => {
           const res = await axios.get(
-            "http://localhost:4000/product/getProductsByCategory?category=CellPhone"
+            "/product/getProductsByCategory?category=CellPhone"
           );
           setInfo(res.data);
         };
@@ -21,7 +21,7 @@ export default function Shop() {
       case "/shop/Laptop":
         const laptopProducts = async () => {
           const res = await axios.get(
-            "http://localhost:4000/product/getProductsByCategory?category=Laptop"
+            "/product/getProductsByCategory?category=Laptop"
           );
           setInfo(res.data);
         };
@@ -30,7 +30,7 @@ export default function Shop() {
       case "/shop/Tablet":
         const tabletProducts = async () => {
           const res = await axios.get(
-            "http://localhost:4000/product/getProductsByCategory?category=Tablet"
+            "/product/getProductsByCategory?category=Tablet"
           );
           setInfo(res.data);
         };
@@ -39,7 +39,7 @@ export default function Shop() {
       case "/shop/TV":
         const TVProducts = async () => {
           const res = await axios.get(
-            "http://localhost:4000/product/getProductsByCategory?category=Television"
+            "/product/getProductsByCategory?category=Television"
           );
           setInfo(res.data);
         };
