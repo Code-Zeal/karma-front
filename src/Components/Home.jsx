@@ -17,8 +17,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CreateProduct from "./CreateProduct";
 import AllProductsAdm from "./AllProductsAdm";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import SearchBar from "./SearchBar";
 
 function Home() {
+  const searchBarRef = useRef();
   const dispatch = useDispatch();
 
   const { isAuthenticated, user } = useAuth0();
@@ -74,25 +77,20 @@ function Home() {
               electrónicos, desde smartphones y tablets hasta laptops y
               accesorios.
             </p>
-            <form className="flex flex-col items-center w-full mb-4 md:flex-row md:px-16">
-              <input
-                placeholder="Escribe aquí para buscar"
-                required
-                type="text"
-                className="flex-grow w-full h-12 px-4 mb-3 text-white transition duration-200 border-2 border-transparent rounded appearance-none md:mr-2 md:mb-0 bg-slate-100 focus:border-stone-700 focus:outline-none focus:shadow-outline placeholder:text-stone-600"
-              />
-              <Link to="">
-                <Tooltip
-                  placement="right"
-                  style="light"
-                  content="¡Puedes realizar busquedas por modelos, marcas o categorias!"
-                >
-                  <Button color="light" size="md">
-                    Buscar
-                  </Button>
-                </Tooltip>
-              </Link>
-            </form>
+            <SearchBar ref={searchBarRef}></SearchBar>
+
+            <div className="w-full flex justify-center items-center ">
+              <Tooltip
+                placement="right"
+                style="light"
+                content="Haz click para abrir el buscador!"
+              >
+                <MagnifyingGlassIcon
+                  className="my-4 h-12 w-32  cursor-pointer transition-all duration-300 bg-white text-[#171717] border rounded-tr-lg rounded-bl-lg border-neutral-900 "
+                  onClick={() => searchBarRef.current.togglePopup()}
+                />
+              </Tooltip>
+            </div>
             <p className="max-w-md mb-10 text-xs tracking-wide text-indigo-100 sm:text-sm sm:mx-auto md:mb-16">
               Estamos comprometidos con la sostenibilidad y trabajamos con
               proveedores que comparten nuestros valores y nuestro compromiso

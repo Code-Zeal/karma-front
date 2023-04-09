@@ -17,11 +17,20 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef } from "react";
+import { useForm } from "react-hook-form";
 
 const NAME_REGEX = /^([a-zA-ZùÙüÜäàáëèéïìíöòóüùúÄÀÁËÈÉÏÌÍÖÒÓÜÚñÑ\s]+)$/;
 const ADDRESS_REGEX = /([a-z ]{2,}\s{0,1})(\d{0,3})(\s{0,1}\S{2,})?/i;
 
 const CreateData = forwardRef((props, ref) => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {},
+  });
   const userRef = useRef();
 
   const [name, setName] = useState("");
@@ -239,23 +248,13 @@ const CreateData = forwardRef((props, ref) => {
       {visible !== false ? (
         <section className=" fixed z-10 inset-0 flex justify-center items-center bg-[#000000ab] ">
           <div className="w-7/12 bg-white h-1/2 rounded-lg flex flex-col items-center justify-evenly">
-            <h3 className="text-black text-xl mx-auto text-center">
+            <h3 className="text-black text-2xl mx-auto text-center font-light">
               Introduce tu {visible} y presiona en "Agregar"
             </h3>
-            <p
-              id="uidnote"
-              className={
-                name && !validName
-                  ? "instructions bg-black text-white px-2 py-1 text-xl rounded-lg"
-                  : "hidden"
-              }
-            >
-              <FontAwesomeIcon icon={faInfoCircle} className="text-lg" />
-              Porfavor Ingrese un dato valido
-            </p>
 
             {type && type === "tel" ? (
               <PhoneInput
+                autocomplete="off"
                 name="phoneNumber"
                 onChange={handlerChange}
                 className="w-1/2"
@@ -266,7 +265,7 @@ const CreateData = forwardRef((props, ref) => {
                 {type && type === "pais y ciudad" ? (
                   <>
                     <select
-                      className="w-1/2 border-black rounded-lg focus:border-black focus:border-2"
+                      className="m-2 bg-white border  text-neutral-900 py-2 px-4 rounded-sm w-1/2 placeholder:font-light border-neutral-900 focus:border-neutral-900"
                       onChange={handleCountry}
                       name="country"
                     >
@@ -283,7 +282,7 @@ const CreateData = forwardRef((props, ref) => {
                     </select>
                     <select
                       onChange={handlerChange}
-                      className="w-1/2 border-black rounded-lg focus:border-black focus:border-2"
+                      className="m-2 bg-white border  text-neutral-900 py-2 px-4 rounded-sm w-1/2 placeholder:font-light  border-neutral-900 focus:border-neutral-900"
                       name="city"
                       disabled={countrySelected !== null ? false : true}
                     >
@@ -299,6 +298,8 @@ const CreateData = forwardRef((props, ref) => {
                 ) : (
                   <div className="flex w-full items-center justify-center ">
                     <input
+                      {...register(type, { required: true })}
+                      autocomplete="off"
                       name={type}
                       ref={userRef}
                       value={name}
@@ -308,23 +309,7 @@ const CreateData = forwardRef((props, ref) => {
                       type="text"
                       onChange={handlerChange}
                       placeholder={`Ingresa tu ${visible}`}
-                      className="w-1/2 border-black rounded-lg focus:border-black focus:border-2 mr-4"
-                    />
-                    <FontAwesomeIcon
-                      icon={faCheck}
-                      className={
-                        validName === true
-                          ? "valid text-lg text-white bg-[#1bc61b] rounded-full p-2"
-                          : "hidden"
-                      }
-                    />
-                    <FontAwesomeIcon
-                      icon={faTimes}
-                      className={
-                        validName || !name
-                          ? "hidden"
-                          : "invalid text-xl text-white bg-[#ed0f0f] rounded-full p-2"
-                      }
+                      className="m-2 bg-white border  text-neutral-900 py-2 px-4 rounded-sm w-1/2 placeholder:font-light border-neutral-900 focus:border-neutral-900"
                     />
                   </div>
                 )}
@@ -333,13 +318,13 @@ const CreateData = forwardRef((props, ref) => {
             <div className="flex justify-evenly w-full">
               <button
                 onClick={handlerCreate}
-                className="bg-green-600 hover:bg-green-800 text-white px-3 py-1 rounded-lg text-lg"
+                className="bg-white text-black border border-neutral-900 font-normal px-3 py-1 rounded-sm text-lg"
               >
                 Agregar
               </button>
               <button
                 onClick={() => TogglePopUp(false)}
-                className="bg-red-600 hover:bg-red-800 text-white px-3 py-1 rounded-lg text-lg"
+                className="bg-black text-white border border-neutral-900 font-normal px-3 py-1 rounded-sm text-lg"
               >
                 Cancelar
               </button>

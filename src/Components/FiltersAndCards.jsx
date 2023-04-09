@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import Footer from "./Footer";
+import Paginated from "./Paginated";
 
 export default function FiltersAndCards(props) {
   const [type, setType] = useState("");
@@ -15,9 +16,22 @@ export default function FiltersAndCards(props) {
   }
 
   const [cardsScreen, setcardsScreen] = useState("");
+  console.log(cardsScreen);
+  const [allCards, setAllCards] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recipesPerPage] = useState(6);
+  const indexOfLastRecipes = currentPage * recipesPerPage;
+  const indexOfFirstRecipes = indexOfLastRecipes - recipesPerPage;
+  const pagination = (pageNumber) => {
+    resetFilters();
+    setCurrentPage(pageNumber);
+  };
+  console.log(currentPage);
+
   useEffect(() => {
-    setcardsScreen(props.info);
-  }, [props.info]);
+    setcardsScreen(props.info.slice(indexOfFirstRecipes, indexOfLastRecipes));
+    setAllCards(props.info);
+  }, [props.info, currentPage]);
   const [filter, setFilter] = useState({
     brand: "",
     internalMemory: "",
@@ -29,50 +43,58 @@ export default function FiltersAndCards(props) {
     mainCamera: "",
     color: "",
   });
-  console.log(cardsScreen);
   useEffect(() => {
     let copy2 = cardsScreen;
     if (filter.brand !== "") {
       copy2 = copy2.filter((el) => el.brand === filter.brand);
       setcardsScreen(copy2);
+      setAllCards(copy2);
     }
     if (filter.internalMemory !== "") {
       copy2 = copy2.filter(
         (el) => el[type].internalMemory === filter.internalMemory
       );
       setcardsScreen(copy2);
+      setAllCards(copy2);
     }
     if (filter.ramMemory !== "") {
       copy2 = copy2.filter((el) => el[type].ramMemory === filter.ramMemory);
       setcardsScreen(copy2);
+      setAllCards(copy2);
     }
     if (filter.screenSize !== "") {
       copy2 = copy2.filter((el) => el[type].screenSize === filter.screenSize);
       setcardsScreen(copy2);
+      setAllCards(copy2);
     }
     if (filter.typeResolution !== "") {
       copy2 = copy2.filter(
         (el) => el[type].typeResolution === filter.typeResolution
       );
       setcardsScreen(copy2);
+      setAllCards(copy2);
     }
     if (filter.systemOperating !== "") {
       copy2 = copy2.filter(
         (el) => el[type].systemOperating === filter.systemOperating
       );
       setcardsScreen(copy2);
+      setAllCards(copy2);
     }
     if (filter.processor !== "") {
       copy2 = copy2.filter((el) => el[type].processor === filter.processor);
       setcardsScreen(copy2);
+      setAllCards(copy2);
     }
     if (filter.mainCamera !== "") {
       copy2 = copy2.filter((el) => el[type].mainCamera === filter.mainCamera);
       setcardsScreen(copy2);
+      setAllCards(copy2);
     }
     if (filter.color !== "") {
       copy2 = copy2.filter((el) => el[type].colors.includes(filter.color));
       setcardsScreen(copy2);
+      setAllCards(copy2);
     }
     if (
       filter.color === "" &&
@@ -85,13 +107,13 @@ export default function FiltersAndCards(props) {
       filter.internalMemory === "" &&
       filter.brand === ""
     ) {
-      setcardsScreen(props.info);
+      setcardsScreen(props.info.slice(indexOfFirstRecipes, indexOfLastRecipes));
+      setAllCards(props.info);
     }
-    console.log(copy2);
   }, [filter]);
 
   const handlerOrder = (event) => {
-    let copyOrder = [...cardsScreen];
+    let copyOrder = [...allCards];
     let value = event.target.value;
     copyOrder =
       value === "default"
@@ -108,11 +130,14 @@ export default function FiltersAndCards(props) {
                   if (a.price > b.price) return -1;
                   return 0;
                 }));
-    setcardsScreen(copyOrder);
+    setcardsScreen(copyOrder.slice(indexOfFirstRecipes, indexOfLastRecipes));
+    setAllCards(copyOrder);
   };
 
   const handlerFilter = (event) => {
     setcardsScreen(props.info);
+    setAllCards(props.info);
+
     const property = event.target.name;
     let value = event.target.value;
 
@@ -611,6 +636,15 @@ export default function FiltersAndCards(props) {
           </div>
         </div>
       </section>
+      <div className="w-9/12 ml-auto flex justify-center items-center">
+        <Paginated
+          recipesPerPage={recipesPerPage}
+          allRecipes={allCards && allCards.length}
+          pagination={pagination}
+          currentRecipes={cardsScreen}
+          currentPage={currentPage}
+        ></Paginated>
+      </div>
     </section>
   );
 }

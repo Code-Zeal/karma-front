@@ -19,8 +19,8 @@ export default function Paginated({
             <button
               className={
                 currentPage === index + 1
-                  ? "hover:bg-white bg-neutral-900 text-white border border-neutral-900 hover:text-neutral-900 py-1 px-2 rounded-sm mr-2"
-                  : " bg-white hover:bg-neutral-900 hover:text-white border border-neutral-900 text-neutral-900 py-1 px-2 rounded-sm mr-2"
+                  ? "hover:bg-white bg-neutral-900 text-white border border-neutral-900 hover:text-neutral-900 py-2 px-4 rounded-sm mr-2"
+                  : " bg-white hover:bg-neutral-900 hover:text-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm mr-2"
               }
               key={`pagina${index}`}
               onClick={() => pagination(number)}

@@ -17,11 +17,20 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef } from "react";
+import { useForm } from "react-hook-form";
 
 const NAME_REGEX = /^([a-zA-ZùÙüÜäàáëèéïìíöòóüùúÄÀÁËÈÉÏÌÍÖÒÓÜÚñÑ\s]+)$/;
 const ADDRESS_REGEX = /([a-z ]{2,}\s{0,1})(\d{0,3})(\s{0,1}\S{2,})?/i;
 
 const EditData = forwardRef((props, ref) => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {},
+  });
   const userRef = useRef();
 
   const [name, setName] = useState("");
@@ -35,6 +44,7 @@ const EditData = forwardRef((props, ref) => {
   }, [name]);
   const notify = () =>
     toast.success(`Información editada correctamente `, {
+      toastId: "success",
       position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
@@ -48,6 +58,7 @@ const EditData = forwardRef((props, ref) => {
     toast.error(
       "Ha ocurrido un error al editar la información, verifica que el dato es correcto e intente de nuevo",
       {
+        toastId: "error",
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -237,7 +248,7 @@ const EditData = forwardRef((props, ref) => {
       {visible !== false ? (
         <section className=" fixed z-10 inset-0 flex justify-center items-center bg-[#000000ab] ">
           <div className="w-7/12 bg-white h-1/2 rounded-lg flex flex-col items-center justify-evenly">
-            <h3 className="text-black text-xl mx-auto text-center font-light">
+            <h3 className="text-black text-2xl mx-auto text-center font-light">
               Si deseas cambiar tu {visible}, introduce el nuevo y presiona en
               "Guardar"
             </h3>
@@ -298,6 +309,8 @@ const EditData = forwardRef((props, ref) => {
                 ) : (
                   <div className="flex w-full items-center justify-center ">
                     <input
+                      autocomplete="off"
+                      {...register(type, { required: true })}
                       name={type}
                       ref={userRef}
                       value={name}
@@ -307,23 +320,7 @@ const EditData = forwardRef((props, ref) => {
                       type="text"
                       onChange={handlerChange}
                       placeholder={`Ingresa tu nuevo ${visible}`}
-                      className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm w-1/2 placeholder:font-light"
-                    />
-                    <FontAwesomeIcon
-                      icon={faCheck}
-                      className={
-                        validName === true
-                          ? "valid text-lg text-white bg-[#1bc61b] rounded-full p-2"
-                          : "hidden"
-                      }
-                    />
-                    <FontAwesomeIcon
-                      icon={faTimes}
-                      className={
-                        validName || !name
-                          ? "hidden"
-                          : "invalid text-xl text-white bg-[#ed0f0f] rounded-full p-2"
-                      }
+                      className="m-2 bg-white border  text-neutral-900 py-2 px-4 rounded-sm w-1/2 placeholder:font-light border-neutral-900 focus:border-neutral-900"
                     />
                   </div>
                 )}
