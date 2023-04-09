@@ -1,15 +1,16 @@
-import { Dropdown } from "flowbite-react";
+import { Dropdown, Tooltip } from "flowbite-react";
 import CartPopup from "./CartPopup";
 import UserDropdown from "./UserDropdown";
 import SearchBar from "./SearchBar";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate, redirect, NavLink } from "react-router-dom";
 import { Router } from "react-router-dom";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const searchBarRef = useRef();
 
   return (
     <header aria-label="Site Header" class="border-b border-neutral-300">
@@ -95,7 +96,7 @@ export default function NavBar() {
               Inicio
             </a>
             <a
-              href="/explore"
+              href="/search"
               class="block h-16 border-b-4 border-transparent leading-[4rem] hover:border-current hover:text-neutral-900"
             >
               Explorar
@@ -114,20 +115,29 @@ export default function NavBar() {
                 <Dropdown.Item>Televisores</Dropdown.Item>
               </a>
             </Dropdown>
-            <a
-              href="/contact"
-              class="block h-16 border-b-4 border-transparent leading-[4rem] hover:border-current hover:text-neutral-900"
-            >
-              Contacto
-            </a>
           </nav>
         </div>
 
+        <SearchBar ref={searchBarRef} />
         <div class="flex items-center justify-end">
           <div class="flex items-center">
             <div class="flex items-center divide-x divide-neutral-300 border-x border-neutral-300">
-              <SearchBar />
+              <Tooltip
+                placement="left"
+                style="dark"
+                content="Haz click para abrir el buscador!"
+                className="w-[250px] text-center"
+              >
+                <div class="relative block border-transparent p-6 hover:border-neutral-900">
+                  <MagnifyingGlassIcon
+                    className="-mr-1 h-5 w-5 text-neutral-900 cursor-pointer transition-all duration-300 "
+                    onClick={() => searchBarRef.current.togglePopup()}
+                  />
+                </div>
+              </Tooltip>
+
               <CartPopup />
+
               <UserDropdown />
             </div>
           </div>

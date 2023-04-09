@@ -474,11 +474,18 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
       {visible ? (
         <div className="fixed z-10 inset-0 flex justify-center items-center bg-[#000000ab] ">
           <div className="w-7/12 bg-white h-1/2 rounded-lg flex flex-col items-center justify-evenly">
-            <button onClick={() => togglePopUp()}>X</button>
+            <div className="w-full flex items-end justify-end ">
+              <button
+                className="mr-10 bg-black text-white px-4 py-2 rounded-full text-lg"
+                onClick={() => togglePopUp()}
+              >
+                X
+              </button>
+            </div>
             <div>
               {type === "images" ? (
                 <button
-                  className="border-2 border-[black] mt-2 hover:bg-[#3d3c3ce9] bg-[black] text-[white] py-1 px-3 text-lg rounded-lg font-bold"
+                  className="bg-white text-black border border-neutral-900 font-normal px-3 py-1 rounded-sm text-lg mt-10"
                   onClick={() => widgetRef.current.open()}
                 >
                   Subir Imagenes
@@ -494,8 +501,8 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
                     {...register(type, { required: true })}
                     className={
                       errors[type]
-                        ? "rounded-md w-[600px] border-l-[20px] border-red-600 focus:border-red-600"
-                        : "rounded-md w-[600px] border-l-[20px] border-blue-600 focus:border-blue-600"
+                        ? " w-[600px] border-l-[20px]  m-2 bg-white border  text-neutral-900 py-2 px-4 rounded-sm  placeholder:font-light border-red-600  focus:border-red-600"
+                        : " w-[600px] border-l-[20px]  m-2 bg-white border  text-neutral-900 py-2 px-4 rounded-sm  placeholder:font-light border-blue-600  focus:border-blue-600"
                     }
                     type={
                       type === "price" || type === "screenSize"
@@ -503,7 +510,12 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
                         : "text"
                     }
                   />
-                  <button type="submit">Editar</button>
+                  <button
+                    className="bg-white text-black border border-neutral-900 font-normal px-3 py-1 rounded-sm text-lg mt-10"
+                    type="submit"
+                  >
+                    Editar
+                  </button>
                 </form>
               )}
             </div>

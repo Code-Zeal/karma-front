@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
-import {
-  HomeIcon,
-  ShoppingBagIcon,
-  IdentificationIcon,
-} from "@heroicons/react/24/outline";
+
 import SideBar from "./SideBar";
+import { FeedbackHome } from "./FeedbackHome";
+import PaymentMethods from "./PaymentMethods";
+import OffersAndNews from "./OffersAndNews";
 
 export default function Profile() {
   const nameUrl = window.location.pathname;
@@ -58,6 +57,9 @@ export default function Profile() {
               </div>
             </div>
           </div>
+          <FeedbackHome></FeedbackHome>
+          <OffersAndNews></OffersAndNews>
+          <PaymentMethods></PaymentMethods>
         </div>
       </div>
       <Footer />
