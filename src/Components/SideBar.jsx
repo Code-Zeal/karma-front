@@ -2,8 +2,10 @@ import {
   UserIcon,
   ShoppingBagIcon,
   IdentificationIcon,
+  InboxIcon,
   PlusCircleIcon,
   PencilSquareIcon,
+  ClipboardDocumentListIcon,
 } from "@heroicons/react/24/outline";
 import { userIsAdmin } from "../Redux/Actions";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -65,6 +67,20 @@ export default function SideBar() {
               Panel de administrador
               <hr className="m-2" />
               <div>
+                Comentarios
+                <ul className={`pt-2 pb-4 space-y-1 text-sm`}>
+                  <li>
+                    <a
+                      href="/admin/feedbacks"
+                      className="flex items-center p-2 space-x-3 rounded-sm hover:bg-neutral-900 hover:text-white"
+                    >
+                      <InboxIcon className="h-6 w-6" />
+                      <span>Bandeja de entrada</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div>
                 Productos
                 <ul className={`pt-2 pb-4 space-y-1 text-sm`}>
                   <li>
@@ -83,6 +99,20 @@ export default function SideBar() {
                     >
                       <PencilSquareIcon className="h-6 w-6" />
                       <span>Editar productos</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                Pedidos
+                <ul className={`pt-2 pb-4 space-y-1 text-sm`}>
+                  <li>
+                    <a
+                      href="/admin/orderhistory"
+                      className="flex items-center p-2 space-x-3 rounded-sm hover:bg-neutral-900 hover:text-white"
+                    >
+                      <ClipboardDocumentListIcon className="h-6 w-6" />
+                      <span>Historial de pedidos</span>
                     </a>
                   </li>
                 </ul>
