@@ -56,7 +56,7 @@ export default function AllOrderHistory() {
                   <p class="text-gray-700">ID del usuario: {order.UserId}</p>
                   <p class="text-gray-700">Fecha de compra: {formattedDate}</p>
                   <p class="text-gray-700">Estado: {order.orderStatus}</p>
-                  {order.orderStatus === "Orden Creada" && (
+                  {order.orderStatus === "Orden Pagada" && (
                     <button
                       className="bg-neutral-900 text-white border border-neutral-900 hover:bg-white hover:text-neutral-900 p-1 mt-3 rounded-sm"
                       onClick={() => updateOrderStatus(order.id, "Enviando")}
