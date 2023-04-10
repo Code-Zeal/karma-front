@@ -51,7 +51,13 @@ export default function OrderCard(props) {
         </p>
         <p class="text-gray-700 text-sm mb-4">
           Estado de la orden{" "}
-          <span className="font-bold">{props.orderStatus}</span>
+          <span className="font-bold">
+            {props.orderStatus === "Orden Pagada"
+              ? "Procesando"
+              : props.orderStatus === "Enviando"
+              ? "Enviado"
+              : props.orderStatus}
+          </span>
         </p>
         <div>
           <Link

@@ -2,6 +2,9 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import CommentsAndRatings from "./CommentsAndRatings";
+import NavBar from "./NavBar";
+import SideBar from "./SideBar";
+import Footer from "./Footer";
 
 export default function DetailOrder(props) {
   const [popupOpen, setPopupOpen] = useState(false);
@@ -38,66 +41,90 @@ export default function DetailOrder(props) {
   console.log(totalPrice);
 
   return (
-    <section>
-      <h1>
-        Este es el listado de los productos comprados de acuerdo a tu pedido :
-        {id}
-      </h1>
-      <ul>
-        {detailOrder ? (
-          <>
-            {detailOrder.ShoppingCarts.map((shopping) => {
-              return (
-                <li class="flex items-center gap-4">
-                  <img
-                    src={shopping.Product.images[0]}
-                    alt=""
-                    class="h-16 w-16 rounded object-cover"
-                  />
+    <div>
+      <NavBar />
+      <div className="flex">
+        <SideBar />
+        <div className="container mx-auto mt-12">
+          <section className="bg-gray-100 py-8">
+            <h1 className="text-3xl font-bold mb-4 text-center">
+              Número de orden #{id}
+            </h1>
+            <p className="text-lg text-center">
+              Estado de tu orden:{" "}
+              {detailOrder.orderStatus === "Orden Pagada"
+                ? "Procesando"
+                : detailOrder.orderStatus === "Enviando"
+                ? "Enviado"
+                : detailOrder.orderStatus}
+            </p>
+            <ul className="max-w-4xl mx-auto">
+              {detailOrder ? (
+                <>
+                  {detailOrder.ShoppingCarts.map((shopping) => {
+                    return (
+                      <li className="flex items-center justify-between border-b-2 border-gray-300 py-4">
+                        <img
+                          className="w-16 h-16 object-contain mr-4"
+                          src={shopping.Product.images[0]}
+                          alt=""
+                        />
 
-                  <div>
-                    <h3 class="text-sm text-gray-900">
-                      {shopping.Product.model}
-                    </h3>
-                  </div>
+                        <div className="flex flex-col justify-between w-1/2">
+                          <div>
+                            <h3 className="text-lg font-bold mb-2">
+                              {shopping.Product.model}
+                            </h3>
+                            <div className="mb-2">
+                              <h3 className="font-normal mb-2">
+                                Déjanos tu opinión sobre el producto
+                              </h3>
+                              <button
+                                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md"
+                                onClick={handleOpenPopup}
+                              >
+                                Dejar valoración
+                              </button>
+                              {popupOpen && (
+                                <CommentsAndRatings
+                                  productId={shopping.ProductId}
+                                  onClose={handleClosePopup}
+                                />
+                              )}
+                            </div>
+                          </div>
+                          <div>
+                            <label className="text-gray-800">
+                              Cantidad: {shopping.amount}{" "}
+                            </label>
+                            <label className="text-gray-800">
+                              ${shopping.pricePerUnit}
+                            </label>
+                          </div>
+                        </div>
 
-                  <div className="bg-gray-800 py-6 rounded-lg mx-2 text-md font-bold">
-                    <h3 className="mx-2">
-                      Dejanos tu opinion sobre el producto
-                    </h3>
-                    <button
-                      onClick={handleOpenPopup}
-                      className="bg-white text-[#171717] px-3 py-1 rounded-lg font-bold mt-4"
-                    >
-                      Dejar Valoración
-                    </button>
-                    {popupOpen && (
-                      <CommentsAndRatings
-                        productId={shopping.ProductId}
-                        onClose={handleClosePopup}
-                      />
-                    )}
-                  </div>
-                  <div class="flex flex-1 items-center justify-end gap-8">
-                    <label>{shopping.amount}</label>
-                  </div>
+                        <div>
+                          <label className="text-gray-600">
+                            ${shopping.pricePerUnit}
+                          </label>
+                        </div>
+                      </li>
+                    );
+                  })}
 
-                  <div class="flex flex-1 items-center justify-end gap-8">
-                    <label>{shopping.pricePerUnit}</label>
+                  <div className="flex justify-end mt-4">
+                    <dt className="text-xl font-bold mr-4">Total:</dt>
+                    <dd className="text-xl font-bold">${totalPrice}</dd>
                   </div>
-                </li>
-              );
-            })}
-
-            <div class="flex justify-between !text-base font-medium">
-              <dt>Total</dt>
-              <dd>{totalPrice}</dd>
-            </div>
-          </>
-        ) : (
-          <></>
-        )}
-      </ul>
-    </section>
+                </>
+              ) : (
+                <></>
+              )}
+            </ul>
+          </section>
+        </div>
+      </div>
+      <Footer />
+    </div>
   );
 }
