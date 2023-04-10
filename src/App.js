@@ -21,9 +21,9 @@ import CommentsAdm from "./Components/CommentsAdm";
 import CommentDetails from "./Components/CommentDetails";
 import AllOrderHistory from "./Components/AllOrderHistory";
 import axios from "axios";
-axios.defaults.baseURL = "http://localhost:4000";
+axios.defaults.baseURL = "https://karma-backend-production.up.railway.app";
 // http://localhost:4000
-//https://karma-backend-production.up.railway.app/
+//https://karma-backend-production.up.railway.app
 function App() {
   return (
     <BrowserRouter>
