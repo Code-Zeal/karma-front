@@ -78,7 +78,7 @@ export const postCommentsAndRatings =
   (fromCommentsAndRatings) => async (dispatch) => {
     console.log(fromCommentsAndRatings);
     const response = await axios.post(
-      "/commentsRaiting/createCommentsRaiting",
+      "/commentsRating/createCommentsRating",
       fromCommentsAndRatings
     );
 
