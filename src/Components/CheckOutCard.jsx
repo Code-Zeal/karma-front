@@ -10,7 +10,7 @@ const CheckOutCard = (props) => {
       <div class="flex flex-1 items-center justify-end gap-8 mr-2">
         <label className="text-sm font-light">
           Cantidad:{" "}
-          <span className="m-2 bg-white border border-neutral-900 text-neutral-900 py-1 px-2 rounded-sm hover:bg-neutral-900 hover:text-white">
+          <span className="m-2 bg-white border border-neutral-900 text-neutral-900 py-1 px-2 rounded-sm  ">
             {props.amount}
           </span>
         </label>

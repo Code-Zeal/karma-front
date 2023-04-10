@@ -32,13 +32,13 @@ export default function MPButton(props) {
   return (
     <>
       <a href={urlMP} className="w-full flex items-center justify-center">
-        <button className="bg-blue-800 text-white  flex items-center justify-between border border-neutral-900  py-2 px-4 rounded-sm">
-          Pagar con Mercado Pago
+        <button className="bg-white text-black  flex items-center justify-between border border-neutral-900 hover:bg-[#171717] hover:text-white  py-2 px-4 rounded-sm w-[320px] h-[60px]">
+          PAGAR CON MERCADO PAGO
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 48 48"
-            width="48px"
-            height="48px"
+            width="60px"
+            height="50px"
           >
             <ellipse cx="23.5" cy="23.5" fill="#4fc3f7" rx="21.5" ry="15.5" />
             <path
