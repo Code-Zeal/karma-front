@@ -22,9 +22,9 @@ function CommentsAndRatings(props) {
   const handleSubmit = async (e) => {
     const dataCommentAndRating = {
       comments: comment,
-      rating: rating,
-      user_id: user?.sub,
-      product_id: props.productId,
+      rating: parseInt(rating),
+      UserId: user?.sub,
+      ProductId: props.productId,
     };
     e.preventDefault();
 
