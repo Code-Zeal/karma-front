@@ -6,11 +6,16 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate, redirect, NavLink } from "react-router-dom";
 import { Router } from "react-router-dom";
 import { useRef, useState } from "react";
+import { useEffect } from "react";
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const searchBarRef = useRef();
+
+  useEffect(() => {
+    window.location.hash = "logo";
+  });
 
   return (
     <header aria-label="Site Header" class="border-b border-neutral-300">
@@ -74,7 +79,7 @@ export default function NavBar() {
               Opción 3
             </a>
           </div>
-          <a href="/" class="flex">
+          <a href="/" class="flex" id="logo">
             <span class="sr-only">Logo</span>
             <img
               src="https://res.cloudinary.com/dpjxt54q0/image/upload/v1678751228/KarmaBlack_xsfd2j.png"
