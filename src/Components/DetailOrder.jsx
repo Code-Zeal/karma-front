@@ -1,8 +1,18 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import CommentsAndRatings from "./CommentsAndRatings";
 
 export default function DetailOrder(props) {
+  const [popupOpen, setPopupOpen] = useState(false);
+
+  const handleOpenPopup = () => {
+    setPopupOpen(true);
+  };
+
+  const handleClosePopup = () => {
+    setPopupOpen(false);
+  };
   const [detailOrder, setDetailOrder] = useState(null);
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -50,6 +60,24 @@ export default function DetailOrder(props) {
                       {shopping.Product.model}
                     </h3>
                   </div>
+
+                  <div className="bg-gray-800 py-6 rounded-lg mx-2 text-md font-bold">
+                    <h3 className="mx-2">
+                      Dejanos tu opinion sobre el producto
+                    </h3>
+                    <button
+                      onClick={handleOpenPopup}
+                      className="bg-white text-[#171717] px-3 py-1 rounded-lg font-bold mt-4"
+                    >
+                      Dejar Valoración
+                    </button>
+                    {popupOpen && (
+                      <CommentsAndRatings
+                        productId={shopping.ProductId}
+                        onClose={handleClosePopup}
+                      />
+                    )}
+                  </div>
                   <div class="flex flex-1 items-center justify-end gap-8">
                     <label>{shopping.amount}</label>
                   </div>
@@ -60,6 +88,7 @@ export default function DetailOrder(props) {
                 </li>
               );
             })}
+
             <div class="flex justify-between !text-base font-medium">
               <dt>Total</dt>
               <dd>{totalPrice}</dd>
