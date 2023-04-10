@@ -8,6 +8,7 @@ import CheckOutCard from "./CheckOutCard";
 import MyData from "./MyData";
 import MyDataCheckOut from "./MyDataCheckOut";
 import MPButton from "./ButtonMercadoPago";
+import PPButton from "./ButtonPaypal";
 
 export default function Checkout() {
   const [isDataComplete, setisDataComplete] = useState(null);
@@ -127,35 +128,47 @@ export default function Checkout() {
             >
               Ver metodos de pago
             </button>
-            {isDataComplete === false ? (
-              <>
-                <h3 className="text-red-600 font-bold text-lg">
-                  Tienes datos que no has rellenado aún, por favor completa
-                  todos tus datos y vuelve a presionar "Ver metodos de pago"
-                </h3>
-              </>
-            ) : (
-              <>
-                {isDataComplete === null ? (
-                  <></>
-                ) : (
-                  <>
-                    {isDataComplete === true ? (
-                      <>
-                        {idOrder && (
-                          <MPButton
-                            idOrder={idOrder}
-                            idUser={user?.sub}
-                          ></MPButton>
-                        )}
-                      </>
-                    ) : (
-                      <></>
-                    )}
-                  </>
-                )}
-              </>
-            )}
+            <div className="flex w-full justify-evenly">
+              {isDataComplete === false ? (
+                <>
+                  <h3 className="text-red-600 font-bold text-lg">
+                    Tienes datos que no has rellenado aún, por favor completa
+                    todos tus datos y vuelve a presionar "Ver metodos de pago"
+                  </h3>
+                </>
+              ) : (
+                <>
+                  {isDataComplete === null ? (
+                    <></>
+                  ) : (
+                    <>
+                      {isDataComplete === true ? (
+                        <>
+                          {idOrder && (
+                            <div className="my-2">
+                              <MPButton
+                                idOrder={idOrder}
+                                idUser={user?.sub}
+                              ></MPButton>
+                            </div>
+                          )}
+                          {idOrder && (
+                            <div className="my-2">
+                              <PPButton
+                                idOrder={idOrder}
+                                idUser={user?.sub}
+                              ></PPButton>
+                            </div>
+                          )}
+                        </>
+                      ) : (
+                        <></>
+                      )}
+                    </>
+                  )}
+                </>
+              )}
+            </div>
           </div>
         </div>
       )}
