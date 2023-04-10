@@ -1,44 +1,45 @@
-import { useEffect, useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
-import {
-  addItemsToShoppingCart,
-  removeItemsToShoppingCart,
-  toShoppingCartDelete,
-} from "../Redux/Actions";
-import { useDispatch } from "react-redux";
+import axios from "axios";
 
 const CartCard = (props) => {
-  const dispatch = useDispatch();
+  console.log({
+    UserId: props.userId,
+    ProductId: props.productID,
+    amount: 1,
+  });
+  const handleIncrement = async () => {
+    const response = await axios.put(
+      "/shoppingCart/addItemsToShoppingCartByProduct",
+      {
+        UserId: props.userId,
+        ProductId: props.productID,
+        amount: 1,
+      }
+    );
+    setTimeout(() => {
+      props.setHandleChange();
+    }, 200);
+  };
 
-  function handleIncrement() {
-    const dataAddCart = {
-      UserId: props.userId,
-      ProductId: props.productID,
-      amount: 1,
-    };
-    console.log(dataAddCart);
-    // dispatch
-    dispatch(addItemsToShoppingCart(dataAddCart));
-    window.location.reload();
-  }
-
-  function handleDecrement() {
-    const removeItemsCart = {
-      UserId: props.userId,
-      ProductId: props.productID,
-      amount: 1,
-    };
-    console.log(removeItemsCart);
-    // dispatch
-    dispatch(removeItemsToShoppingCart(removeItemsCart));
-    window.location.reload();
-  }
-  const handleRemoveCartItem = () => {
-    const CartDelete = props.delete;
-
-    console.log(CartDelete);
-    dispatch(toShoppingCartDelete(CartDelete));
-    window.location.reload();
+  const handleDecrement = async () => {
+    const response = await axios.put(
+      "/shoppingCart/removeItemsToShoppingCartByProduct",
+      {
+        UserId: props.userId,
+        ProductId: props.productID,
+        amount: 1,
+      }
+    );
+    setTimeout(() => {
+      props.setHandleChange();
+    }, 200);
+  };
+  const handleRemoveCartItem = async () => {
+    const response = await axios.delete(
+      `/shoppingCart/deleteShoppingCart?id=${props.delete}`
+    );
+    setTimeout(() => {
+      props.setHandleChange();
+    }, 200);
   };
 
   return (
