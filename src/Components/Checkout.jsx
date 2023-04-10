@@ -17,7 +17,10 @@ export default function Checkout() {
   const [idOrder, setIdOrder] = useState(null);
   function getIdOrdenCreada(orders) {
     for (let i = 0; i < orders.length; i++) {
-      if (orders[i].orderStatus === "Orden Creada") {
+      if (
+        orders[i].orderStatus === "Orden Creada" ||
+        orders[i].orderStatus === "Procesando Orden"
+      ) {
         return orders[i].id;
       }
     }
@@ -28,23 +31,21 @@ export default function Checkout() {
   const idUser = user?.sub;
   let total = 0;
   const [myData, setMyData] = useState("");
-  const Comprobador = async () => {
-    await getData();
+  const getDataCheck = async () => {
+    const res = await axios.get(`/user/getUser?id=${user?.sub}`);
+    setMyData(res.data);
     if (
-      myData?.address !== "none" ||
-      myData?.city !== "none" ||
-      myData?.phoneNumber !== "none" ||
-      myData?.lastName !== "none" ||
-      myData?.name !== "none"
+      res.data?.address !== "none" ||
+      res.data?.city !== "none" ||
+      res.data?.phoneNumber !== "none" ||
+      res.data?.lastName !== "none" ||
+      res.data?.name !== "none"
     ) {
       setisDataComplete(true);
       try {
         const res = await axios.post("/order/createOrder", {
           idUser: user?.sub,
         });
-        console.log(res.status);
-
-        console.log(res.data);
         setIdOrder(res.data.id);
       } catch (error) {
         const resId = await axios.get(`/user/getOrdersByUserId?id=${user.sub}`);
@@ -124,18 +125,18 @@ export default function Checkout() {
             <MyDataCheckOut></MyDataCheckOut>
             <button
               className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
-              onClick={Comprobador}
+              onClick={getDataCheck}
             >
               Ver metodos de pago
             </button>
             <div className="flex w-full justify-evenly">
               {isDataComplete === false ? (
-                <>
-                  <h3 className="text-red-600 font-bold text-lg">
+                <div className="flex justify-center items-center">
+                  <h3 className="text-red-600 font-normal text-md text-center">
                     Tienes datos que no has rellenado aún, por favor completa
                     todos tus datos y vuelve a presionar "Ver metodos de pago"
                   </h3>
-                </>
+                </div>
               ) : (
                 <>
                   {isDataComplete === null ? (

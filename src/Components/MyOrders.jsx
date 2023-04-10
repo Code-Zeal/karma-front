@@ -37,7 +37,10 @@ export default function MyOrders() {
           <>
             {order &&
               order.Orders.map((el) => {
-                if (el.orderStatus !== "Orden Creada") {
+                if (
+                  el.orderStatus !== "Orden Creada" &&
+                  el.orderStatus !== "Procesando Orden"
+                ) {
                   return (
                     <OrderCard
                       idOrder={el.id}
