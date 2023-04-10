@@ -3,8 +3,21 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch } from "react-redux";
 
 import { postCommentsAndRatings } from "../Redux/Actions";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function CommentsAndRatings(props) {
+  const notify = (msg) =>
+    toast.success(msg, {
+      toastId: "success",
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
   const dispatch = useDispatch();
   const { user } = useAuth0();
 
@@ -22,7 +35,7 @@ function CommentsAndRatings(props) {
   const handleSubmit = async (e) => {
     const dataCommentAndRating = {
       comments: comment,
-      rating: rating,
+      rating: parseInt(rating),
       UserId: user?.sub,
       ProductId: props.productId,
     };
@@ -32,7 +45,7 @@ function CommentsAndRatings(props) {
 
     setComment("");
     setRating(0);
-
+    notify("Comentario Agregado correctamente");
     props.onClose();
   };
 
