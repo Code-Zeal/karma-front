@@ -23,8 +23,8 @@ function CommentsAndRatings(props) {
     const dataCommentAndRating = {
       comments: comment,
       rating: rating,
-      user_id: user?.sub,
-      product_id: props.productId,
+      UserId: user?.sub,
+      ProductId: props.productId,
     };
     e.preventDefault();
 
