@@ -52,11 +52,11 @@ export default function DetailOrder(props) {
             </h1>
             <p className="text-lg text-center">
               Estado de tu orden:{" "}
-              {detailOrder.orderStatus === "Orden Pagada"
+              {detailOrder && detailOrder.orderStatus === "Orden Pagada"
                 ? "Procesando"
-                : detailOrder.orderStatus === "Enviando"
+                : detailOrder && detailOrder.orderStatus === "Enviando"
                 ? "Enviado"
-                : detailOrder.orderStatus}
+                : detailOrder && detailOrder.orderStatus}
             </p>
             <ul className="max-w-4xl mx-auto">
               {detailOrder ? (
