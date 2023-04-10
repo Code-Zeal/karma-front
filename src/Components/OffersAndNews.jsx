@@ -121,7 +121,7 @@ const OffersAndNews = (props) => {
               offers1.map((product) => {
                 return (
                   <Link
-                    to={`http://localhost:3000/detail/${product.id}`}
+                    to={`https://karma-front-code-zeal.vercel.app/detail/${product.id}`}
                     className="w-full flex items-start "
                   >
                     <h5 className="text-[10px] lg:text-lg font-semibold tracking-tight px-[10%] p-2 text-center rounded-tr-xl rounded-br-xl bg-[#171717] text-white absolute z-10 ">
@@ -223,7 +223,7 @@ const OffersAndNews = (props) => {
               offers2.map((product) => {
                 return (
                   <Link
-                    to={`http://localhost:3000/detail/${product.id}`}
+                    to={`https://karma-front-code-zeal.vercel.app/detail/${product.id}`}
                     className="w-full flex items-start "
                   >
                     <h5 className="text-[10px] lg:text-lg font-semibold tracking-tight px-[10%] p-2 text-center rounded-tr-xl rounded-br-xl bg-[#171717] text-white absolute z-10 ">
