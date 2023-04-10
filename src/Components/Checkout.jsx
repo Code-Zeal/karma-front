@@ -7,8 +7,6 @@ import CartCard from "./CartCard";
 import CheckOutCard from "./CheckOutCard";
 import MyData from "./MyData";
 import MyDataCheckOut from "./MyDataCheckOut";
-import MPButton from "./ButtonMercadoPago";
-import PPButton from "./ButtonPaypal";
 import { Navigate } from "react-router-dom";
 import LoadingCheckout from "./LoadingCheckout";
 
