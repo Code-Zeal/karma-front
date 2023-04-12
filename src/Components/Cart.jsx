@@ -23,9 +23,13 @@ export default function Cart() {
       `/product/getProductsFromUserShoppingCart?id=${user?.sub}`
     );
 
-    setCartProducts(response.data);
+    const sortedProducts = response.data.sort((a, b) =>
+      a.Product.model.localeCompare(b.Product.model)
+    );
 
-    response.data.forEach((product) => {
+    setCartProducts(sortedProducts);
+
+    sortedProducts.forEach((product) => {
       product.pricePerUnit = product.Product.price * product.amount;
       setTotalPrice((total += product.pricePerUnit));
     });
