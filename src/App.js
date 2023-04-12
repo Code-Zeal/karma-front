@@ -21,7 +21,9 @@ import CommentsAdm from "./Components/CommentsAdm";
 import CommentDetails from "./Components/CommentDetails";
 import AllOrderHistory from "./Components/AllOrderHistory";
 import axios from "axios";
-axios.defaults.baseURL = "https://karma-backend-production.up.railway.app";
+import AllProductsDiscount from "./Components/AllProductsDiscount";
+import AddProductDiscount from "./Components/AddProductDiscount";
+axios.defaults.baseURL = "http://localhost:4000";
 // http://localhost:4000
 //https://karma-backend-production.up.railway.app
 function App() {
@@ -46,6 +48,8 @@ function App() {
         <Route path="/admin/feedbacks" element={<CommentsAdm />} />
         <Route path="/admin/feedback/:id" element={<CommentDetails />} />
         <Route path="/admin/orderhistory/" element={<AllOrderHistory />} />
+        <Route path="/admin/addDiscount/" element={<AllProductsDiscount />} />
+        <Route path="/admin/addDiscount/:id" element={<AddProductDiscount />} />
       </Routes>
     </BrowserRouter>
   );
