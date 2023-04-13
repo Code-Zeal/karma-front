@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function Card(props) {
+export default function DiscountProductCard(props) {
   const [diasRestantes, setDiasRestantes] = useState(null);
   useEffect(() => {
     if (props.card?.ProductDiscount) {
@@ -14,9 +14,10 @@ export default function Card(props) {
       setDiasRestantes(diasRestantes);
     }
   }, [props]);
+  console.log(props);
   return (
-    <Link to={`/detail/${props.card.id}`} className="m-4">
-      <div className="max-w-sm overflow-hidden shadow-lg border border-neutral-600 h-[600px]">
+    <Link to={`/admin/addDiscount/${props.card.id}`} className="m-4">
+      <div className="max-w-sm overflow-hidden shadow-lg border border-neutral-600">
         <div className="h-[400px] w-[400px] flex items-center justify-center">
           <img
             src={`${props.card.images[0]}`}

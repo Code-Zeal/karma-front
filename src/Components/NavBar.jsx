@@ -3,14 +3,11 @@ import CartPopup from "./CartPopup";
 import UserDropdown from "./UserDropdown";
 import SearchBar from "./SearchBar";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { Link, useNavigate, redirect, NavLink } from "react-router-dom";
-import { Router } from "react-router-dom";
 import { useRef, useState } from "react";
 import { useEffect } from "react";
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
   const searchBarRef = useRef();
 
   useEffect(() => {
@@ -72,12 +69,15 @@ export default function NavBar() {
               </Dropdown>
             </div>
             <hr />
-            <a
-              href="#"
-              className="font-bold font-mono block px-3 py-2 rounded-sm text-sm text-center text-neutral-900 hover:text-white hover:bg-neutral-900"
-            >
-              Opción 3
-            </a>
+            <div className="flex font-bold font-mono px-3 py-2 rounded-sm text-sm text-center justify-center text-neutral-900 hover:text-white hover:bg-neutral-900">
+              <a
+                href="/search"
+                class="font-bold font-mono block px-3 py-2 rounded-sm text-sm text-center text-neutral-900 hover:text-white hover:bg-neutral-900"
+              >
+                EXPLORAR
+              </a>
+            </div>
+            <hr />
           </div>
           <a href="/" class="flex" id="logo">
             <span class="sr-only">Logo</span>

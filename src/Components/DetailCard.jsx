@@ -33,8 +33,20 @@ export default function DetailsCard() {
   }, [id]);
 
   const [cantidad, setCantidad] = useState(1);
+  const [precioTotal, setPrecioTotal] = useState(null);
   const precioUnitario = detailProduct?.price;
-  const precioTotal = cantidad * precioUnitario;
+  useEffect(() => {
+    if (detailProduct?.ProductDiscount) {
+      setPrecioTotal(
+        cantidad * precioUnitario -
+          (precioUnitario * detailProduct.ProductDiscount[0].discountValue) /
+            100
+      );
+    } else {
+      setPrecioTotal(cantidad * precioUnitario);
+    }
+  }, [cantidad, detailProduct]);
+
   console.log(id);
   console.log(detailProduct);
 
@@ -61,7 +73,19 @@ export default function DetailsCard() {
       setCantidad(cantidad - 1);
     }
   }
+  const [diasRestantes, setDiasRestantes] = useState(null);
 
+  useEffect(() => {
+    if (detailProduct?.ProductDiscount) {
+      const hoy = new Date();
+      const fechaObjetivoEnTiempo = new Date(
+        detailProduct.ProductDiscount[0].endingDate
+      );
+      const diferenciaEnTiempo = fechaObjetivoEnTiempo - hoy;
+      const diasRestantes = Math.ceil(diferenciaEnTiempo / (1000 * 3600 * 24)); // convertir a días y redondear hacia arriba
+      setDiasRestantes(diasRestantes);
+    }
+  }, [detailProduct]);
   return (
     <>
       <ToastContainer
@@ -173,7 +197,6 @@ export default function DetailsCard() {
                     />
                   );
                 })}
-                <img src={detailProduct.images[0]} alt="" />
               </Carousel>
             </div>
 
@@ -191,9 +214,36 @@ export default function DetailsCard() {
                 <h5 className="text-2xl font-bold my-3">{`${detailProduct.Television[0].name}`}</h5>
               )}
               <div className="flex flex-col my-3">
-                <span className="text-2xl font-bold">
-                  Precio ${precioUnitario}
-                </span>
+                {detailProduct?.ProductDiscount &&
+                detailProduct.ProductDiscount[0] ? (
+                  <div className="flex flex-col">
+                    <div>
+                      <span className="text-lg font-bold text-red-500 dark:text-white line-through mr-6">
+                        ${precioUnitario}
+                      </span>
+                      <div className="bg-red-600 w-[45px] h-[45px] rounded-full  items-center justify-center text-center text-white inline-flex mr-6">
+                        {detailProduct.ProductDiscount[0].discountValue}%
+                        {console.log(detailProduct)}
+                      </div>
+                      <span className="text-lg font-bold text-gray-900 dark:text-white ">
+                        $
+                        {precioUnitario -
+                          (precioUnitario *
+                            detailProduct.ProductDiscount[0].discountValue) /
+                            100}
+                      </span>
+                    </div>
+                    <p className="text-center flex justify-start items-start">
+                      {`La oferta termina en ${diasRestantes} dias`}
+                    </p>
+                  </div>
+                ) : (
+                  <>
+                    <span className="text-lg font-bold text-gray-900 dark:text-white ">
+                      ${precioUnitario}
+                    </span>
+                  </>
+                )}
               </div>
               {isAuthenticated ? (
                 <>

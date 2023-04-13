@@ -117,6 +117,29 @@ export default function SideBar() {
                   </li>
                 </ul>
               </div>
+              <div>
+                Ofertas
+                <ul className={`pt-2 pb-4 space-y-1 text-sm`}>
+                  <li>
+                    <a
+                      href="/admin/addDiscount"
+                      className="flex items-center p-2 space-x-3 rounded-sm hover:bg-neutral-900 hover:text-white"
+                    >
+                      <ClipboardDocumentListIcon className="h-6 w-6" />
+                      <span>Agregar oferta a productos</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/admin/allDiscount"
+                      className="flex items-center p-2 space-x-3 rounded-sm hover:bg-neutral-900 hover:text-white"
+                    >
+                      <ClipboardDocumentListIcon className="h-6 w-6" />
+                      <span>Productos en oferta</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
           )}
         </div>
