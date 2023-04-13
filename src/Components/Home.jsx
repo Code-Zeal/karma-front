@@ -19,6 +19,7 @@ import CreateProduct from "./CreateProduct";
 import AllProductsAdm from "./AllProductsAdm";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import SearchBar from "./SearchBar";
+import SliderCategories from "./SliderCategories";
 
 function Home() {
   const searchBarRef = useRef();
@@ -114,6 +115,7 @@ function Home() {
           </div>
         </div>
       </div>
+      <SliderCategories></SliderCategories>
       <OffersAndNews />
       <PaymentMethods></PaymentMethods>
       <OffersSamsung></OffersSamsung>
