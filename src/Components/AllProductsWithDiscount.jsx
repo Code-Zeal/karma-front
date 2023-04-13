@@ -8,7 +8,7 @@ import SideBar from "./SideBar";
 import DiscountProductCard from "./DiscountProductCard";
 import Paginated from "./Paginated";
 
-const AllProductsDiscount = () => {
+const AllProductsWithDiscount = () => {
   const errorNotify = (msg) =>
     toast.error(msg, {
       toastId: "error",
@@ -34,7 +34,7 @@ const AllProductsDiscount = () => {
   useEffect(() => {
     const searchAll = async () => {
       try {
-        let res = await axios.get("/product/getProducts");
+        let res = await axios.get("/discount/getDiscountedProducts");
         setData(res.data);
         setProducts(res.data.slice(indexOfFirstRecipes, indexOfLastRecipes));
       } catch (error) {
@@ -125,4 +125,4 @@ const AllProductsDiscount = () => {
     </div>
   );
 };
-export default AllProductsDiscount;
+export default AllProductsWithDiscount;
