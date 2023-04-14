@@ -15,6 +15,28 @@ import { Carousel } from "flowbite-react";
 import Login from "./Login";
 
 export default function DetailsCard() {
+  const notify = (msg) =>
+    toast.success(msg, {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  const errorNotify = (msg) =>
+    toast.error(msg, {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
   const dispatch = useDispatch();
 
   const { user, isAuthenticated } = useAuth0();
@@ -47,17 +69,43 @@ export default function DetailsCard() {
     }
   }, [cantidad, detailProduct]);
 
-  console.log(id);
-  console.log(detailProduct);
+  const handleAddCart = async () => {
+    const response = await axios.get(
+      `/product/getProductsFromUserShoppingCart?id=${user?.sub}`
+    );
 
-  const handleAddCart = () => {
-    const dataAddCart = {
-      UserId: user?.sub,
-      ProductId: id,
-      amount: cantidad,
-    };
-    console.log(dataAddCart);
-    dispatch(createAddToShoppingCart(dataAddCart));
+    response.data.map((product) => {
+      if (product.Product.id === parseInt(id)) {
+        console.log("ya existe");
+        const handleIncrement = async () => {
+          try {
+            const response = await axios.put(
+              "/shoppingCart/addItemsToShoppingCartByProduct",
+              {
+                UserId: user?.sub,
+                ProductId: parseInt(id),
+                amount: cantidad,
+              }
+            );
+            notify("El producto se agregó al carrito");
+          } catch (error) {
+            errorNotify(
+              "Ha ocurrido un error al agregar el producto al carrito, intente de nuevo"
+            );
+          }
+        };
+        handleIncrement();
+      } else {
+        console.log("aun no existe");
+        const dataAddCart = {
+          UserId: user?.sub,
+          ProductId: id,
+          amount: cantidad,
+        };
+        console.log(dataAddCart);
+        dispatch(createAddToShoppingCart(dataAddCart));
+      }
+    });
   };
 
   function handleCantidadChange(event) {

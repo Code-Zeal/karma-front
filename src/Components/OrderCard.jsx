@@ -28,9 +28,26 @@ export default function OrderCard(props) {
     async function fetchData(id) {
       const responseOrder = await axios.get(`/order/getOrder?id=${id}`);
       const dataOrder = responseOrder.data;
-      dataOrder.ShoppingCarts.forEach((order) => {
-        order.pricePerUnit = order.Product.price * order.amount;
-        return (total += order.pricePerUnit);
+      dataOrder.ShoppingCarts.forEach((product) => {
+        if (product.Product?.ProductDiscount) {
+          product.pricePerUnit =
+            product.Product.price -
+            (product.Product.price *
+              product.Product.ProductDiscount.discountValue) /
+              100;
+
+          setTotalPrice(
+            (total +=
+              (product.Product.price -
+                (product.Product.price *
+                  product.Product.ProductDiscount.discountValue) /
+                  100) *
+              product.amount)
+          );
+        } else {
+          product.pricePerUnit = product.Product.price;
+          setTotalPrice((total += product.pricePerUnit * product.amount));
+        }
       });
       setTotalPrice(total);
       console.log(dataOrder);

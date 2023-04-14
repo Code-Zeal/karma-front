@@ -23,7 +23,7 @@ const AllProductsWithDiscount = () => {
     });
   const [data, setData] = useState(false);
   const [input, setInput] = useState("noInput");
-  const [products, setProducts] = useState(null);
+  const [products, setProducts] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [recipesPerPage] = useState(6);
   const indexOfLastRecipes = currentPage * recipesPerPage;
@@ -95,7 +95,7 @@ const AllProductsWithDiscount = () => {
               />
             </div>
             <div className="w-full flex flex-wrap justify-center">
-              {products ? (
+              {typeof products !== "string" && products ? (
                 products.map((product) => {
                   return (
                     <DiscountProductCard card={product}></DiscountProductCard>
@@ -112,7 +112,7 @@ const AllProductsWithDiscount = () => {
           </div>
         </div>
       </div>
-      <div className="w-full flex items-center justify-center">
+      <div className="w-10/12 ml-auto flex items-center justify-center">
         <Paginated
           recipesPerPage={recipesPerPage}
           allRecipes={data && data.length}

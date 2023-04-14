@@ -1,11 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import EditProductCard from "./EditProductCard";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SideBar from "./SideBar";
+import DiscountProductCard from "./DiscountProductCard";
+import Paginated from "./Paginated";
+import EditProductCard from "./EditProductCard";
 
 const AllProductsAdm = () => {
   const errorNotify = (msg) =>
@@ -22,11 +24,20 @@ const AllProductsAdm = () => {
     });
   const [data, setData] = useState(false);
   const [input, setInput] = useState("noInput");
+  const [products, setProducts] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recipesPerPage] = useState(6);
+  const indexOfLastRecipes = currentPage * recipesPerPage;
+  const indexOfFirstRecipes = indexOfLastRecipes - recipesPerPage;
+  const pagination = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
   useEffect(() => {
     const searchAll = async () => {
       try {
         let res = await axios.get("/product/getProducts");
         setData(res.data);
+        setProducts(res.data.slice(indexOfFirstRecipes, indexOfLastRecipes));
       } catch (error) {
         setData(false);
         errorNotify(error.response.data);
@@ -46,7 +57,7 @@ const AllProductsAdm = () => {
     } else {
       searchByInput(input);
     }
-  }, [input]);
+  }, [input, currentPage]);
 
   const handlerChange = (event) => {
     if (event.target.value === "") {
@@ -85,8 +96,8 @@ const AllProductsAdm = () => {
               />
             </div>
             <div className="w-full flex flex-wrap justify-center">
-              {data ? (
-                data.map((product) => {
+              {products ? (
+                products.map((product) => {
                   return <EditProductCard card={product}></EditProductCard>;
                 })
               ) : (
@@ -99,6 +110,15 @@ const AllProductsAdm = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="w-10/12 ml-auto flex items-center justify-center">
+        <Paginated
+          recipesPerPage={recipesPerPage}
+          allRecipes={data && data.length}
+          pagination={pagination}
+          currentRecipes={products}
+          currentPage={currentPage}
+        ></Paginated>
       </div>
       <Footer></Footer>
     </div>

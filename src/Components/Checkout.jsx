@@ -76,8 +76,25 @@ export default function Checkout() {
       setCartProducts(data);
 
       data.forEach((product) => {
-        product.pricePerUnit = product.Product.price * product.amount;
-        return (total += product.pricePerUnit);
+        if (product.Product?.ProductDiscount) {
+          product.pricePerUnit =
+            product.Product.price -
+            (product.Product.price *
+              product.Product.ProductDiscount.discountValue) /
+              100;
+
+          setTotalPrice(
+            (total +=
+              (product.Product.price -
+                (product.Product.price *
+                  product.Product.ProductDiscount.discountValue) /
+                  100) *
+              product.amount)
+          );
+        } else {
+          product.pricePerUnit = product.Product.price;
+          setTotalPrice((total += product.pricePerUnit * product.amount));
+        }
       });
       setTotalPrice(total);
     }

@@ -63,7 +63,7 @@ const CartCard = (props) => {
       </div>
 
       <div class="flex flex-1 items-center justify-end gap-8">
-        <label>{props.priceXProduct}</label>
+        <label>${props.priceXProduct}</label>
         <button
           className="py-1 px-2 bg-gray-100 rounded-lg mr-2"
           onClick={handleDecrement}

@@ -26,8 +26,25 @@ export default function Cart() {
     setCartProducts(response.data);
 
     response.data.forEach((product) => {
-      product.pricePerUnit = product.Product.price * product.amount;
-      setTotalPrice((total += product.pricePerUnit));
+      if (product.Product?.ProductDiscount) {
+        product.pricePerUnit =
+          product.Product.price -
+          (product.Product.price *
+            product.Product.ProductDiscount.discountValue) /
+            100;
+
+        setTotalPrice(
+          (total +=
+            (product.Product.price -
+              (product.Product.price *
+                product.Product.ProductDiscount.discountValue) /
+                100) *
+            product.amount)
+        );
+      } else {
+        product.pricePerUnit = product.Product.price;
+        setTotalPrice((total += product.pricePerUnit * product.amount));
+      }
     });
   }
   useEffect(() => {
@@ -50,18 +67,21 @@ export default function Cart() {
               <div class="mt-8">
                 <ul class="space-y-4">
                   {cartProducts ? (
-                    cartProducts.map((cart) => (
-                      <CartCard
-                        setHandleChange={handleChange}
-                        productID={cart.ProductId}
-                        image={cart.Product.images[0]}
-                        model={cart.Product.model}
-                        priceXProduct={cart.pricePerUnit}
-                        cantidad={cart.amount}
-                        userId={user && user?.sub}
-                        delete={cart.id}
-                      />
-                    ))
+                    cartProducts.map((cart) => {
+                      console.log();
+                      return (
+                        <CartCard
+                          setHandleChange={handleChange}
+                          productID={cart.ProductId}
+                          image={cart.Product.images[0]}
+                          model={cart.Product.model}
+                          priceXProduct={cart.pricePerUnit}
+                          cantidad={cart.amount}
+                          userId={user && user?.sub}
+                          delete={cart.id}
+                        />
+                      );
+                    })
                   ) : (
                     <></>
                   )}

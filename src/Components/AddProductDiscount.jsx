@@ -1,8 +1,7 @@
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import Rating from "./Rating";
 import { isBefore } from "date-fns";
-import { utcToZonedTime } from "date-fns-tz";
 
 import { useEffect, useState } from "react";
 import NavBar from "./NavBar";
@@ -126,31 +125,33 @@ export default function DetailsCard() {
   const [diasRestantes, setDiasRestantes] = useState(null);
 
   const validateStartingDate = (selectedDate) => {
-    const hoy = new Date();
+    const fechaDeAyer = () => {
+      let hoy = new Date();
+      let DIA_EN_MILISEGUNDOS = 24 * 60 * 60 * 1000;
+      let manana = new Date(hoy.getTime() - DIA_EN_MILISEGUNDOS);
+      return manana;
+    };
     const fechaSeleccionada = new Date(selectedDate);
-
-    console.log(hoy); // resultado: Wed Apr 12 2023 23:24:46 GMT-0400 (hora de Venezuela)
-    console.log(fechaSeleccionada); //resultado: Wed Apr 12 2023 20:00:00 GMT-0400 (hora de Venezuela)
-    if (isBefore(fechaSeleccionada, hoy)) {
+    if (isBefore(fechaSeleccionada, fechaDeAyer())) {
       return "No puedes seleccionar una fecha anterior a hoy";
     }
   };
-  console.log(watch("startingDate"));
+
   const validateEndingDate = (selectedDate) => {
-    const hoy = new Date();
-    const fechaSeleccionada = new Date("2023-04-14");
-    console.log(fechaSeleccionada);
+    const fechaDeAyer = () => {
+      let hoy = new Date();
+      let DIA_EN_MILISEGUNDOS = 24 * 60 * 60 * 1000;
+      let manana = new Date(hoy.getTime() - DIA_EN_MILISEGUNDOS);
+      return manana;
+    };
+    const fechaSeleccionada = new Date(selectedDate);
     if (watch("startingDate")) {
-      console.log(1);
       const hoy = new Date(watch("endingDate"));
       const fechaSeleccionada = new Date(watch("startingDate"));
-      console.log(fechaSeleccionada);
-      console.log(hoy);
       if (isBefore(hoy, fechaSeleccionada)) {
-        console.log(3);
         return "No puedes seleccionar una fecha anterior a la inicial";
       }
-    } else if (isBefore(fechaSeleccionada, hoy)) {
+    } else if (isBefore(fechaSeleccionada, fechaDeAyer())) {
       console.log(2);
       return "No puedes seleccionar una fecha anterior a hoy";
     }
