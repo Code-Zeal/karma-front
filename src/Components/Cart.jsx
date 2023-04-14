@@ -23,7 +23,10 @@ export default function Cart() {
       `/product/getProductsFromUserShoppingCart?id=${user?.sub}`
     );
 
-    setCartProducts(response.data);
+    const sortedProducts = response.data.sort((a, b) =>
+      a.Product.model.localeCompare(b.Product.model)
+    );
+    setCartProducts(sortedProducts);
 
     response.data.forEach((product) => {
       if (product.Product?.ProductDiscount) {

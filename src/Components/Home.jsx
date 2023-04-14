@@ -13,6 +13,7 @@ import { FeedbackHome } from "./FeedbackHome";
 import { useEffect } from "react";
 
 import SearchBar from "./SearchBar";
+import SliderCategories from "./SliderCategories";
 
 function Home() {
   const searchBarRef = useRef();
@@ -93,6 +94,7 @@ function Home() {
           </div>
         </div>
       </div>
+      <SliderCategories></SliderCategories>
       <OffersAndNews />
       <PaymentMethods></PaymentMethods>
       <FeedbackHome></FeedbackHome>
