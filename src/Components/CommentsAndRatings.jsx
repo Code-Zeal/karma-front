@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 function CommentsAndRatings(props) {
   const notify = (msg) =>
     toast.success(msg, {
+      icon: false,
       toastId: "success",
       position: "top-center",
       autoClose: 5000,

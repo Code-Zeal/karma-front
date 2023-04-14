@@ -110,6 +110,7 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
   const onSubmit = async (form) => {
     const notify = (msg) =>
       toast.success(msg, {
+        icon: false,
         toastId: "success",
         position: "top-center",
         autoClose: 5000,
@@ -122,7 +123,8 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
       });
     const errorNotify = (msg) =>
       toast.error(msg, {
-        toastId: "errors",
+        icon: false,
+        toastId: "error",
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -421,6 +423,7 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
   return (
     <>
       <ToastContainer
+        icon={false}
         position="top-center"
         autoClose={5000}
         hideProgressBar={false}
@@ -430,7 +433,7 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="dark"
+        theme="light"
       />
       {visible ? (
         <div className="fixed z-10 inset-0 flex justify-center items-center bg-[#000000ab] ">

@@ -17,6 +17,7 @@ export default function DetailsCard() {
   console.log(percentage);
   const errorNotify = (msg) =>
     toast.error(msg, {
+      icon:false,
       toastId: "error",
       position: "top-center",
       autoClose: 2000,
@@ -29,6 +30,7 @@ export default function DetailsCard() {
     });
   const notify = (msg) =>
     toast.success(msg, {
+      icon:false,
       toastId: "success",
       position: "top-center",
       autoClose: 2000,
@@ -182,6 +184,7 @@ export default function DetailsCard() {
   return (
     <>
       <ToastContainer
+        icon={false}
         position="top-center"
         autoClose={5000}
         hideProgressBar={false}
@@ -191,7 +194,7 @@ export default function DetailsCard() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="dark"
+        theme="light"
       />
       {detailProduct ? (
         <>

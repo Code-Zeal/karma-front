@@ -16,7 +16,9 @@ import Login from "./Login";
 
 export default function DetailsCard() {
   const notify = (msg) =>
-    toast.success(msg, {
+    toast.info(msg, {
+      icon: false,
+      toastId: "success",
       position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
@@ -28,6 +30,8 @@ export default function DetailsCard() {
     });
   const errorNotify = (msg) =>
     toast.error(msg, {
+      toastId: "error",
+      icon: false,
       position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
@@ -73,39 +77,51 @@ export default function DetailsCard() {
     const response = await axios.get(
       `/product/getProductsFromUserShoppingCart?id=${user?.sub}`
     );
-
-    response.data.map((product) => {
-      if (product.Product.id === parseInt(id)) {
-        console.log("ya existe");
-        const handleIncrement = async () => {
-          try {
-            const response = await axios.put(
-              "/shoppingCart/addItemsToShoppingCartByProduct",
-              {
-                UserId: user?.sub,
-                ProductId: parseInt(id),
-                amount: cantidad,
-              }
-            );
-            notify("El producto se agregó al carrito");
-          } catch (error) {
-            errorNotify(
-              "Ha ocurrido un error al agregar el producto al carrito, intente de nuevo"
-            );
-          }
-        };
-        handleIncrement();
-      } else {
-        console.log("aun no existe");
-        const dataAddCart = {
-          UserId: user?.sub,
-          ProductId: id,
-          amount: cantidad,
-        };
-        console.log(dataAddCart);
-        dispatch(createAddToShoppingCart(dataAddCart));
-      }
-    });
+    if (response.data.length > 0) {
+      response.data.map((product) => {
+        console.log(product);
+        if (product.Product.id === parseInt(id)) {
+          console.log("ya existe");
+          const handleIncrement = async () => {
+            try {
+              const response = await axios.put(
+                "/shoppingCart/addItemsToShoppingCartByProduct",
+                {
+                  UserId: user?.sub,
+                  ProductId: parseInt(id),
+                  amount: cantidad,
+                }
+              );
+              notify("El producto se agregó al carrito");
+              return;
+            } catch (error) {
+              errorNotify(
+                "Ha ocurrido un error al agregar el producto al carrito, intente de nuevo"
+              );
+            }
+          };
+          handleIncrement();
+        } else {
+          console.log("aun no existe");
+          const dataAddCart = {
+            UserId: user?.sub,
+            ProductId: id,
+            amount: cantidad,
+          };
+          console.log(dataAddCart);
+          dispatch(createAddToShoppingCart(dataAddCart));
+        }
+      });
+    } else {
+      console.log("aun no existe");
+      const dataAddCart = {
+        UserId: user?.sub,
+        ProductId: id,
+        amount: cantidad,
+      };
+      console.log(dataAddCart);
+      dispatch(createAddToShoppingCart(dataAddCart));
+    }
   };
 
   function handleCantidadChange(event) {
@@ -137,6 +153,7 @@ export default function DetailsCard() {
   return (
     <>
       <ToastContainer
+        icon={false}
         position="top-center"
         autoClose={5000}
         hideProgressBar={false}
@@ -146,7 +163,7 @@ export default function DetailsCard() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="dark"
+        theme="light"
       />
       <NavBar />
       {detailProduct ? (

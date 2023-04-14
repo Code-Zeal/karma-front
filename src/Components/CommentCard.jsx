@@ -4,6 +4,8 @@ import { ToastContainer, toast } from "react-toastify";
 const CommentCard = (props, ref) => {
   const notify = (msg) =>
     toast.success(msg, {
+      icon: false,
+      toastId: "success",
       position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
@@ -15,6 +17,8 @@ const CommentCard = (props, ref) => {
     });
   const errorNotify = (msg) =>
     toast.error(msg, {
+      icon: false,
+      toastId: "error",
       position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
@@ -46,6 +50,7 @@ const CommentCard = (props, ref) => {
   return (
     <div className="w-7/12 m-1 text-white border border-neutral-900 bg-neutral-800 py-2 px-4 rounded-sm flex items-center ">
       <ToastContainer
+        icon={false}
         position="top-center"
         autoClose={5000}
         hideProgressBar={false}
@@ -55,7 +60,7 @@ const CommentCard = (props, ref) => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="dark"
+        theme="light"
       />
       {props.read ? (
         <button className=" bg-neutral-900 border border-neutral-900 text-white py-2 px-2 w-[220px] rounded-sm mr-4 cursor-pointer text-sm text-center">

@@ -15,6 +15,8 @@ import {
 const CreateProduct = (props) => {
   const notify = () =>
     toast.success(`Producto creado correctamente`, {
+      icon: false,
+      toastId: "success",
       position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
@@ -28,6 +30,8 @@ const CreateProduct = (props) => {
     toast.error(
       "Ha ocurrido un error, verifica que los datos son correctos e intente de nuevo",
       {
+        icon: false,
+        toastId: "error",
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
