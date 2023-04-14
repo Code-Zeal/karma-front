@@ -1,14 +1,12 @@
 import React, { useRef } from "react";
 import PaymentMethods from "./PaymentMethods";
 import OffersAndNews from "./OffersAndNews";
-import OffersSamsung from "./OffersSamsung";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch } from "react-redux";
 import { postRegisterAuth0 } from "../Redux/Actions";
 
 import NavBar from "./NavBar";
 import Footer from "./Footer";
-import OffersHuawei from "./OffersHuawei";
 import { FeedbackHome } from "./FeedbackHome";
 import { useEffect } from "react";
 

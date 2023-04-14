@@ -69,7 +69,10 @@ const CreateProduct = (props) => {
         if (res.status === 200) {
           console.log(1);
           reset();
-
+          setSomeData({
+            colors: [],
+            images: [],
+          });
           notify();
         }
       } catch (error) {
@@ -89,6 +92,10 @@ const CreateProduct = (props) => {
         console.log(res);
         if (res.status === 200) {
           reset();
+          setSomeData({
+            colors: [],
+            images: [],
+          });
           notify();
         }
       } catch (error) {
@@ -109,6 +116,10 @@ const CreateProduct = (props) => {
         console.log(res);
         if (res.status === 200) {
           reset();
+          setSomeData({
+            colors: [],
+            images: [],
+          });
           notify();
         }
       } catch (error) {
@@ -128,6 +139,10 @@ const CreateProduct = (props) => {
         console.log(res);
         if (res.status === 200) {
           reset();
+          setSomeData({
+            colors: [],
+            images: [],
+          });
           notify();
         }
       } catch (error) {
@@ -148,10 +163,6 @@ const CreateProduct = (props) => {
       {
         cloudName: "dx2me9gqm",
         uploadPreset: "hauiebsf",
-        cropping: true,
-        multiple: false,
-        resourcetype: "image",
-        transformations: [{ effect: "remove_background" }],
       },
       function (error, result) {
         if (result.event === "success") {
@@ -196,7 +207,7 @@ const CreateProduct = (props) => {
           />
 
           <div className="bg-white w-full rounded-lg flex flex-col items-center justify-center">
-            <div className="w-full mt-4 flex items-center justify-evenly">
+            <div className="w-full mt-4 flex items-start justify-evenly">
               <div>
                 <select
                   className="rounded-sm"
@@ -213,13 +224,14 @@ const CreateProduct = (props) => {
                   <option value="Laptop">Laptop</option>
                 </select>
               </div>
-
-              <button
-                className="border bg-white border-neutral-900 text-neutral-900 hover:bg-neutral-900 hover:text-white py-1 px-3 text-lg rounded-sm font-mono"
-                onClick={() => widgetRef.current.open()}
-              >
-                Subir imagenes
-              </button>
+              {category !== "" && (
+                <button
+                  className="border bg-white border-neutral-900 text-neutral-900 hover:bg-neutral-900 hover:text-white py-1 px-3 text-lg rounded-sm font-mono"
+                  onClick={() => widgetRef.current.open()}
+                >
+                  Subir imagenes
+                </button>
+              )}
 
               <div className="rounded-sm w-[400px] h-[400px] items-center flex flex-col">
                 {category !== "" && (
