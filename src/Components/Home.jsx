@@ -20,6 +20,7 @@ import AllProductsAdm from "./AllProductsAdm";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import SearchBar from "./SearchBar";
 import SliderCategories from "./SliderCategories";
+import ProductList from "./ProductList";
 
 function Home() {
   const searchBarRef = useRef();
@@ -121,7 +122,11 @@ function Home() {
       <OffersSamsung></OffersSamsung>
       <FeedbackHome></FeedbackHome>
       <OffersHuawei></OffersHuawei>
-      <Footer></Footer>
+      <ProductList></ProductList>
+      {/* <div id="footer" className="w-full h-40 bg-gray-300 fixed bottom-0">
+        <Footer></Footer>
+      </div> */}
+      {/* <Footer></Footer> */}
     </section>
   );
 }
