@@ -21,7 +21,12 @@ function ProductList() {
 
   const handleButtonClick = async () => {
     const start = productCount;
-    const end = productCount + 8;
+    let end = start + 8;
+
+    if (end > products.length) {
+      end = products.length;
+    }
+    console.log(start);
 
     const response = await axios.get(
       `/product/getProducts?start=${start}&end=${end}`
@@ -35,10 +40,6 @@ function ProductList() {
   };
 
   const handleScroll = async () => {
-    console.log(window.innerHeight);
-    console.log(window.pageYOffset);
-    console.log(document.body.offsetHeight);
-
     if (
       window.innerHeight + window.pageYOffset >= document.body.offsetHeight &&
       productCount < products.length
