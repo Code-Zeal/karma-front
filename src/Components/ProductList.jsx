@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Card from "./Card";
 
@@ -6,6 +6,7 @@ function ProductList() {
   const [products, setProducts] = useState([]);
   const [productCount, setProductCount] = useState(0);
   const [productsLoadedIds, setProductsLoadedIds] = useState([]);
+  const productContainerRef = useRef(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -41,22 +42,29 @@ function ProductList() {
 
   const handleScroll = async () => {
     if (
-      window.innerHeight + window.pageYOffset >= document.body.offsetHeight &&
-      productCount < products.length
+      productContainerRef.current.scrollTop +
+        productContainerRef.current.offsetHeight >=
+        productContainerRef.current.scrollHeight ||
+      (window.innerHeight + window.pageYOffset >= document.body.offsetHeight &&
+        productCount < products.length)
     ) {
-      console.log("Scrolled to bottom of page");
+      console.log("Scrolled to bottom of container");
       handleButtonClick();
     }
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    productContainerRef.current.addEventListener("scroll", handleScroll);
+    return () =>
+      productContainerRef.current.removeEventListener("scroll", handleScroll);
   }, [products, productCount]);
 
   return (
     <div>
-      <div className="grid grid-cols-3 gap-4 h-800 overflow-auto">
+      <div
+        ref={productContainerRef}
+        className="w-11/12 h-[1000px] flex flex-row flex-wrap items-center m-auto border border-neutral-900 justify-start gap-4 h-800 overflow-auto overflow-y-scroll"
+      >
         {products
           .slice(0, Math.min(productCount, products.length))
           .map((product, index) => (

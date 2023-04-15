@@ -123,10 +123,8 @@ function Home() {
       <FeedbackHome></FeedbackHome>
       <OffersHuawei></OffersHuawei>
       <ProductList></ProductList>
-      {/* <div id="footer" className="w-full h-40 bg-gray-300 fixed bottom-0">
-        <Footer></Footer>
-      </div> */}
-      {/* <Footer></Footer> */}
+
+      <Footer></Footer>
     </section>
   );
 }
