@@ -11,8 +11,9 @@ import Footer from "./Footer";
 import "../custom.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Carousel } from "flowbite-react";
+import { Carousel, Tooltip } from "flowbite-react";
 import Login from "./Login";
+import { HeartIcon } from "@heroicons/react/24/outline";
 
 export default function DetailsCard() {
   const notify = (msg) =>
@@ -41,13 +42,57 @@ export default function DetailsCard() {
       progress: undefined,
       theme: "dark",
     });
-  const dispatch = useDispatch();
 
   const { user, isAuthenticated } = useAuth0();
 
   const { id } = useParams();
   // el id del Producto para hacer la request para los detalles del producto
   const [detailProduct, setDetailProduct] = useState(null);
+  const [isFav, setIsFav] = useState(null);
+  const [hasChange, setHasChange] = useState(true);
+  useEffect(() => {
+    const isProductFav = async () => {
+      const res = await axios.get(
+        `/product/getUserProducts?userId=${user?.sub}`
+      );
+      if (res.data.Products.length > 0) {
+        res.data.Products.map((product) => {
+          console.log(product.id === parseInt(id));
+          let data = res.data.Products.filter(
+            (product) => product.id === parseInt(id)
+          );
+          if (data.length > 0) {
+            setIsFav(true);
+            return null;
+          } else {
+            setIsFav(false);
+            return null;
+          }
+        });
+      } else {
+        setIsFav(false);
+      }
+    };
+    isProductFav();
+  }, [user?.sub, hasChange]);
+
+  const handleFavorite = async () => {
+    if (isFav === true) {
+      const res = await axios.post("/product/removeProductToUser", {
+        userId: user?.sub,
+        productId: id,
+      });
+      setIsFav(null);
+      setHasChange(!hasChange);
+    } else {
+      const res = await axios.post("/product/addProductToUser", {
+        userId: user?.sub,
+        productId: id,
+      });
+      setIsFav(null);
+      setHasChange(!hasChange);
+    }
+  };
 
   useEffect(() => {
     async function fetchData(id) {
@@ -78,49 +123,70 @@ export default function DetailsCard() {
       `/product/getProductsFromUserShoppingCart?id=${user?.sub}`
     );
     if (response.data.length > 0) {
-      response.data.map((product) => {
-        console.log(product);
-        if (product.Product.id === parseInt(id)) {
-          console.log("ya existe");
-          const handleIncrement = async () => {
-            try {
-              const response = await axios.put(
-                "/shoppingCart/addItemsToShoppingCartByProduct",
-                {
-                  UserId: user?.sub,
-                  ProductId: parseInt(id),
-                  amount: cantidad,
-                }
-              );
-              notify("El producto se agregó al carrito");
-              return;
-            } catch (error) {
-              errorNotify(
-                "Ha ocurrido un error al agregar el producto al carrito, intente de nuevo"
-              );
-            }
-          };
-          handleIncrement();
-        } else {
-          console.log("aun no existe");
-          const dataAddCart = {
-            UserId: user?.sub,
-            ProductId: id,
-            amount: cantidad,
-          };
-          console.log(dataAddCart);
-          dispatch(createAddToShoppingCart(dataAddCart));
-        }
-      });
+      let data = await response.data.filter(
+        (product) => product.Product.id === parseInt(id)
+      );
+      if (data.length > 0) {
+        const handleIncrement = async () => {
+          try {
+            const response = await axios.put(
+              "/shoppingCart/addItemsToShoppingCartByProduct",
+              {
+                UserId: user?.sub,
+                ProductId: parseInt(id),
+                amount: cantidad,
+              }
+            );
+            notify("El producto se agregó al carrito");
+            return;
+          } catch (error) {
+            errorNotify(
+              "Ha ocurrido un error al agregar el producto al carrito, intente de nuevo"
+            );
+          }
+        };
+        handleIncrement();
+      } else {
+        const handleCreate = async () => {
+          try {
+            const response = await axios.post(
+              "/shoppingCart/createShoppingCart",
+              {
+                UserId: user?.sub,
+                ProductId: parseInt(id),
+                amount: cantidad,
+              }
+            );
+            notify("El producto se agregó al carrito");
+            return;
+          } catch (error) {
+            errorNotify(
+              "Ha ocurrido un error al agregar el producto al carrito, intente de nuevo"
+            );
+          }
+        };
+        handleCreate();
+      }
     } else {
-      console.log("aun no existe");
-      const dataAddCart = {
-        UserId: user?.sub,
-        ProductId: id,
-        amount: cantidad,
+      const handleCreate = async () => {
+        try {
+          const response = await axios.post(
+            "/shoppingCart/createShoppingCart",
+            {
+              UserId: user?.sub,
+              ProductId: parseInt(id),
+              amount: cantidad,
+            }
+          );
+          notify("El producto se agregó al carrito");
+          return;
+        } catch (error) {
+          errorNotify(
+            "Ha ocurrido un error al agregar el producto al carrito, intente de nuevo"
+          );
+        }
       };
-      console.log(dataAddCart);
-      dispatch(createAddToShoppingCart(dataAddCart));
+      handleCreate();
     }
   };
 
@@ -169,7 +235,67 @@ export default function DetailsCard() {
       {detailProduct ? (
         <>
           <section className="flex justify-center items-center flex-row px-8 py-8">
-            <div className="w-6/12 mx-32 border border-neutral-900 p-4 h-96 overflow-hidden flex items-center justify-center">
+            <div className="w-6/12 mx-32 border border-neutral-900 p-4 h-96 overflow-hidden flex flex-col items-center justify-center">
+              {isAuthenticated && (
+                <>
+                  {isFav === null ? (
+                    <Tooltip content="Cargando...">
+                      <div className="animate-spin">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="50px"
+                          height="50px"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            d="M12 2.99988V5.99988M12 20.9999V17.9999M4.20577 16.4999L6.80385 14.9999M21 11.9999H18M16.5 19.7941L15 17.196M3 11.9999H6M7.5 4.20565L9 6.80373M7.5 19.7941L9 17.196M19.7942 16.4999L17.1962 14.9999M4.20577 7.49988L6.80385 8.99988"
+                            stroke="#000000"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </div>
+                    </Tooltip>
+                  ) : isFav === false ? (
+                    <div className="cursor-pointer" onClick={handleFavorite}>
+                      <Tooltip content="Haz click si quieres agregarlo a tus favoritos">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="#000000"
+                          width="50px"
+                          height="50px"
+                          viewBox="0 0 32 32"
+                          version="1.1"
+                        >
+                          <title>heart</title>
+                          <path d="M0.256 12.16q0.544 2.080 2.080 3.616l13.664 14.144 13.664-14.144q1.536-1.536 2.080-3.616t0-4.128-2.080-3.584-3.584-2.080-4.16 0-3.584 2.080l-2.336 2.816-2.336-2.816q-1.536-1.536-3.584-2.080t-4.128 0-3.616 2.080-2.080 3.584 0 4.128z" />
+                        </svg>
+                      </Tooltip>
+                    </div>
+                  ) : (
+                    <div className="cursor-pointer" onClick={handleFavorite}>
+                      <Tooltip content="Producto favorito! haz click si quieres removerlo de tus favoritos">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="#000000"
+                          width="50px"
+                          height="50px"
+                          viewBox="0 0 32 32"
+                          version="1.1"
+                        >
+                          <title>heart</title>
+                          <path
+                            d="M0.256 12.16q0.544 2.080 2.080 3.616l13.664 14.144 13.664-14.144q1.536-1.536 2.080-3.616t0-4.128-2.080-3.584-3.584-2.080-4.16 0-3.584 2.080l-2.336 2.816-2.336-2.816q-1.536-1.536-3.584-2.080t-4.128 0-3.616 2.080-2.080 3.584 0 4.128z"
+                            fill="#C10A33"
+                          />
+                        </svg>
+                      </Tooltip>
+                    </div>
+                  )}
+                </>
+              )}
               <Carousel
                 leftControl={
                   <div className="bg-black rounded-full flex p-1 border-white border-2 items-center justify-center">
@@ -279,12 +405,11 @@ export default function DetailsCard() {
                 <h5 className="text-2xl font-bold my-3">{`${detailProduct.Television[0].name}`}</h5>
               )}
               <div className="flex flex-col my-3">
-                {detailProduct?.ProductDiscount &&
-                detailProduct.ProductDiscount[0] ? (
+                {detailProduct?.ProductDiscount && diasRestantes > -1 ? (
                   <div className="flex flex-col">
                     <div>
                       <span className="text-lg font-bold text-red-500 dark:text-white line-through mr-6">
-                        ${precioUnitario}
+                        ${precioUnitario.toFixed(2)}
                       </span>
                       <div className="bg-red-600 w-[45px] h-[45px] rounded-full  items-center justify-center text-center text-white inline-flex mr-6">
                         {detailProduct.ProductDiscount[0].discountValue}%
@@ -292,20 +417,26 @@ export default function DetailsCard() {
                       </div>
                       <span className="text-lg font-bold text-gray-900 dark:text-white ">
                         $
-                        {precioUnitario -
+                        {(
+                          precioUnitario -
                           (precioUnitario *
                             detailProduct.ProductDiscount[0].discountValue) /
-                            100}
+                            100
+                        ).toFixed(2)}
                       </span>
                     </div>
-                    <p className="text-center flex justify-start items-start">
-                      {`La oferta termina en ${diasRestantes} dias`}
+                    <p className="text-start">
+                      {diasRestantes === 0
+                        ? `Esta oferta termina hoy!`
+                        : diasRestantes === 1
+                        ? `Esta oferta termina mañana!`
+                        : `Esta oferta termina en ${diasRestantes} dias`}
                     </p>
                   </div>
                 ) : (
                   <>
                     <span className="text-lg font-bold text-gray-900 dark:text-white ">
-                      ${precioUnitario}
+                      ${precioUnitario.toFixed(2)}
                     </span>
                   </>
                 )}
@@ -335,7 +466,7 @@ export default function DetailsCard() {
                     </button>
                     <span className="ml-4 text-lg font-medium">Total</span>
                     <span className="ml-2 text-2xl font-bold">
-                      $ {precioTotal}
+                      $ {precioTotal.toFixed(2)}
                     </span>
                   </div>
                   <button

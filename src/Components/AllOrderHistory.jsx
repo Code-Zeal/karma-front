@@ -6,7 +6,7 @@ import Footer from "./Footer";
 
 export default function AllOrderHistory() {
   const [allOrders, setAllOrders] = useState(null);
-
+  console.log(allOrders);
   useEffect(() => {
     async function fetchData() {
       const res = await axios.get("/order/getAllOrder");

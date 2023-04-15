@@ -5,10 +5,11 @@ import Footer from "./Footer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SideBar from "./SideBar";
-import DiscountProductCard from "./DiscountProductCard";
 import Paginated from "./Paginated";
-
-const AllProductsWithDiscount = () => {
+import { useAuth0 } from "@auth0/auth0-react";
+import Card from "./Card";
+const AllProductsDiscount = () => {
+  const { user } = useAuth0();
   const errorNotify = (msg) =>
     toast.error(msg, {
       toastId: "error",
@@ -23,7 +24,7 @@ const AllProductsWithDiscount = () => {
     });
   const [data, setData] = useState(false);
   const [input, setInput] = useState("noInput");
-  const [products, setProducts] = useState(false);
+  const [products, setProducts] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [recipesPerPage] = useState(6);
   const indexOfLastRecipes = currentPage * recipesPerPage;
@@ -34,40 +35,22 @@ const AllProductsWithDiscount = () => {
   useEffect(() => {
     const searchAll = async () => {
       try {
-        let res = await axios.get("/discount/getDiscountedProducts");
-        let data = res.data.filter((product) => {
-          const hoy = new Date();
-          const fechaObjetivoEnTiempo = new Date(
-            product.ProductDiscount.endingDate
-          );
-          const diferenciaEnTiempo = fechaObjetivoEnTiempo - hoy;
-          const diasRestantes = Math.ceil(
-            diferenciaEnTiempo / (1000 * 3600 * 24)
-          ); // convertir a días y redondear hacia arriba
-          return diasRestantes > -1;
-        });
-        setData(data);
-        setProducts(data.slice(indexOfFirstRecipes, indexOfLastRecipes));
+        let res = await axios.get(
+          `/product/getUserProducts?userId=${user?.sub}`
+        );
+        console.log(res.data);
+        setData(res.data.Products);
+        setProducts(
+          res.data.Products.slice(indexOfFirstRecipes, indexOfLastRecipes)
+        );
       } catch (error) {
         setData(false);
         errorNotify(error.response.data);
       }
     };
-    const searchByInput = async (input) => {
-      try {
-        let res = await axios.get(`/product/getProductsByInput?input=${input}`);
-        setData(res.data);
-      } catch (error) {
-        setData(false);
-        errorNotify(error.response.data);
-      }
-    };
-    if (input === "noInput") {
-      searchAll();
-    } else {
-      searchByInput(input);
-    }
-  }, [input, currentPage]);
+
+    searchAll();
+  }, [currentPage, user?.sub]);
 
   const handlerChange = (event) => {
     if (event.target.value === "") {
@@ -97,25 +80,17 @@ const AllProductsWithDiscount = () => {
           />
 
           <div className="flex row-auto flex-wrap">
-            <div className="w-full flex justify-around">
-              <input
-                className="w-4/12"
-                onChange={handlerChange}
-                type="text"
-                placeholder="Buscar por Marca o Modelo"
-              />
-            </div>
             <div className="w-full flex flex-wrap justify-center">
-              {typeof products !== "string" && products ? (
+              {products ? (
                 products.map((product) => {
-                  return (
-                    <DiscountProductCard card={product}></DiscountProductCard>
-                  );
+                  console.log(1);
+                  console.log(product);
+                  return <Card card={product}></Card>;
                 })
               ) : (
                 <div className="flex w-full h-[700px] items-center justify-center">
                   <h3 className="text-2xl font-bold">
-                    En estos momentos no hay productos con ofertas
+                    Aun no tienes productos favoritos :(
                   </h3>
                 </div>
               )}
@@ -136,4 +111,4 @@ const AllProductsWithDiscount = () => {
     </div>
   );
 };
-export default AllProductsWithDiscount;
+export default AllProductsDiscount;

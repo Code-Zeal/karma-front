@@ -14,6 +14,7 @@ export default function Card(props) {
       setDiasRestantes(diasRestantes);
     }
   }, [props]);
+
   return (
     <Link to={`/detail/${props.card.id}`} className="m-4">
       <div className="max-w-sm overflow-hidden shadow-lg border border-neutral-600 h-[600px]">
@@ -44,7 +45,7 @@ export default function Card(props) {
           </a>
         </div>
         <div className="flex items-center justify-between px-6 py-4">
-          {props.card.ProductDiscount ? (
+          {props.card.ProductDiscount && diasRestantes > -1 ? (
             <div className="flex flex-col">
               <div>
                 <span className="text-lg font-bold text-red-500 dark:text-white line-through mr-6">
@@ -55,14 +56,20 @@ export default function Card(props) {
                 </div>
                 <span className="text-lg font-bold text-gray-900 dark:text-white ">
                   $
-                  {props.card.price -
+                  {(
+                    props.card.price -
                     (props.card.price *
                       props.card.ProductDiscount.discountValue) /
-                      100}
+                      100
+                  ).toFixed(2)}
                 </span>
               </div>
-              <p className="text-center">
-                {`La oferta termina en ${diasRestantes} dias`}
+              <p className="text-start">
+                {diasRestantes === 0
+                  ? `Esta oferta termina hoy!`
+                  : diasRestantes === 1
+                  ? `Esta oferta termina mañana!`
+                  : `Esta oferta termina en ${diasRestantes} dias`}
               </p>
             </div>
           ) : (

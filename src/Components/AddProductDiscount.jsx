@@ -17,7 +17,7 @@ export default function DetailsCard() {
   console.log(percentage);
   const errorNotify = (msg) =>
     toast.error(msg, {
-      icon:false,
+      icon: false,
       toastId: "error",
       position: "top-center",
       autoClose: 2000,
@@ -30,7 +30,7 @@ export default function DetailsCard() {
     });
   const notify = (msg) =>
     toast.success(msg, {
-      icon:false,
+      icon: false,
       toastId: "success",
       position: "top-center",
       autoClose: 2000,
@@ -61,21 +61,54 @@ export default function DetailsCard() {
     reset,
     formState: { errors },
   } = useForm();
+  const handleDelete = async () => {
+    try {
+      const res = await axios.delete(
+        `/discount/removeDiscountByProductId?productId=${id}`
+      );
+      notify(res.data);
+      setDetailProduct(undefined);
+      reset();
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+    } catch (error) {
+      errorNotify(error.message);
+    }
+  };
+
   const onSubmit = async (form) => {
     const addDiscount = async () => {
-      try {
-        const res = await axios.post("/discount/createProductDiscount", {
-          ...form,
-          productId: parseInt(id),
-        });
-        notify(res.data);
-        setDetailProduct(undefined);
-        reset();
-        setTimeout(() => {
-          window.location.reload();
-        }, 3000);
-      } catch (error) {
-        errorNotify(error.message);
+      if (diasRestantes) {
+        try {
+          const res = await axios.put("/discount/updateDiscountByProductId", {
+            ...form,
+            productId: parseInt(id),
+          });
+          notify(res.data);
+          setDetailProduct(undefined);
+          reset();
+          setTimeout(() => {
+            window.location.reload();
+          }, 3000);
+        } catch (error) {
+          errorNotify(error.message);
+        }
+      } else {
+        try {
+          const res = await axios.post("/discount/createProductDiscount", {
+            ...form,
+            productId: parseInt(id),
+          });
+          notify(res.data);
+          setDetailProduct(undefined);
+          reset();
+          setTimeout(() => {
+            window.location.reload();
+          }, 3000);
+        } catch (error) {
+          errorNotify(error.message);
+        }
       }
     };
     const editDiscount = async () => {
@@ -109,21 +142,6 @@ export default function DetailsCard() {
   }, [watch("discountValue")]);
 
   const precioUnitario = detailProduct?.price;
-  const handleDelete = async () => {
-    try {
-      const res = await axios.delete(
-        `/discount/removeDiscountByProductId?productId=${id}`
-      );
-      notify(res.data);
-      setDetailProduct(undefined);
-      reset();
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000);
-    } catch (error) {
-      errorNotify(error.message);
-    }
-  };
   const [diasRestantes, setDiasRestantes] = useState(null);
 
   const validateStartingDate = (selectedDate) => {
@@ -312,8 +330,7 @@ export default function DetailsCard() {
                     <h5 className="text-2xl font-bold my-3">{`${detailProduct.Television[0].name}`}</h5>
                   )}
                   <div className="flex flex-col my-3">
-                    {detailProduct?.ProductDiscount &&
-                    detailProduct.ProductDiscount[0] ? (
+                    {detailProduct?.ProductDiscount && diasRestantes > -1 ? (
                       <div className="flex flex-col">
                         <div>
                           <span className="text-lg font-bold text-red-500 dark:text-white line-through mr-6">
@@ -331,8 +348,12 @@ export default function DetailsCard() {
                                 100}
                           </span>
                         </div>
-                        <p className="text-center flex justify-start items-start">
-                          {`La oferta termina en ${diasRestantes} dias`}
+                        <p className="text-start">
+                          {diasRestantes === 0
+                            ? `Esta oferta termina hoy!`
+                            : diasRestantes === 1
+                            ? `Esta oferta termina mañana!`
+                            : `Esta oferta termina en ${diasRestantes} dias`}
                         </p>
                       </div>
                     ) : (
@@ -347,7 +368,7 @@ export default function DetailsCard() {
               </section>
 
               <section className="flex justify-center items-center flex-row px-8 py-8">
-                {detailProduct?.ProductDiscount ? (
+                {detailProduct?.ProductDiscount && diasRestantes > -1 ? (
                   <div className="flex flex-col items-center justify-center w-6/12 text-center font-normal bg-white text-neutral-900 border border-neutral-900 py-2 rounded-sm text-lg mt-6 mr-10 ">
                     Este producto tiene un descuento del{" "}
                     {detailProduct.ProductDiscount[0].discountValue}%

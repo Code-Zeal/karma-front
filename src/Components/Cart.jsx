@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import CartCard from "./CartCard";
 import { Tooltip } from "flowbite-react";
-import LoadingCheckout from "./LoadingCheckout";
 import LoadingCart from "./LoadingCart";
 
 export default function Cart() {
@@ -53,7 +52,6 @@ export default function Cart() {
   useEffect(() => {
     fetchData();
   }, [user?.sub]);
-
   return (
     <section>
       {cartProducts ? (
@@ -79,6 +77,10 @@ export default function Cart() {
                           image={cart.Product.images[0]}
                           model={cart.Product.model}
                           priceXProduct={cart.pricePerUnit}
+                          discountValue={
+                            cart.Product?.ProductDiscount &&
+                            cart.Product?.ProductDiscount.discountValue
+                          }
                           cantidad={cart.amount}
                           userId={user && user?.sub}
                           delete={cart.id}
@@ -95,7 +97,7 @@ export default function Cart() {
                     <dl class="space-y-0.5 text-sm text-gray-700">
                       <div class="flex justify-between !text-base font-medium">
                         <dt>Total</dt>
-                        <dd>{totalPrice}</dd>
+                        <dd>{totalPrice.toFixed(2)}</dd>
                       </div>
                     </dl>
 

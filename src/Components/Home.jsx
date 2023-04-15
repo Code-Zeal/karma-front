@@ -12,6 +12,8 @@ import { useEffect } from "react";
 
 import SearchBar from "./SearchBar";
 import SliderCategories from "./SliderCategories";
+import CheckOffers from "./CheckOffers";
+import axios from "axios";
 
 function Home() {
   const searchBarRef = useRef();
@@ -34,6 +36,38 @@ function Home() {
       notifySuccess();
     }
   }, [isAuthenticated]);
+
+  //checkOffers
+  useEffect(() => {
+    const getOffers = async () => {
+      const res = await axios.get("/discount/getDiscountedProducts");
+      let data = await res.data.filter((product) => {
+        const hoy = new Date();
+        const fechaObjetivoEnTiempo = new Date(
+          product.ProductDiscount.endingDate
+        );
+        const diferenciaEnTiempo = fechaObjetivoEnTiempo - hoy;
+        const diasRestantes = Math.ceil(
+          diferenciaEnTiempo / (1000 * 3600 * 24)
+        ); // convertir a días y redondear hacia arriba
+        return diasRestantes < 0;
+      });
+      data &&
+        data.map((product) => {
+          const deleteOffer = async (id) => {
+            try {
+              const res = await axios.delete(
+                `/discount/removeDiscountByProductId?productId=${id}`
+              );
+            } catch (error) {
+              console.log(error);
+            }
+          };
+          deleteOffer(product.id);
+        });
+    };
+    getOffers();
+  }, []);
   return (
     <section>
       <NavBar></NavBar>
@@ -64,7 +98,7 @@ function Home() {
               la venta de dispositivos electrónicos de última generación. En
               nuestra tienda encontrarás una amplia variedad de productos
               electrónicos, desde smartphones y tablets hasta laptops y
-              accesorios.
+              Televisores.
             </p>
             <SearchBar ref={searchBarRef}></SearchBar>
 
@@ -92,7 +126,8 @@ function Home() {
           </div>
         </div>
       </div>
-      <SliderCategories></SliderCategories>
+      {/* <SliderCategories></SliderCategories> */}
+      <CheckOffers></CheckOffers>
       <OffersAndNews />
       <PaymentMethods></PaymentMethods>
       <FeedbackHome></FeedbackHome>

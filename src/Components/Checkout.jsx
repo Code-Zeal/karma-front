@@ -44,7 +44,7 @@ export default function Checkout() {
       setisDataComplete(true);
       try {
         const res = await axios.post("/order/createOrder", {
-          idUser: user?.sub,
+          userId: user?.sub,
         });
         setIdOrder(res.data.id);
       } catch (error) {
@@ -143,7 +143,7 @@ export default function Checkout() {
             <div class="mx-auto max-w-lg space-y-8 px-4 lg:px-8">
               <div>
                 <p class="text-2xl font-thin tracking-tight text-black">
-                  TOTAL: ${totalPrice}
+                  TOTAL: ${totalPrice.toFixed(2)}
                 </p>
 
                 <p class="mt-1 text-sm font-thin text-black">

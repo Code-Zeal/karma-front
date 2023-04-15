@@ -28,6 +28,7 @@ export default function MyOrders() {
     }
     fetchData(dataUser);
   }, [dataUser]);
+  console.log(order);
   return (
     <div>
       <NavBar />
@@ -35,8 +36,9 @@ export default function MyOrders() {
         <SideBar />
         <div className="container mx-auto mt-12">
           <>
-            {order &&
+            {order && order.Orders.length > 0 ? (
               order.Orders.map((el) => {
+                console.log(order);
                 if (
                   el.orderStatus !== "Orden Creada" &&
                   el.orderStatus !== "Procesando Orden"
@@ -51,7 +53,12 @@ export default function MyOrders() {
                 } else {
                   return <></>;
                 }
-              })}
+              })
+            ) : (
+              <div className="flex w-full h-[700px] items-center justify-center">
+                <h3 className="text-2xl font-bold">Aun no tienes ordenes :(</h3>
+              </div>
+            )}
           </>
         </div>
       </div>

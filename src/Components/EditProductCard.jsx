@@ -56,14 +56,20 @@ export default function EditProductCard(props) {
                 </div>
                 <span className="text-lg font-bold text-gray-900 dark:text-white ">
                   $
-                  {props.card.price -
+                  {(
+                    props.card.price -
                     (props.card.price *
                       props.card.ProductDiscount.discountValue) /
-                      100}
+                      100
+                  ).toFixed(2)}
                 </span>
               </div>
-              <p className="text-center">
-                {`La oferta termina en ${diasRestantes} dias`}
+              <p className="text-start">
+                {diasRestantes === 0
+                  ? `Esta oferta termina hoy!`
+                  : diasRestantes === 1
+                  ? `Esta oferta termina mañana!`
+                  : `Esta oferta termina en ${diasRestantes} dias`}
               </p>
             </div>
           ) : (

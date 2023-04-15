@@ -31,7 +31,7 @@ export default function DetailOrder(props) {
   console.log(id);
   console.log(detailOrder);
   let total = 0;
-
+  console.log(detailOrder);
   useEffect(() => {
     async function fetchData(id) {
       const responseOrder = await axios.get(`/order/getOrder?id=${id}`);
@@ -76,7 +76,7 @@ export default function DetailOrder(props) {
               Número de orden #{id}
             </h1>
             <p className="text-lg text-center">
-              Estado de tu orden:{" "}
+              Estado de tu orden: {console.log(detailOrder)}
               {detailOrder && detailOrder.orderStatus === "Orden Pagada"
                 ? "Procesando"
                 : detailOrder && detailOrder.orderStatus === "Enviando"
