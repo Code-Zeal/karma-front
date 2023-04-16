@@ -12,6 +12,7 @@ import { useEffect } from "react";
 
 import SearchBar from "./SearchBar";
 import SliderCategories from "./SliderCategories";
+import ProductList from "./ProductList";
 import CheckOffers from "./CheckOffers";
 import axios from "axios";
 
@@ -131,6 +132,7 @@ function Home() {
       <OffersAndNews />
       <PaymentMethods></PaymentMethods>
       <FeedbackHome></FeedbackHome>
+      <ProductList></ProductList>
       <Footer></Footer>
     </section>
   );
