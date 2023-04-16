@@ -44,6 +44,7 @@ export default function AllOrderHistory() {
         <div className="container mx-auto mt-12">
           {allOrders &&
             allOrders.map((order) => {
+              console.log(order);
               const purchaseDate = new Date(order.datePurchase);
               const formattedDate = purchaseDate.toLocaleDateString("es-MX");
 
@@ -74,7 +75,7 @@ export default function AllOrderHistory() {
                   )}
                   <h3 class="text-lg font-medium mt-4 mb-2">Pedido:</h3>
                   <div class="grid grid-cols-2 gap-4">
-                    {order.ShoppingCarts.map((cart) => (
+                    {order.orderData.ShoppingCarts.map((cart) => (
                       <div
                         key={cart.id}
                         class="border border-neutral-400 shadow rounded-sm p-2"

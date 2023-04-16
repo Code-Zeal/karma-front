@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import CommentsAndRatings from "./CommentsAndRatings";
-import CommentsPage from "./CommentsPage";
 import axios from "axios";
 
 export default function OrderCard(props) {
@@ -28,7 +26,8 @@ export default function OrderCard(props) {
     async function fetchData(id) {
       const responseOrder = await axios.get(`/order/getOrder?id=${id}`);
       const dataOrder = responseOrder.data;
-      dataOrder.ShoppingCarts.forEach((product) => {
+      console.log(dataOrder);
+      dataOrder.orderData.ShoppingCarts.forEach((product) => {
         if (product.Product?.ProductDiscount) {
           product.pricePerUnit =
             product.Product.price -

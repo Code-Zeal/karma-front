@@ -38,7 +38,7 @@ export default function DetailOrder(props) {
       const dataOrder = responseOrder.data;
 
       setDetailOrder(dataOrder);
-      dataOrder.ShoppingCarts.forEach((product) => {
+      dataOrder.orderData.ShoppingCarts.forEach((product) => {
         if (product.Product?.ProductDiscount) {
           product.pricePerUnit =
             product.Product.price -
@@ -63,7 +63,7 @@ export default function DetailOrder(props) {
     }
     fetchData(id);
   }, [id, totalPrice]);
-  console.log(totalPrice);
+  console.log(detailOrder);
 
   return (
     <div>
@@ -86,7 +86,7 @@ export default function DetailOrder(props) {
             <ul className="max-w-4xl mx-auto">
               {detailOrder ? (
                 <>
-                  {detailOrder.ShoppingCarts.map((shopping) => {
+                  {detailOrder.orderData.ShoppingCarts.map((shopping) => {
                     return (
                       <li className="flex items-center justify-between border-b-2 border-gray-300 py-4">
                         <img
@@ -126,13 +126,27 @@ export default function DetailOrder(props) {
                               )}
                             </div>
                           </div>
-                          <div>
+                          <div className="flex flex-col">
                             <label className="text-gray-800">
                               Cantidad: {shopping.amount}{" "}
                             </label>
-                            <label className="text-gray-800">
-                              ${shopping.pricePerUnit}
-                            </label>
+                            <div>
+                              <label className="text-gray-800">
+                                ${shopping.pricePerUnit} c/u
+                              </label>
+
+                              {shopping.Product?.ProductDiscount ? (
+                                <label className="text-gray-800 ml-5">
+                                  {
+                                    shopping.Product.ProductDiscount
+                                      .discountValue
+                                  }
+                                  %
+                                </label>
+                              ) : (
+                                <></>
+                              )}
+                            </div>
                           </div>
                         </div>
 
