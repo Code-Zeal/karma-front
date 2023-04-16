@@ -46,6 +46,8 @@ const CreateData = forwardRef((props, ref) => {
 
   const notify = () =>
     toast.success(`Información agregada correctamente :)`, {
+      icon: false,
+      toastId: "success",
       position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
@@ -59,6 +61,8 @@ const CreateData = forwardRef((props, ref) => {
     toast.error(
       "Ha ocurrido un error al agregar la información, verifica que el dato es correcto e intente de nuevo",
       {
+        icon: false,
+        toastId: "error",
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -231,6 +235,7 @@ const CreateData = forwardRef((props, ref) => {
   return (
     <>
       <ToastContainer
+        icon={false}
         position="top-center"
         autoClose={5000}
         hideProgressBar={false}
@@ -240,7 +245,7 @@ const CreateData = forwardRef((props, ref) => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="dark"
+        theme="light"
       />
 
       {visible !== false ? (

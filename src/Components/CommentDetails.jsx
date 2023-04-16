@@ -22,11 +22,11 @@ export default function CommentDetails() {
     <div>
       <NavBar></NavBar>
 
-      <div className="w-1/2 h-[280px] mb-48 mt-10 flex flex-col items-start justify-start  flex-wrap mx-auto overflow-y-scroll bg-white border border-neutral-900 text-neutral-90">
+      <div className="w-1/2 h-[350px] mb-48 mt-10 flex flex-col items-start justify-start  flex-wrap mx-auto bg-white border border-neutral-900 text-neutral-90">
         <div className="w-full flex justify-center">
           <a
             href="/admin/feedbacks"
-            className=" bg-neutral-900 border border-neutral-900 text-white py-2 px-2 w-[220px] rounded-sm mr-4 cursor-pointer text-sm text-center mt-5"
+            className=" bg-neutral-900 border border-neutral-900 text-white py-2 px-2 w-[220px] rounded-sm mr-4 cursor-pointer text-sm text-center my-5"
           >
             Volver
           </a>

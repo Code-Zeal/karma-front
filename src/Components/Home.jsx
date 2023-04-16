@@ -1,26 +1,20 @@
 import React, { useRef } from "react";
 import PaymentMethods from "./PaymentMethods";
 import OffersAndNews from "./OffersAndNews";
-import { Button, Tooltip } from "flowbite-react";
-import OffersSamsung from "./OffersSamsung";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch } from "react-redux";
 import { postRegisterAuth0 } from "../Redux/Actions";
 
 import NavBar from "./NavBar";
 import Footer from "./Footer";
-import OffersHuawei from "./OffersHuawei";
 import { FeedbackHome } from "./FeedbackHome";
-import { Link } from "react-router-dom";
 import { useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import CreateProduct from "./CreateProduct";
-import AllProductsAdm from "./AllProductsAdm";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+
 import SearchBar from "./SearchBar";
 import SliderCategories from "./SliderCategories";
 import ProductList from "./ProductList";
+import CheckOffers from "./CheckOffers";
+import axios from "axios";
 
 function Home() {
   const searchBarRef = useRef();
@@ -32,8 +26,6 @@ function Home() {
     email: user?.email,
     picture: user?.picture,
   };
-  const createProductRef = useRef();
-  const allProductsRef = useRef();
 
   const notifySuccess = () => {
     console.log(dataRegister);
@@ -45,10 +37,40 @@ function Home() {
       notifySuccess();
     }
   }, [isAuthenticated]);
+
+  //checkOffers
+  useEffect(() => {
+    const getOffers = async () => {
+      const res = await axios.get("/discount/getDiscountedProducts");
+      let data = await res.data.filter((product) => {
+        const hoy = new Date();
+        const fechaObjetivoEnTiempo = new Date(
+          product.ProductDiscount.endingDate
+        );
+        const diferenciaEnTiempo = fechaObjetivoEnTiempo - hoy;
+        const diasRestantes = Math.ceil(
+          diferenciaEnTiempo / (1000 * 3600 * 24)
+        ); // convertir a días y redondear hacia arriba
+        return diasRestantes < 0;
+      });
+      data &&
+        data.map((product) => {
+          const deleteOffer = async (id) => {
+            try {
+              const res = await axios.delete(
+                `/discount/removeDiscountByProductId?productId=${id}`
+              );
+            } catch (error) {
+              console.log(error);
+            }
+          };
+          deleteOffer(product.id);
+        });
+    };
+    getOffers();
+  }, []);
   return (
     <section>
-      <ToastContainer />
-
       <NavBar></NavBar>
       <div className="relative bg-neutral-900 ">
         <div className="absolute inset-x-0 bottom-0">
@@ -77,22 +99,11 @@ function Home() {
               la venta de dispositivos electrónicos de última generación. En
               nuestra tienda encontrarás una amplia variedad de productos
               electrónicos, desde smartphones y tablets hasta laptops y
-              accesorios.
+              Televisores.
             </p>
             <SearchBar ref={searchBarRef}></SearchBar>
 
-            <div className="w-full flex justify-center items-center ">
-              <Tooltip
-                placement="right"
-                style="light"
-                content="Haz click para abrir el buscador!"
-              >
-                <MagnifyingGlassIcon
-                  className="my-4 h-12 w-32  cursor-pointer transition-all duration-300 bg-white text-[#171717] border rounded-tr-lg rounded-bl-lg border-neutral-900 "
-                  onClick={() => searchBarRef.current.togglePopup()}
-                />
-              </Tooltip>
-            </div>
+            <hr className="text-white w-full my-6" />
             <p className="max-w-md mb-10 text-xs tracking-wide text-indigo-100 sm:text-sm sm:mx-auto md:mb-16">
               Estamos comprometidos con la sostenibilidad y trabajamos con
               proveedores que comparten nuestros valores y nuestro compromiso
@@ -101,7 +112,7 @@ function Home() {
             <a
               href="#down"
               aria-label="Scroll down"
-              className="flex items-center justify-center w-10 h-10 mx-auto text-white duration-300 transform border border-gray-400 rounded-full hover:text-teal-accent-400 hover:border-teal-accent-400 hover:shadow hover:scale-110 -m-8"
+              className="flex items-center justify-center w-14 h-14 mx-auto text-white duration-300 transform border border-gray-400 rounded-full hover:text-teal-accent-400 hover:border-teal-accent-400 hover:shadow hover:scale-110 -m-8 hover:bg-white hover:text-[#171717]"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -116,14 +127,12 @@ function Home() {
           </div>
         </div>
       </div>
-      <SliderCategories></SliderCategories>
+      {/* <SliderCategories></SliderCategories> */}
+      <CheckOffers></CheckOffers>
       <OffersAndNews />
       <PaymentMethods></PaymentMethods>
-      <OffersSamsung></OffersSamsung>
       <FeedbackHome></FeedbackHome>
-      <OffersHuawei></OffersHuawei>
       <ProductList></ProductList>
-
       <Footer></Footer>
     </section>
   );

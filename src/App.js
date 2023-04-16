@@ -24,6 +24,7 @@ import axios from "axios";
 import AllProductsDiscount from "./Components/AllProductsDiscount";
 import AddProductDiscount from "./Components/AddProductDiscount";
 import AllProductsWithDiscount from "./Components/AllProductsWithDiscount";
+import FavoriteProducts from "./Components/FavoriteProducts";
 axios.defaults.baseURL = "http://localhost:4000";
 // http://localhost:4000
 //https://karma-backend-production.up.railway.app
@@ -42,6 +43,7 @@ function App() {
         <Route exact path="/profile" element={<Profile />} />
         <Route exact path="/profile/orders" element={<MyOrders />} />
         <Route exact path="/profile/data" element={<MyData />} />
+        <Route exact path="/profile/favorites" element={<FavoriteProducts />} />
         <Route path="/search" element={<Search />} />
         <Route path="/admin/createproduct" element={<CreateProduct />} />
         <Route path="/admin/editproduct" element={<AllProductsAdm />} />

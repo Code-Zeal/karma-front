@@ -48,6 +48,13 @@ const CartCard = (props) => {
 
       <div>
         <h3 class="text-sm text-gray-900">{props.model}</h3>
+        {props?.discountValue ? (
+          <p class="text-sm text-gray-900 font-thin inline-block">
+            Está con un {props.discountValue} % de descuento!
+          </p>
+        ) : (
+          <></>
+        )}
 
         {/* <dl class="mt-0.5 space-y-px text-[10px] text-gray-600">
         <div>
@@ -63,7 +70,7 @@ const CartCard = (props) => {
       </div>
 
       <div class="flex flex-1 items-center justify-end gap-8">
-        <label>{props.priceXProduct}</label>
+        <label>${props.priceXProduct.toFixed(2)}</label>
         <button
           className="py-1 px-2 bg-gray-100 rounded-lg mr-2"
           onClick={handleDecrement}

@@ -53,6 +53,7 @@ const SearchBar = forwardRef((props, ref) => {
   return (
     <>
       <ToastContainer
+        icon={false}
         position="top-center"
         autoClose={5000}
         hideProgressBar={false}
@@ -62,7 +63,7 @@ const SearchBar = forwardRef((props, ref) => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="dark"
+        theme="light"
       />
       {isOpen ? (
         <div className="fixed z-10 inset-0 flex justify-center items-center bg-[#000000ab] ">
