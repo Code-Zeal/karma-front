@@ -4,15 +4,10 @@ import UserDropdown from "./UserDropdown";
 import SearchBar from "./SearchBar";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useRef, useState } from "react";
-import { useEffect } from "react";
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const searchBarRef = useRef();
-
-  useEffect(() => {
-    window.location.hash = "logo";
-  });
 
   return (
     <header aria-label="Site Header" class="border-b border-neutral-300">
@@ -79,7 +74,7 @@ export default function NavBar() {
             </div>
             <hr />
           </div>
-          <a href="/" class="flex" id="logo">
+          <a href="/" class="flex">
             <span class="sr-only">Logo</span>
             <img
               src="https://res.cloudinary.com/dpjxt54q0/image/upload/v1678751228/KarmaBlack_xsfd2j.png"

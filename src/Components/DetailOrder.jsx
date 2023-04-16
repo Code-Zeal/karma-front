@@ -31,22 +31,39 @@ export default function DetailOrder(props) {
   console.log(id);
   console.log(detailOrder);
   let total = 0;
-
+  console.log(detailOrder);
   useEffect(() => {
     async function fetchData(id) {
       const responseOrder = await axios.get(`/order/getOrder?id=${id}`);
       const dataOrder = responseOrder.data;
 
       setDetailOrder(dataOrder);
-      dataOrder.ShoppingCarts.forEach((order) => {
-        order.pricePerUnit = order.Product.price * order.amount;
-        return (total += order.pricePerUnit);
+      dataOrder.orderData.ShoppingCarts.forEach((product) => {
+        if (product.Product?.ProductDiscount) {
+          product.pricePerUnit =
+            product.Product.price -
+            (product.Product.price *
+              product.Product.ProductDiscount.discountValue) /
+              100;
+
+          setTotalPrice(
+            (total +=
+              (product.Product.price -
+                (product.Product.price *
+                  product.Product.ProductDiscount.discountValue) /
+                  100) *
+              product.amount)
+          );
+        } else {
+          product.pricePerUnit = product.Product.price;
+          setTotalPrice((total += product.pricePerUnit * product.amount));
+        }
       });
       setTotalPrice(total);
     }
     fetchData(id);
   }, [id, totalPrice]);
-  console.log(totalPrice);
+  console.log(detailOrder);
 
   return (
     <div>
@@ -59,7 +76,7 @@ export default function DetailOrder(props) {
               Número de orden #{id}
             </h1>
             <p className="text-lg text-center">
-              Estado de tu orden:{" "}
+              Estado de tu orden: {console.log(detailOrder)}
               {detailOrder && detailOrder.orderStatus === "Orden Pagada"
                 ? "Procesando"
                 : detailOrder && detailOrder.orderStatus === "Enviando"
@@ -69,7 +86,7 @@ export default function DetailOrder(props) {
             <ul className="max-w-4xl mx-auto">
               {detailOrder ? (
                 <>
-                  {detailOrder.ShoppingCarts.map((shopping) => {
+                  {detailOrder.orderData.ShoppingCarts.map((shopping) => {
                     return (
                       <li className="flex items-center justify-between border-b-2 border-gray-300 py-4">
                         <img
@@ -109,13 +126,27 @@ export default function DetailOrder(props) {
                               )}
                             </div>
                           </div>
-                          <div>
+                          <div className="flex flex-col">
                             <label className="text-gray-800">
                               Cantidad: {shopping.amount}{" "}
                             </label>
-                            <label className="text-gray-800">
-                              ${shopping.pricePerUnit}
-                            </label>
+                            <div>
+                              <label className="text-gray-800">
+                                ${shopping.pricePerUnit} c/u
+                              </label>
+
+                              {shopping.Product?.ProductDiscount ? (
+                                <label className="text-gray-800 ml-5">
+                                  {
+                                    shopping.Product.ProductDiscount
+                                      .discountValue
+                                  }
+                                  %
+                                </label>
+                              ) : (
+                                <></>
+                              )}
+                            </div>
                           </div>
                         </div>
 

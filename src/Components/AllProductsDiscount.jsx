@@ -42,6 +42,7 @@ const AllProductsDiscount = () => {
         errorNotify(error.response.data);
       }
     };
+
     const searchByInput = async (input) => {
       try {
         let res = await axios.get(`/product/getProductsByInput?input=${input}`);
@@ -97,6 +98,8 @@ const AllProductsDiscount = () => {
             <div className="w-full flex flex-wrap justify-center">
               {products ? (
                 products.map((product) => {
+                  console.log(1);
+                  console.log(product);
                   return (
                     <DiscountProductCard card={product}></DiscountProductCard>
                   );
@@ -112,7 +115,7 @@ const AllProductsDiscount = () => {
           </div>
         </div>
       </div>
-      <div className="w-full flex items-center justify-center">
+      <div className="w-10/12 ml-auto flex items-center justify-center">
         <Paginated
           recipesPerPage={recipesPerPage}
           allRecipes={data && data.length}

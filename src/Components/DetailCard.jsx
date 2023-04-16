@@ -11,17 +11,88 @@ import Footer from "./Footer";
 import "../custom.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Carousel } from "flowbite-react";
+import { Carousel, Tooltip } from "flowbite-react";
 import Login from "./Login";
+import { HeartIcon } from "@heroicons/react/24/outline";
 
 export default function DetailsCard() {
-  const dispatch = useDispatch();
+  const notify = (msg) =>
+    toast.info(msg, {
+      icon: false,
+      toastId: "success",
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  const errorNotify = (msg) =>
+    toast.error(msg, {
+      toastId: "error",
+      icon: false,
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
 
   const { user, isAuthenticated } = useAuth0();
 
   const { id } = useParams();
   // el id del Producto para hacer la request para los detalles del producto
   const [detailProduct, setDetailProduct] = useState(null);
+  const [isFav, setIsFav] = useState(null);
+  const [hasChange, setHasChange] = useState(true);
+  useEffect(() => {
+    const isProductFav = async () => {
+      const res = await axios.get(
+        `/product/getUserProducts?userId=${user?.sub}`
+      );
+      if (res.data.Products.length > 0) {
+        res.data.Products.map((product) => {
+          console.log(product.id === parseInt(id));
+          let data = res.data.Products.filter(
+            (product) => product.id === parseInt(id)
+          );
+          if (data.length > 0) {
+            setIsFav(true);
+            return null;
+          } else {
+            setIsFav(false);
+            return null;
+          }
+        });
+      } else {
+        setIsFav(false);
+      }
+    };
+    isProductFav();
+  }, [user?.sub, hasChange]);
+
+  const handleFavorite = async () => {
+    if (isFav === true) {
+      const res = await axios.post("/product/removeProductToUser", {
+        userId: user?.sub,
+        productId: id,
+      });
+      setIsFav(null);
+      setHasChange(!hasChange);
+    } else {
+      const res = await axios.post("/product/addProductToUser", {
+        userId: user?.sub,
+        productId: id,
+      });
+      setIsFav(null);
+      setHasChange(!hasChange);
+    }
+  };
 
   useEffect(() => {
     async function fetchData(id) {
@@ -47,17 +118,76 @@ export default function DetailsCard() {
     }
   }, [cantidad, detailProduct]);
 
-  console.log(id);
-  console.log(detailProduct);
-
-  const handleAddCart = () => {
-    const dataAddCart = {
-      UserId: user?.sub,
-      ProductId: id,
-      amount: cantidad,
-    };
-    console.log(dataAddCart);
-    dispatch(createAddToShoppingCart(dataAddCart));
+  const handleAddCart = async () => {
+    const response = await axios.get(
+      `/product/getProductsFromUserShoppingCart?id=${user?.sub}`
+    );
+    if (response.data.length > 0) {
+      let data = await response.data.filter(
+        (product) => product.Product.id === parseInt(id)
+      );
+      if (data.length > 0) {
+        const handleIncrement = async () => {
+          try {
+            const response = await axios.put(
+              "/shoppingCart/addItemsToShoppingCartByProduct",
+              {
+                UserId: user?.sub,
+                ProductId: parseInt(id),
+                amount: cantidad,
+              }
+            );
+            notify("El producto se agregó al carrito");
+            return;
+          } catch (error) {
+            errorNotify(
+              "Ha ocurrido un error al agregar el producto al carrito, intente de nuevo"
+            );
+          }
+        };
+        handleIncrement();
+      } else {
+        const handleCreate = async () => {
+          try {
+            const response = await axios.post(
+              "/shoppingCart/createShoppingCart",
+              {
+                UserId: user?.sub,
+                ProductId: parseInt(id),
+                amount: cantidad,
+              }
+            );
+            notify("El producto se agregó al carrito");
+            return;
+          } catch (error) {
+            errorNotify(
+              "Ha ocurrido un error al agregar el producto al carrito, intente de nuevo"
+            );
+          }
+        };
+        handleCreate();
+      }
+    } else {
+      const handleCreate = async () => {
+        try {
+          const response = await axios.post(
+            "/shoppingCart/createShoppingCart",
+            {
+              UserId: user?.sub,
+              ProductId: parseInt(id),
+              amount: cantidad,
+            }
+          );
+          notify("El producto se agregó al carrito");
+          return;
+        } catch (error) {
+          errorNotify(
+            "Ha ocurrido un error al agregar el producto al carrito, intente de nuevo"
+          );
+        }
+      };
+      handleCreate();
+    }
   };
 
   function handleCantidadChange(event) {
@@ -89,6 +219,7 @@ export default function DetailsCard() {
   return (
     <>
       <ToastContainer
+        icon={false}
         position="top-center"
         autoClose={5000}
         hideProgressBar={false}
@@ -98,13 +229,13 @@ export default function DetailsCard() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="dark"
+        theme="light"
       />
       <NavBar />
       {detailProduct ? (
         <>
           <section className="flex justify-center items-center flex-row px-8 py-8">
-            <div className="w-6/12 mx-32 border border-neutral-900 p-4 h-96 overflow-hidden flex items-center justify-center">
+            <div className="w-6/12 mx-32 border border-neutral-900 p-4 h-96 overflow-hidden flex flex-col items-center justify-center">
               <Carousel
                 leftControl={
                   <div className="bg-black rounded-full flex p-1 border-white border-2 items-center justify-center">
@@ -201,25 +332,105 @@ export default function DetailsCard() {
             </div>
 
             <div className="flex flex-col w-6/12 ">
-              {detailProduct.Laptop && (
-                <h5 className="text-2xl font-bold my-3">{`${detailProduct.Laptop[0].name}`}</h5>
-              )}
-              {detailProduct.Tablet && (
-                <h5 className="text-2xl font-bold my-3">{` ${detailProduct.Tablet[0].name}`}</h5>
-              )}
-              {detailProduct.CellPhone && (
-                <h5 className="text-2xl font-bold my-3">{`${detailProduct.CellPhone[0].name}`}</h5>
-              )}
-              {detailProduct.Television && (
-                <h5 className="text-2xl font-bold my-3">{`${detailProduct.Television[0].name}`}</h5>
-              )}
+              <div className="flex w-full justify-between">
+                {detailProduct.Laptop && (
+                  <h5 className="text-2xl font-bold my-3 ">{`${detailProduct.Laptop[0].name}`}</h5>
+                )}
+                {detailProduct.Tablet && (
+                  <h5 className="text-2xl font-bold my-3">{` ${detailProduct.Tablet[0].name}`}</h5>
+                )}
+                {detailProduct.CellPhone && (
+                  <h5 className="text-2xl font-bold my-3">{`${detailProduct.CellPhone[0].name}`}</h5>
+                )}
+                {detailProduct.Television && (
+                  <h5 className="text-2xl font-bold my-3">{`${detailProduct.Television[0].name}`}</h5>
+                )}
+                {isAuthenticated && (
+                  <>
+                    {isFav === null ? (
+                      <Tooltip content="Cargando...">
+                        <div className="animate-spin">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="40px"
+                            height="36px"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M12 2.99988V5.99988M12 20.9999V17.9999M4.20577 16.4999L6.80385 14.9999M21 11.9999H18M16.5 19.7941L15 17.196M3 11.9999H6M7.5 4.20565L9 6.80373M7.5 19.7941L9 17.196M19.7942 16.4999L17.1962 14.9999M4.20577 7.49988L6.80385 8.99988"
+                              stroke="#000000"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </div>
+                      </Tooltip>
+                    ) : isFav === false ? (
+                      <div
+                        className="cursor-pointer mr-10 flex flex-col justify-center items-center"
+                        onClick={handleFavorite}
+                      >
+                        <Tooltip content="Haz click si quieres agregarlo a tus favoritos">
+                          <svg
+                            width="40"
+                            height="40"
+                            viewBox="0 0 40 36"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M3.6392 17.0252L3.6332 17.019L3.6271 17.0129C2.47129 15.8571 1.69537 14.5067 1.28745 12.947C0.877168 11.3782 0.878175 9.83387 1.28648 8.29672C1.69339 6.76485 2.46847 5.42574 3.6271 4.26711C4.78291 3.1113 6.13334 2.33538 7.69302 1.92746C9.26177 1.51718 10.8061 1.51818 12.3433 1.92649C13.861 2.32963 15.1895 3.09418 16.3407 4.23509L19.2303 7.71846L20 8.64627L20.7696 7.71846L23.6662 4.22678C24.7561 3.0984 26.0765 2.33355 27.6494 1.92839C29.2484 1.51654 30.8074 1.51851 32.3433 1.92649C33.8751 2.33339 35.2143 3.10847 36.3729 4.26711C37.5315 5.42574 38.3066 6.76485 38.7135 8.29672C39.1218 9.83387 39.1228 11.3782 38.7125 12.947C38.3046 14.5067 37.5287 15.8571 36.3729 17.0129L36.3668 17.019L36.3608 17.0252L20 33.9607L3.6392 17.0252Z"
+                              fill="white"
+                              stroke="black"
+                              stroke-width="2"
+                            />
+                          </svg>
+                        </Tooltip>
+                        Agregar a favorito
+                      </div>
+                    ) : (
+                      <div
+                        className="cursor-pointer mr-10 flex flex-col justify-center items-center"
+                        onClick={handleFavorite}
+                      >
+                        <Tooltip content="Producto favorito! haz click si quieres removerlo de tus favoritos">
+                          <svg
+                            width="50"
+                            height="50"
+                            viewBox="0 0 40 40"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g clip-path="url(#clip0_2_2)">
+                              <path
+                                d="M3.6392 19.0252L3.6332 19.019L3.6271 19.0129C2.47129 17.8571 1.69537 16.5067 1.28745 14.947C0.877168 13.3782 0.878175 11.8339 1.28648 10.2967C1.69339 8.76485 2.46847 7.42574 3.6271 6.26711C4.78291 5.1113 6.13334 4.33538 7.69302 3.92746C9.26177 3.51718 10.8061 3.51818 12.3433 3.92649C13.861 4.32963 15.1895 5.09418 16.3407 6.23509L19.2303 9.71846L20 10.6463L20.7696 9.71846L23.6662 6.22678C24.7561 5.0984 26.0765 4.33355 27.6494 3.92839C29.2484 3.51654 30.8074 3.51851 32.3433 3.92649C33.8751 4.33339 35.2143 5.10847 36.3729 6.26711C37.5315 7.42574 38.3066 8.76485 38.7135 10.2967C39.1218 11.8339 39.1228 13.3782 38.7125 14.947C38.3046 16.5067 37.5287 17.8571 36.3729 19.0129L36.3668 19.019L36.3608 19.0252L20 35.9607L3.6392 19.0252Z"
+                                fill="#F33131"
+                                stroke="black"
+                                stroke-width="2"
+                              />
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_2_2">
+                                <rect width="40" height="40" fill="white" />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </Tooltip>
+                        Favorito
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+
               <div className="flex flex-col my-3">
-                {detailProduct?.ProductDiscount &&
-                detailProduct.ProductDiscount[0] ? (
+                {detailProduct?.ProductDiscount && diasRestantes > -1 ? (
                   <div className="flex flex-col">
                     <div>
                       <span className="text-lg font-bold text-red-500 dark:text-white line-through mr-6">
-                        ${precioUnitario}
+                        ${precioUnitario.toFixed(2)}
                       </span>
                       <div className="bg-red-600 w-[45px] h-[45px] rounded-full  items-center justify-center text-center text-white inline-flex mr-6">
                         {detailProduct.ProductDiscount[0].discountValue}%
@@ -227,20 +438,26 @@ export default function DetailsCard() {
                       </div>
                       <span className="text-lg font-bold text-gray-900 dark:text-white ">
                         $
-                        {precioUnitario -
+                        {(
+                          precioUnitario -
                           (precioUnitario *
                             detailProduct.ProductDiscount[0].discountValue) /
-                            100}
+                            100
+                        ).toFixed(2)}
                       </span>
                     </div>
-                    <p className="text-center flex justify-start items-start">
-                      {`La oferta termina en ${diasRestantes} dias`}
+                    <p className="text-start">
+                      {diasRestantes === 0
+                        ? `Esta oferta termina hoy!`
+                        : diasRestantes === 1
+                        ? `Esta oferta termina mañana!`
+                        : `Esta oferta termina en ${diasRestantes} dias`}
                     </p>
                   </div>
                 ) : (
                   <>
                     <span className="text-lg font-bold text-gray-900 dark:text-white ">
-                      ${precioUnitario}
+                      ${precioUnitario.toFixed(2)}
                     </span>
                   </>
                 )}
@@ -270,7 +487,7 @@ export default function DetailsCard() {
                     </button>
                     <span className="ml-4 text-lg font-medium">Total</span>
                     <span className="ml-2 text-2xl font-bold">
-                      $ {precioTotal}
+                      $ {precioTotal.toFixed(2)}
                     </span>
                   </div>
                   <button

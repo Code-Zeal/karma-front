@@ -45,6 +45,8 @@ const EditData = forwardRef((props, ref) => {
   const notify = () =>
     toast.success(`Información editada correctamente `, {
       toastId: "success",
+      icon: false,
+
       position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
@@ -58,6 +60,7 @@ const EditData = forwardRef((props, ref) => {
     toast.error(
       "Ha ocurrido un error al editar la información, verifica que el dato es correcto e intente de nuevo",
       {
+        icon: false,
         toastId: "error",
         position: "top-center",
         autoClose: 5000,
@@ -231,6 +234,7 @@ const EditData = forwardRef((props, ref) => {
   return (
     <>
       <ToastContainer
+        icon={false}
         position="top-center"
         autoClose={5000}
         hideProgressBar={false}
@@ -240,7 +244,7 @@ const EditData = forwardRef((props, ref) => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="dark"
+        theme="light"
       />
 
       {visible !== false ? (

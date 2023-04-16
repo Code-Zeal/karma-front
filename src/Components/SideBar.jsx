@@ -6,6 +6,7 @@ import {
   PlusCircleIcon,
   PencilSquareIcon,
   ClipboardDocumentListIcon,
+  HeartIcon,
 } from "@heroicons/react/24/outline";
 import { userIsAdmin } from "../Redux/Actions";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -36,6 +37,15 @@ export default function SideBar() {
               >
                 <UserIcon className="h-6 w-6" />
                 <span>Mi perfil</span>
+              </a>
+            </li>
+            <li className="rounded-sm">
+              <a
+                href="/profile/favorites"
+                className="flex items-center p-2 space-x-3 rounded-sm hover:bg-neutral-900 hover:text-white"
+              >
+                <HeartIcon className="h-6 w-6" />
+                <span>Favoritos</span>
               </a>
             </li>
             <li className="rounded-sm">

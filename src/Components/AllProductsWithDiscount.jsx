@@ -23,7 +23,7 @@ const AllProductsWithDiscount = () => {
     });
   const [data, setData] = useState(false);
   const [input, setInput] = useState("noInput");
-  const [products, setProducts] = useState(null);
+  const [products, setProducts] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [recipesPerPage] = useState(6);
   const indexOfLastRecipes = currentPage * recipesPerPage;
@@ -35,8 +35,19 @@ const AllProductsWithDiscount = () => {
     const searchAll = async () => {
       try {
         let res = await axios.get("/discount/getDiscountedProducts");
-        setData(res.data);
-        setProducts(res.data.slice(indexOfFirstRecipes, indexOfLastRecipes));
+        let data = res.data.filter((product) => {
+          const hoy = new Date();
+          const fechaObjetivoEnTiempo = new Date(
+            product.ProductDiscount.endingDate
+          );
+          const diferenciaEnTiempo = fechaObjetivoEnTiempo - hoy;
+          const diasRestantes = Math.ceil(
+            diferenciaEnTiempo / (1000 * 3600 * 24)
+          ); // convertir a días y redondear hacia arriba
+          return diasRestantes > -1;
+        });
+        setData(data);
+        setProducts(data.slice(indexOfFirstRecipes, indexOfLastRecipes));
       } catch (error) {
         setData(false);
         errorNotify(error.response.data);
@@ -95,7 +106,7 @@ const AllProductsWithDiscount = () => {
               />
             </div>
             <div className="w-full flex flex-wrap justify-center">
-              {products ? (
+              {typeof products !== "string" && products ? (
                 products.map((product) => {
                   return (
                     <DiscountProductCard card={product}></DiscountProductCard>
@@ -104,7 +115,7 @@ const AllProductsWithDiscount = () => {
               ) : (
                 <div className="flex w-full h-[700px] items-center justify-center">
                   <h3 className="text-2xl font-bold">
-                    No hemos encontrado ningún producto :(
+                    En estos momentos no hay productos con ofertas
                   </h3>
                 </div>
               )}
@@ -112,7 +123,7 @@ const AllProductsWithDiscount = () => {
           </div>
         </div>
       </div>
-      <div className="w-full flex items-center justify-center">
+      <div className="w-10/12 ml-auto flex items-center justify-center">
         <Paginated
           recipesPerPage={recipesPerPage}
           allRecipes={data && data.length}
