@@ -56,7 +56,7 @@ function ProductList() {
   useEffect(() => {
     productContainerRef.current.addEventListener("scroll", handleScroll);
     return () =>
-      productContainerRef.current.removeEventListener("scroll", handleScroll);
+      productContainerRef.current?.removeEventListener("scroll", handleScroll);
   }, [products, productCount]);
 
   return (
