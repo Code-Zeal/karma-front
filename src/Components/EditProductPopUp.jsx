@@ -47,7 +47,11 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
           brand: data.brand,
           description: data.description,
           price: data.price,
-          images: data.images,
+          images: data.images.filter(
+            (image) =>
+              image !==
+              "https://ingoodcompany.asia/images/products_attr_img/matrix/default.png"
+          ),
           ramMemory: data.Laptop[0].ramMemory,
           internalMemory: data.Laptop[0].internalMemory,
           processor: data.Laptop[0].processor,
@@ -61,7 +65,11 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
           brand: data.brand,
           description: data.description,
           price: data.price,
-          images: data.images,
+          images: data.images.filter(
+            (image) =>
+              image !==
+              "https://ingoodcompany.asia/images/products_attr_img/matrix/default.png"
+          ),
           internalMemory: data.Tablet[0].internalMemory,
           mainCamera: data.Tablet[0].mainCamera,
           ramMemory: data.Tablet[0].ramMemory,
@@ -77,7 +85,11 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
           brand: data.brand,
           description: data.description,
           price: data.price,
-          images: data.images,
+          images: data.images.filter(
+            (image) =>
+              image !==
+              "https://ingoodcompany.asia/images/products_attr_img/matrix/default.png"
+          ),
           typeResolution: data.Television[0].typeResolution,
           screenSize: data.Television[0].screenSize,
           systemOperating: data.Television[0].systemOperating,
@@ -92,7 +104,11 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
           brand: data.brand,
           description: data.description,
           price: data.price,
-          images: data.images,
+          images: data.images.filter(
+            (image) =>
+              image !==
+              "https://ingoodcompany.asia/images/products_attr_img/matrix/default.png"
+          ),
           ramMemory: data.CellPhone[0].ramMemory,
           mainCamera: data.CellPhone[0].mainCamera,
           internalMemory: data.CellPhone[0].internalMemory,
@@ -406,35 +422,24 @@ const EditProductPopUp = forwardRef(({ data, getData }, ref) => {
       },
       function (error, result) {
         if (result.event === "success") {
-          let newArray = productData.images;
+          const newArray = productData.images;
           newArray.push(result.info.secure_url);
+          console.log(newArray);
           setProductData({
             ...productData,
             images: newArray,
           });
         } else if (result.event === "close") {
-          onSubmit({ images: "asd" });
+          onSubmit({ images: "" });
         }
       }
     );
   }, [productData]);
   console.log(newImagesArray);
+  console.log(productData);
 
   return (
     <>
-      <ToastContainer
-        icon={false}
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
       {visible ? (
         <div className="fixed z-10 inset-0 flex justify-center items-center bg-[#000000ab] ">
           <div className="w-7/12 bg-white h-1/2 rounded-lg flex flex-col items-center justify-evenly">

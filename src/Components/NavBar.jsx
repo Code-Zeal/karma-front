@@ -4,6 +4,7 @@ import UserDropdown from "./UserDropdown";
 import SearchBar from "./SearchBar";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useRef, useState } from "react";
+import { ToastContainer } from "react-toastify";
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,6 +12,19 @@ export default function NavBar() {
 
   return (
     <header aria-label="Site Header" class="border-b border-neutral-300">
+      <ToastContainer
+        position="top-center"
+        draggable={false}
+        autoClose={5000}
+        icon={false}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        pauseOnHover
+        theme="dark"
+      />
       <div class="mx-auto flex h-16 max-w-screen-2xl items-center justify-between sm:px-6 lg:px-8">
         <div class="flex items-center gap-4">
           <button

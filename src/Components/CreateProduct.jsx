@@ -186,26 +186,21 @@ const CreateProduct = (props) => {
       colors: [],
     });
   };
-
+  function deleteArray(index) {
+    const newArray = [...someData.images]; // Creamos una copia del array original
+    newArray.splice(index, 1); // Borramos el elemento correspondiente al índice indicado
+    console.log(newArray);
+    setSomeData({
+      ...someData,
+      images: newArray,
+    });
+  }
   return (
     <div>
       <NavBar />
       <div className="flex">
         <SideBar />
         <div className="container mx-auto mt-12">
-          <ToastContainer
-            position="top-center"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="dark"
-          />
-
           <div className="bg-white w-full rounded-lg flex flex-col items-center justify-center">
             <div className="w-full mt-4 flex items-start justify-evenly">
               <div>
@@ -251,13 +246,21 @@ const CreateProduct = (props) => {
                         indicators={false}
                       >
                         {someData &&
-                          someData.images.map((image) => {
+                          someData.images.map((image, index) => {
                             return (
-                              <img
-                                className="w-full h-auto"
-                                src={image}
-                                alt=""
-                              />
+                              <div className="flex flex-col w-full h-full justify-center items-center">
+                                <img
+                                  className="object-contain h-[350px] items-center justify-center"
+                                  src={image}
+                                  alt=""
+                                />
+                                <button
+                                  className="font-thin text-base bg-red-600 w-[130px] rounded-md my-4 text-white"
+                                  onClick={() => deleteArray(index)}
+                                >
+                                  Borrar imagen
+                                </button>
+                              </div>
                             );
                           })}
                       </Carousel>
