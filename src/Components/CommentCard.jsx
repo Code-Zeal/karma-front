@@ -49,19 +49,6 @@ const CommentCard = (props, ref) => {
   const minute = date.getMinutes();
   return (
     <div className="w-7/12 m-1 text-white border border-neutral-900 bg-neutral-800 py-2 px-4 rounded-sm flex items-center ">
-      <ToastContainer
-        icon={false}
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
       {props.read ? (
         <button className=" bg-neutral-900 border border-neutral-900 text-white py-2 px-2 w-[220px] rounded-sm mr-4 cursor-pointer text-sm text-center">
           Leído

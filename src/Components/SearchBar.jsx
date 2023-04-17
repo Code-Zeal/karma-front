@@ -52,19 +52,6 @@ const SearchBar = forwardRef((props, ref) => {
 
   return (
     <>
-      <ToastContainer
-        icon={false}
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
       {isOpen ? (
         <div className="fixed z-10 inset-0 flex justify-center items-center bg-[#000000ab] ">
           <div className="w-5/12 bg-white h-5/12 rounded-lg flex flex-col items-center justify-evenly">

@@ -73,19 +73,6 @@ const AllProductsDiscount = () => {
       <div className="flex">
         <SideBar />
         <div className="container mx-auto mt-12">
-          <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="dark"
-          />
-
           <div className="flex row-auto flex-wrap">
             <div className="w-full flex justify-around">
               <input
