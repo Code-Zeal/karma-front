@@ -60,10 +60,10 @@ function ProductList() {
   }, [products, productCount]);
 
   return (
-    <div>
+    <div className="my-8">
       <div
         ref={productContainerRef}
-        className="w-11/12 h-[1000px] flex flex-row flex-wrap items-center m-auto border border-neutral-900 justify-start gap-4 h-800 overflow-auto overflow-y-scroll"
+        className="w-11/12 h-[1000px] flex flex-row flex-wrap items-center m-auto border border-neutral-900 justify-center gap-4 h-800 overflow-auto overflow-y-scroll"
       >
         {products
           .slice(0, Math.min(productCount, products.length))
@@ -71,7 +71,6 @@ function ProductList() {
             <Card card={product} key={index} />
           ))}
       </div>
-      <button onClick={handleButtonClick}>Cargar más productos</button>
     </div>
   );
 }

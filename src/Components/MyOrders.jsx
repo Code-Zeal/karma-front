@@ -35,7 +35,7 @@ export default function MyOrders() {
       <div className="flex">
         <SideBar />
         <div className="container mx-auto mt-12">
-          <>
+          <div className="w-12/12 h-[825px] items-center border border-neutral-900 justify-center gap-4 h-800 overflow-auto overflow-y-scroll">
             {order && order.Orders.length > 0 ? (
               order.Orders.map((el) => {
                 console.log(el);
@@ -85,7 +85,7 @@ export default function MyOrders() {
                 )}
               </>
             )}
-          </>
+          </div>
         </div>
       </div>
       <Footer />
