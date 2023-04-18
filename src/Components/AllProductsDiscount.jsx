@@ -7,9 +7,8 @@ import "react-toastify/dist/ReactToastify.css";
 import SideBar from "./SideBar";
 import DiscountProductCard from "./DiscountProductCard";
 import Paginated from "./Paginated";
-import EditProductCard from "./EditProductCard";
 
-const AllProductsAdm = () => {
+const AllProductsDiscount = () => {
   const errorNotify = (msg) =>
     toast.error(msg, {
       toastId: "error",
@@ -43,6 +42,7 @@ const AllProductsAdm = () => {
         errorNotify(error.response.data);
       }
     };
+
     const searchByInput = async (input) => {
       try {
         let res = await axios.get(`/product/getProductsByInput?input=${input}`);
@@ -85,7 +85,11 @@ const AllProductsAdm = () => {
             <div className="w-full flex flex-wrap justify-center">
               {products ? (
                 products.map((product) => {
-                  return <EditProductCard card={product}></EditProductCard>;
+                  console.log(1);
+                  console.log(product);
+                  return (
+                    <DiscountProductCard card={product}></DiscountProductCard>
+                  );
                 })
               ) : (
                 <div className="flex w-full h-[700px] items-center justify-center">
@@ -111,4 +115,4 @@ const AllProductsAdm = () => {
     </div>
   );
 };
-export default AllProductsAdm;
+export default AllProductsDiscount;

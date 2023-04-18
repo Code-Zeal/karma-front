@@ -6,10 +6,12 @@ import NavBar from "./NavBar";
 import SideBar from "./SideBar";
 import Footer from "./Footer";
 import CommentsPage from "./CommentsPage";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function DetailOrder(props) {
   const [popupOpen, setPopupOpen] = useState(false);
   const [popupFeedBackOpen, setPopupFeedBackOpen] = useState(false);
+  const { user } = useAuth0();
 
   const handleOpenPopup = () => {
     setPopupOpen(true);
@@ -28,25 +30,39 @@ export default function DetailOrder(props) {
   const [totalPrice, setTotalPrice] = useState(0);
 
   const { id } = useParams();
-  console.log(id);
-  console.log(detailOrder);
   let total = 0;
-
+  console.log(detailOrder);
   useEffect(() => {
     async function fetchData(id) {
       const responseOrder = await axios.get(`/order/getOrder?id=${id}`);
       const dataOrder = responseOrder.data;
 
       setDetailOrder(dataOrder);
-      dataOrder.ShoppingCarts.forEach((order) => {
-        order.pricePerUnit = order.Product.price * order.amount;
-        return (total += order.pricePerUnit);
+      dataOrder.orderData.ShoppingCarts.forEach((product) => {
+        if (product.Product?.ProductDiscount) {
+          product.pricePerUnit =
+            product.Product.price -
+            (product.Product.price *
+              product.Product.ProductDiscount.discountValue) /
+              100;
+
+          setTotalPrice(
+            (total +=
+              (product.Product.price -
+                (product.Product.price *
+                  product.Product.ProductDiscount.discountValue) /
+                  100) *
+              product.amount)
+          );
+        } else {
+          product.pricePerUnit = product.Product.price;
+          setTotalPrice((total += product.pricePerUnit * product.amount));
+        }
       });
       setTotalPrice(total);
     }
     fetchData(id);
   }, [id, totalPrice]);
-  console.log(totalPrice);
 
   return (
     <div>
@@ -59,7 +75,7 @@ export default function DetailOrder(props) {
               Número de orden #{id}
             </h1>
             <p className="text-lg text-center">
-              Estado de tu orden:{" "}
+              Estado de tu orden:
               {detailOrder && detailOrder.orderStatus === "Orden Pagada"
                 ? "Procesando"
                 : detailOrder && detailOrder.orderStatus === "Enviando"
@@ -69,14 +85,17 @@ export default function DetailOrder(props) {
             <ul className="max-w-4xl mx-auto">
               {detailOrder ? (
                 <>
-                  {detailOrder.ShoppingCarts.map((shopping) => {
+                  {detailOrder.orderData.ShoppingCarts.map((shopping) => {
+                    console.log(shopping);
                     return (
                       <li className="flex items-center justify-between border-b-2 border-gray-300 py-4">
-                        <img
-                          className="w-16 h-16 object-contain mr-4"
-                          src={shopping.Product.images[0]}
-                          alt=""
-                        />
+                        <a href={`/detail/${shopping.ProductId}`}>
+                          <img
+                            className="w-16 h-16 object-contain mr-4"
+                            src={shopping.Product.images[0]}
+                            alt=""
+                          />
+                        </a>
 
                         <div className="flex flex-col justify-between w-1/2">
                           <div>
@@ -109,13 +128,27 @@ export default function DetailOrder(props) {
                               )}
                             </div>
                           </div>
-                          <div>
+                          <div className="flex flex-col">
                             <label className="text-gray-800">
                               Cantidad: {shopping.amount}{" "}
                             </label>
-                            <label className="text-gray-800">
-                              ${shopping.pricePerUnit}
-                            </label>
+                            <div>
+                              <label className="text-gray-800">
+                                ${shopping.pricePerUnit} c/u
+                              </label>
+
+                              {shopping.Product?.ProductDiscount ? (
+                                <label className="text-gray-800 ml-5">
+                                  {
+                                    shopping.Product.ProductDiscount
+                                      .discountValue
+                                  }
+                                  %
+                                </label>
+                              ) : (
+                                <></>
+                              )}
+                            </div>
                           </div>
                         </div>
 

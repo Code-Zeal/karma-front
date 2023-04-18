@@ -3,7 +3,9 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const notify = (msg) =>
-  toast.success(msg, {
+  toast.info(msg, {
+    toastId: "success",
+    icon: false,
     position: "top-center",
     autoClose: 5000,
     hideProgressBar: false,
@@ -15,8 +17,9 @@ const notify = (msg) =>
   });
 const errorNotify = (msg) =>
   toast.error(msg, {
+    toastId: "error",
     position: "top-center",
-    autoClose: 5000,
+    autoClose: 3000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,

@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import CartCard from "./CartCard";
 import { Tooltip } from "flowbite-react";
-import LoadingCheckout from "./LoadingCheckout";
 import LoadingCart from "./LoadingCart";
 
 export default function Cart() {
@@ -23,17 +22,36 @@ export default function Cart() {
       `/product/getProductsFromUserShoppingCart?id=${user?.sub}`
     );
 
-    setCartProducts(response.data);
+    const sortedProducts = response.data.sort((a, b) =>
+      a.Product.model.localeCompare(b.Product.model)
+    );
+    setCartProducts(sortedProducts);
 
     response.data.forEach((product) => {
-      product.pricePerUnit = product.Product.price * product.amount;
-      setTotalPrice((total += product.pricePerUnit));
+      if (product.Product?.ProductDiscount) {
+        product.pricePerUnit =
+          product.Product.price -
+          (product.Product.price *
+            product.Product.ProductDiscount.discountValue) /
+            100;
+
+        setTotalPrice(
+          (total +=
+            (product.Product.price -
+              (product.Product.price *
+                product.Product.ProductDiscount.discountValue) /
+                100) *
+            product.amount)
+        );
+      } else {
+        product.pricePerUnit = product.Product.price;
+        setTotalPrice((total += product.pricePerUnit * product.amount));
+      }
     });
   }
   useEffect(() => {
     fetchData();
   }, [user?.sub]);
-
   return (
     <section>
       {cartProducts ? (
@@ -50,18 +68,25 @@ export default function Cart() {
               <div class="mt-8">
                 <ul class="space-y-4">
                   {cartProducts ? (
-                    cartProducts.map((cart) => (
-                      <CartCard
-                        setHandleChange={handleChange}
-                        productID={cart.ProductId}
-                        image={cart.Product.images[0]}
-                        model={cart.Product.model}
-                        priceXProduct={cart.pricePerUnit}
-                        cantidad={cart.amount}
-                        userId={user && user?.sub}
-                        delete={cart.id}
-                      />
-                    ))
+                    cartProducts.map((cart) => {
+                      console.log();
+                      return (
+                        <CartCard
+                          setHandleChange={handleChange}
+                          productID={cart.ProductId}
+                          image={cart.Product.images[0]}
+                          model={cart.Product.model}
+                          priceXProduct={cart.pricePerUnit}
+                          discountValue={
+                            cart.Product?.ProductDiscount &&
+                            cart.Product?.ProductDiscount.discountValue
+                          }
+                          cantidad={cart.amount}
+                          userId={user && user?.sub}
+                          delete={cart.id}
+                        />
+                      );
+                    })
                   ) : (
                     <></>
                   )}
@@ -72,7 +97,7 @@ export default function Cart() {
                     <dl class="space-y-0.5 text-sm text-gray-700">
                       <div class="flex justify-between !text-base font-medium">
                         <dt>Total</dt>
-                        <dd>{totalPrice}</dd>
+                        <dd>{totalPrice.toFixed(2)}</dd>
                       </div>
                     </dl>
 

@@ -3,22 +3,28 @@ import CartPopup from "./CartPopup";
 import UserDropdown from "./UserDropdown";
 import SearchBar from "./SearchBar";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { Link, useNavigate, redirect, NavLink } from "react-router-dom";
-import { Router } from "react-router-dom";
 import { useRef, useState } from "react";
-import { useEffect } from "react";
+import { ToastContainer } from "react-toastify";
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
   const searchBarRef = useRef();
-
-  useEffect(() => {
-    window.location.hash = "logo";
-  });
 
   return (
     <header aria-label="Site Header" class="border-b border-neutral-300">
+      <ToastContainer
+        position="top-center"
+        draggable={false}
+        autoClose={5000}
+        icon={false}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        pauseOnHover
+        theme="dark"
+      />
       <div class="mx-auto flex h-16 max-w-screen-2xl items-center justify-between sm:px-6 lg:px-8">
         <div class="flex items-center gap-4">
           <button
@@ -72,14 +78,17 @@ export default function NavBar() {
               </Dropdown>
             </div>
             <hr />
-            <a
-              href="#"
-              className="font-bold font-mono block px-3 py-2 rounded-sm text-sm text-center text-neutral-900 hover:text-white hover:bg-neutral-900"
-            >
-              Opción 3
-            </a>
+            <div className="flex font-bold font-mono px-3 py-2 rounded-sm text-sm text-center justify-center text-neutral-900 hover:text-white hover:bg-neutral-900">
+              <a
+                href="/search"
+                class="font-bold font-mono block px-3 py-2 rounded-sm text-sm text-center text-neutral-900 hover:text-white hover:bg-neutral-900"
+              >
+                EXPLORAR
+              </a>
+            </div>
+            <hr />
           </div>
-          <a href="/" class="flex" id="logo">
+          <a href="/" class="flex">
             <span class="sr-only">Logo</span>
             <img
               src="https://res.cloudinary.com/dpjxt54q0/image/upload/v1678751228/KarmaBlack_xsfd2j.png"

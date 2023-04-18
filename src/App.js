@@ -21,9 +21,13 @@ import CommentsAdm from "./Components/CommentsAdm";
 import CommentDetails from "./Components/CommentDetails";
 import AllOrderHistory from "./Components/AllOrderHistory";
 import axios from "axios";
+import AllProductsDiscount from "./Components/AllProductsDiscount";
+import AddProductDiscount from "./Components/AddProductDiscount";
+import AllProductsWithDiscount from "./Components/AllProductsWithDiscount";
+import FavoriteProducts from "./Components/FavoriteProducts";
 axios.defaults.baseURL = "http://localhost:4000";
 // http://localhost:4000
-//https://karma-backend-production.up.railway.app/
+//https://karma-backend-production.up.railway.app
 function App() {
   return (
     <BrowserRouter>
@@ -39,6 +43,7 @@ function App() {
         <Route exact path="/profile" element={<Profile />} />
         <Route exact path="/profile/orders" element={<MyOrders />} />
         <Route exact path="/profile/data" element={<MyData />} />
+        <Route exact path="/profile/favorites" element={<FavoriteProducts />} />
         <Route path="/search" element={<Search />} />
         <Route path="/admin/createproduct" element={<CreateProduct />} />
         <Route path="/admin/editproduct" element={<AllProductsAdm />} />
@@ -46,6 +51,12 @@ function App() {
         <Route path="/admin/feedbacks" element={<CommentsAdm />} />
         <Route path="/admin/feedback/:id" element={<CommentDetails />} />
         <Route path="/admin/orderhistory/" element={<AllOrderHistory />} />
+        <Route path="/admin/addDiscount/" element={<AllProductsDiscount />} />
+        <Route path="/admin/addDiscount/:id" element={<AddProductDiscount />} />
+        <Route
+          path="/admin/allDiscount"
+          element={<AllProductsWithDiscount />}
+        />
       </Routes>
     </BrowserRouter>
   );
