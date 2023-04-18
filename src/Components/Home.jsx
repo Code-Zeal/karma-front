@@ -86,12 +86,12 @@ function Home() {
         <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
           <div className="relative max-w-2xl sm:mx-auto sm:max-w-xl md:max-w-2xl sm:text-center">
             <h2 className="mb-6 font-sans text-3xl font-bold tracking-tight text-white sm:text-4xl sm:leading-none ">
-              ¡Bienvenidos al
+              Bienvenidos al
               <br className="hidden md:block" />
               <p className="pr-2">universo de la tecnología en </p>
-              <span className="relative inline-block px-2">
+              <span className="relative inline-block px-2 my-4">
                 <div className="absolute inset-0 transform -skew-x-12 py-6 bg-slate-200" />
-                <span className="relative text-stone-900">KARMA!</span>
+                <span className="relative text-stone-900">KARMA</span>
               </span>
             </h2>
             <p className="mb-6 text-base text-indigo-100 md:text-lg">
@@ -102,8 +102,6 @@ function Home() {
               Televisores.
             </p>
             <SearchBar ref={searchBarRef}></SearchBar>
-
-            <hr className="text-white w-full my-6" />
             <p className="max-w-md mb-10 text-xs tracking-wide text-indigo-100 sm:text-sm sm:mx-auto md:mb-16">
               Estamos comprometidos con la sostenibilidad y trabajamos con
               proveedores que comparten nuestros valores y nuestro compromiso
@@ -127,7 +125,7 @@ function Home() {
           </div>
         </div>
       </div>
-      {/* <SliderCategories></SliderCategories> */}
+      <SliderCategories></SliderCategories>
       <CheckOffers></CheckOffers>
       <OffersAndNews />
       <PaymentMethods></PaymentMethods>
