@@ -120,9 +120,9 @@ export default function EditProductDetails() {
   return (
     <>
       <EditProductPopUp
+        ref={popUpRef}
         getData={fetchData}
         data={detailProduct}
-        ref={popUpRef}
       ></EditProductPopUp>
       <NavBar />
 
