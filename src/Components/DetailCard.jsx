@@ -332,12 +332,12 @@ export default function DetailsCard() {
                     <h5 className="text-2xl font-bold my-3 ">{`${detailProduct.Laptop[0].name}`}</h5>
                     <h5
                       className={
-                        detailProduct.stock === 0
-                          ? "text-2xl font-bold mx-2 my-3 border border-neutral-900 bg-red-500 px-3 py-1 rounded-sm"
+                        detailProduct.stock <= 0
+                          ? "text-2xl font-bold mx-auto flex items-center justify-center my-3 border border-neutral-900 bg-red-500 px-3 py-1 rounded-sm"
                           : "text-2xl font-bold"
                       }
                     >
-                      {detailProduct.stock === 0 ? "AGOTADO" : ""}
+                      {detailProduct.stock <= 0 ? "AGOTADO" : ""}
                     </h5>
                   </>
                 )}
@@ -346,12 +346,12 @@ export default function DetailsCard() {
                     <h5 className="text-2xl font-bold my-3">{` ${detailProduct.Tablet[0].name}`}</h5>
                     <h5
                       className={
-                        detailProduct.stock === 0
-                          ? "text-2xl font-bold mx-2 my-3 border border-neutral-900 bg-red-500 px-3 py-1 rounded-sm"
+                        detailProduct.stock <= 0
+                          ? "text-2xl font-bold mx-auto flex items-center justify-center my-3 border border-neutral-900 bg-red-500 px-3 py-1 rounded-sm"
                           : "text-2xl font-bold"
                       }
                     >
-                      {detailProduct.stock === 0 ? "AGOTADO" : ""}
+                      {detailProduct.stock <= 0 ? "AGOTADO" : ""}
                     </h5>
                   </>
                 )}
@@ -360,12 +360,12 @@ export default function DetailsCard() {
                     <h5 className="text-2xl font-bold my-3">{`${detailProduct.CellPhone[0].name}`}</h5>
                     <h5
                       className={
-                        detailProduct.stock === 0
-                          ? "text-2xl font-bold mx-2 my-3 border border-neutral-900 bg-red-500 px-3 py-1 rounded-sm"
+                        detailProduct.stock <= 0
+                          ? "text-2xl font-bold mx-auto flex items-center justify-center my-3 border border-neutral-900 bg-red-500 px-3 py-1 rounded-sm"
                           : "text-2xl font-bold"
                       }
                     >
-                      {detailProduct.stock === 0 ? "AGOTADO" : ""}
+                      {detailProduct.stock <= 0 ? "AGOTADO" : ""}
                     </h5>
                   </>
                 )}
@@ -375,12 +375,12 @@ export default function DetailsCard() {
                     <h5 className="text-2xl font-bold my-3">{`${detailProduct.Television[0].name}`}</h5>
                     <h5
                       className={
-                        detailProduct.stock === 0
-                          ? "text-2xl font-bold mx-2 my-3 border border-neutral-900 bg-red-500 px-3 py-1 rounded-sm"
+                        detailProduct.stock <= 0
+                          ? "text-2xl font-bold mx-auto flex items-center justify-center my-3 border border-neutral-900 bg-red-500 px-3 py-1 rounded-sm"
                           : "text-2xl font-bold"
                       }
                     >
-                      {detailProduct.stock === 0 ? "AGOTADO" : ""}
+                      {detailProduct.stock <= 0 ? "AGOTADO" : ""}
                     </h5>
                   </>
                 )}

@@ -95,7 +95,8 @@ export default function AllOrderHistory() {
               })
             ) : (
               <>
-                {allOrders && allOrders.length === 0 ? (
+                {allOrders &&
+                allOrders.length === "No existen registros de Pedidos" ? (
                   <div className="flex w-full h-[700px] items-center justify-center">
                     <h3 className="text-2xl font-bold">Aún no hay ordenes</h3>
                   </div>

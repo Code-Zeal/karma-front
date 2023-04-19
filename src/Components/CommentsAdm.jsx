@@ -20,7 +20,11 @@ export default function CommentsAdm() {
     const getComments = async () => {
       const res = await axios.get("/comments/getComments");
 
-      setComments(sortByReadStatus(res.data));
+      if (typeof res.data === "string") {
+        setComments(res.data);
+      } else {
+        setComments(sortByReadStatus(res.data));
+      }
     };
     getComments();
   }, []);
@@ -51,7 +55,8 @@ export default function CommentsAdm() {
               })
             ) : (
               <>
-                {comments && comments.length === 0 ? (
+                {comments &&
+                comments.length === "Todavia no hay comentarios disponibles" ? (
                   <div className="w-full h-full flex justify-center items-center text-3xl font-thin">
                     NO HAY COMENTARIOS PARA MOSTRAR
                   </div>
