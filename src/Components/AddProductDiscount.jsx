@@ -76,7 +76,6 @@ export default function DetailsCard() {
       errorNotify(error.message);
     }
   };
-
   const onSubmit = async (form) => {
     const addDiscount = async () => {
       if (diasRestantes) {
@@ -144,19 +143,6 @@ export default function DetailsCard() {
   const precioUnitario = detailProduct?.price;
   const [diasRestantes, setDiasRestantes] = useState(null);
 
-  const validateStartingDate = (selectedDate) => {
-    const fechaDeAyer = () => {
-      let hoy = new Date();
-      let DIA_EN_MILISEGUNDOS = 24 * 60 * 60 * 1000;
-      let manana = new Date(hoy.getTime() - DIA_EN_MILISEGUNDOS);
-      return manana;
-    };
-    const fechaSeleccionada = new Date(selectedDate);
-    if (isBefore(fechaSeleccionada, fechaDeAyer())) {
-      return "No puedes seleccionar una fecha anterior a hoy";
-    }
-  };
-
   const validateEndingDate = (selectedDate) => {
     const fechaDeAyer = () => {
       let hoy = new Date();
@@ -165,23 +151,11 @@ export default function DetailsCard() {
       return manana;
     };
     const fechaSeleccionada = new Date(selectedDate);
-    if (watch("startingDate")) {
-      const hoy = new Date(watch("endingDate"));
-      const fechaSeleccionada = new Date(watch("startingDate"));
-      if (isBefore(hoy, fechaSeleccionada)) {
-        return "No puedes seleccionar una fecha anterior a la inicial";
-      }
-    } else if (isBefore(fechaSeleccionada, fechaDeAyer())) {
+    if (isBefore(fechaSeleccionada, fechaDeAyer())) {
       console.log(2);
       return "No puedes seleccionar una fecha anterior a hoy";
     }
   };
-  useEffect(() => {
-    register("startingDate", {
-      required: true,
-      validate: validateStartingDate,
-    });
-  }, [register]);
   useEffect(() => {
     register("endingDate", {
       required: true,
@@ -388,19 +362,7 @@ export default function DetailsCard() {
                       </h3>
                       <div className="flex w-full justify-between items-center">
                         <div className="flex flex-col w-full">
-                          <label htmlFor="">Fecha inicial:</label>
-                          <input
-                            {...register("startingDate")}
-                            className={
-                              errors.startingDate
-                                ? " border-l-[20px]  mr-2 bg-white border  text-neutral-900 py-2 px-4 rounded-sm  placeholder:font-light border-red-600  focus:border-red-600"
-                                : " border-l-[20px]  mr-2 bg-white border  text-neutral-900 py-2 px-4 rounded-sm  placeholder:font-light border-[#171717] focus:border-[#171717]"
-                            }
-                            type="date"
-                          />
-                        </div>
-                        <div className="flex flex-col w-full">
-                          <label htmlFor="">Fecha final:</label>
+                          <label htmlFor="">Fecha final de la oferta:</label>
                           <input
                             {...register("endingDate", { required: true })}
                             className={
@@ -472,19 +434,7 @@ export default function DetailsCard() {
                         </h3>
                         <div className="flex">
                           <div className="flex flex-col w-full">
-                            <label htmlFor="">Fecha inicial:</label>
-                            <input
-                              {...register("startingDate", { required: true })}
-                              className={
-                                errors.startingDate
-                                  ? " border-l-[20px]  mr-2 bg-white border  text-neutral-900 py-2 px-4 rounded-sm  placeholder:font-light border-red-600  focus:border-red-600"
-                                  : " border-l-[20px]  mr-2 bg-white border  text-neutral-900 py-2 px-4 rounded-sm  placeholder:font-light border-[#171717] focus:border-[#171717]"
-                              }
-                              type="date"
-                            />
-                          </div>
-                          <div className="flex flex-col w-full">
-                            <label htmlFor="">Fecha final:</label>
+                            <label htmlFor="">Fecha final de la oferta:</label>
                             <input
                               {...register("endingDate", { required: true })}
                               className={
