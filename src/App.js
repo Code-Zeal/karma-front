@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Components/Home";
 import Cart from "./Components/Cart";
 import AdminStatistics from "./Components/AdminStatistics";
+import ProductsSoldSecond from "./Components/ProductsSoldSecond";
 // import DetailsCard from "./Components/DetailCard";
 // import Detail from "./Components/Detail";
 import { useSelector, useDispatch } from "react-redux";
@@ -47,6 +48,11 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route exact path="/estadisticas" element={<AdminStatistics />} />
+        <Route
+          exact
+          path="/estadisticasMalas"
+          element={<ProductsSoldSecond />}
+        />
 
         <Route exact path="/" element={<Home />} />
         <Route exact path="/cart" element={<Cart />} />

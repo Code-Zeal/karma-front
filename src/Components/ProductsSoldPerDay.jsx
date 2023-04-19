@@ -2,6 +2,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useEffect, useState } from "react";
 import Chart from "chart.js/auto";
+import ProductsSoldSecond from "./ProductsSoldSecond";
 
 import axios from "axios";
 import { Bar, Doughnut } from "react-chartjs-2";
@@ -23,12 +24,14 @@ const ProductsSoldPerDay = (props) => {
     setGetProductsSoldPerDay(null);
     setTotalQuantity(0);
   };
-
+  // /product/getProductsSoldPerDay?startDate=2023-04-17&endDate=2023-04-19
   useEffect(() => {
     if (startDate && endDate) {
       const analytics = async (startDate, endDate) => {
         const res = await axios.get(
-          `/product/getProductsSoldPerDay?startDate=${startDate.toLocaleDateString()}&endDate=${endDate.toLocaleDateString()}`
+          `/product/getProductsSoldPerDay?startDate=${startDate
+            .toISOString()
+            .slice(0, 10)}&endDate=${endDate.toISOString().slice(0, 10)}`
         );
         setGetProductsSoldPerDay(res.data);
 
@@ -132,6 +135,9 @@ const ProductsSoldPerDay = (props) => {
       </div>
       <Bar data={data} options={options} />
       <p>Total quantity: {totalQuantity}</p>
+
+      <ProductsSoldSecond startdate={startDate} enddate={endDate} />
+      {/* <ProductsSoldSecond></ProductsSoldSecond> */}
     </div>
   );
 };
