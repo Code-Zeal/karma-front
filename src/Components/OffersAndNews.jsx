@@ -171,7 +171,7 @@ const OffersAndNews = (props) => {
               ? offers1?.map((product) => {
                   return (
                     <Link
-                      to={`http://localhost:3000/detail/${product.id}`}
+                      to={`/detail/${product.id}`}
                       className="w-full flex items-start "
                     >
                       <h5 className="text-[10px] lg:text-xl font-semibold tracking-tight px-[5%] p-2 text-center rounded-tr-xl rounded-br-xl bg-[#171717] text-white absolute z-10 ">
@@ -191,7 +191,7 @@ const OffersAndNews = (props) => {
               : offers2?.map((product) => {
                   return (
                     <Link
-                      to={`http://localhost:3000/detail/${product.id}`}
+                      to={`/detail/${product.id}`}
                       className="w-full flex items-start "
                     >
                       <h5 className="text-[10px] lg:text-xl font-semibold tracking-tight px-[5%] p-2 text-center rounded-tr-xl rounded-br-xl bg-[#171717] text-white absolute z-10 ">
@@ -297,7 +297,7 @@ const OffersAndNews = (props) => {
               ? offers4?.map((product) => {
                   return (
                     <Link
-                      to={`http://localhost:3000/detail/${product.id}`}
+                      to={`/detail/${product.id}`}
                       className="w-full flex items-start "
                     >
                       <h5 className="text-[10px] lg:text-xl font-semibold tracking-tight px-[5%] p-2 text-center rounded-tr-xl rounded-br-xl bg-[#171717] text-white absolute z-10 ">
@@ -317,7 +317,7 @@ const OffersAndNews = (props) => {
               : offers3?.map((product) => {
                   return (
                     <Link
-                      to={`http://localhost:3000/detail/${product.id}`}
+                      to={`/detail/${product.id}`}
                       className="w-full flex items-start "
                     >
                       <h5 className="text-[10px] lg:text-xl font-semibold tracking-tight px-[5%] p-2 text-center rounded-tr-xl rounded-br-xl bg-[#171717] text-white absolute z-10 ">

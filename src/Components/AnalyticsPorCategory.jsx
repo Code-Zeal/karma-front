@@ -8,7 +8,7 @@ const AnalyticsPorCategory = (props) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/product/getAnalyticsByCategory")
+      .get("/product/getAnalyticsByCategory")
       .then((response) => {
         setData(response.data);
       })
