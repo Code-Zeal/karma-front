@@ -43,7 +43,7 @@ export default function AllOrderHistory() {
         <SideBar />
         <div className="container mx-auto mt-12">
           <div className="w-12/12 h-[825px] items-center border border-neutral-900 justify-center gap-4 h-800 overflow-auto overflow-y-scroll">
-            {allOrders &&
+            {allOrders && allOrders.length > 0 ? (
               allOrders.map((order) => {
                 console.log(order);
                 const purchaseDate = new Date(order.datePurchase);
@@ -92,7 +92,36 @@ export default function AllOrderHistory() {
                     </div>
                   </div>
                 );
-              })}
+              })
+            ) : (
+              <>
+                {allOrders && allOrders.length === 0 ? (
+                  <div className="flex w-full h-[700px] items-center justify-center">
+                    <h3 className="text-2xl font-bold">Aún no hay ordenes</h3>
+                  </div>
+                ) : (
+                  <div className="flex w-full h-[700px] items-center justify-center">
+                    <div className="animate-spin">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="100px"
+                        height="100px"
+                        viewBox="0 0 24 24"
+                        fill="#000"
+                      >
+                        <path
+                          d="M12 2.99988V5.99988M12 20.9999V17.9999M4.20577 16.4999L6.80385 14.9999M21 11.9999H18M16.5 19.7941L15 17.196M3 11.9999H6M7.5 4.20565L9 6.80373M7.5 19.7941L9 17.196M19.7942 16.4999L17.1962 14.9999M4.20577 7.49988L6.80385 8.99988"
+                          stroke="#000000"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
           </div>
         </div>
       </div>

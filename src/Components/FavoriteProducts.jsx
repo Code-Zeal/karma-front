@@ -76,7 +76,7 @@ const AllProductsDiscount = () => {
                   {data && data.length === 0 ? (
                     <div className="flex w-full h-[700px] items-center justify-center">
                       <h3 className="text-2xl font-bold text-black">
-                        Aun no tienes favoritos :(
+                        Aun no tienes productos favoritos
                       </h3>
                     </div>
                   ) : (
