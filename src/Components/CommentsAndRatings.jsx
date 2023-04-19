@@ -103,6 +103,7 @@ const CommentsAndRatings = forwardRef((props, ref) => {
         setIsOpen(!isOpen);
       }
     }
+
   };
   return (
     <>
