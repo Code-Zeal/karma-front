@@ -5,19 +5,68 @@ import axios from "axios";
 const OffersAndNews = (props) => {
   const [offers1, setOffers1] = useState(null);
   const [offers2, setOffers2] = useState(null);
-  useEffect(() => {
-    const getOffers1 = async () => {
-      const res = await axios.get("/product/getproductPromo/3");
-      setOffers1(res.data);
-    };
-    const getOffers2 = async () => {
-      const res = await axios.get("/product/getproductPromo/3");
-      setOffers2(res.data);
-    };
-    getOffers1();
-    getOffers2();
-  }, []);
+  const [offers3, setOffers3] = useState(null);
+  const [offers4, setOffers4] = useState(null);
   console.log(offers1);
+  console.log(offers4);
+  useEffect(() => {
+    const getOffers = async () => {
+      const res = await axios.get("/discount/getDiscountedProducts");
+      if (res.data !== "Actualmente no hay productos con descuentos") {
+        setOffers1(
+          res.data.slice(
+            Math.abs(Math.round(res.data.length / 2) - res.data.length),
+            res.data.length
+          )
+        );
+      } else {
+        setOffers1(res.data);
+      }
+    };
+    const getOffers4 = async () => {
+      const res = await axios.get("/discount/getDiscountedProducts");
+      console.log(res.data);
+      if (
+        res.data !== "Actualmente no hay productos con descuentos" &&
+        res.data.length !== 1 &&
+        res.data.length !== 2
+      ) {
+        console.log("cualquiera que no sea 1 o 2 o vacio");
+        setOffers4(
+          res.data.slice(0, Math.abs(Math.round(res.data.length / 2)))
+        );
+      } else if (
+        res.data !== "Actualmente no hay productos con descuentos" &&
+        res.data.length === 2
+      ) {
+        setOffers4(res.data.slice(0, 1));
+      } else if (res.data.length === 1) {
+        setOffers4("Actualmente no hay productos con descuentos");
+      } else {
+        setOffers4(res.data);
+      }
+    };
+    getOffers4();
+    getOffers();
+    const getOffers2 = async () => {
+      const res = await axios.get("/product/getProducts");
+      setOffers2(
+        res.data
+          .sort((a, b) => new Date(b.dateCreated) - new Date(a.dateCreated))
+          .slice(0, 3)
+      );
+    };
+    const getOffers3 = async () => {
+      const res = await axios.get("/product/getProducts");
+      setOffers3(
+        res.data
+          .sort((a, b) => new Date(b.dateCreated) - new Date(a.dateCreated))
+          .slice(3, 6)
+      );
+    };
+    getOffers2();
+    getOffers3();
+  }, []);
   return (
     <section className="flex flex-col mt-[2%]" id="down">
       <section className="mx-2 flex  flex-col lg:flex-row lg:justify-evenly">
@@ -33,7 +82,7 @@ const OffersAndNews = (props) => {
             tus necesidades.
           </h3>
         </div>
-        <div className="lg:w-7/12 grid h-56 grid-cols-2 gap-4 sm:h-64 xl:h-80 2xl:h-96">
+        <div className="lg:w-7/12 grid h-56 grid-cols-2 gap-4 sm:h-64 xl:h-80 2xl:h-[300px] border border-neutral-900 rounded-sm">
           <Carousel
             leftControl={
               <div className="bg-black rounded-full flex p-1 border-white border-2 items-center justify-center">
@@ -118,23 +167,47 @@ const OffersAndNews = (props) => {
             indicators={false}
           >
             {offers1 &&
-              offers1.map((product) => {
-                return (
-                  <Link
-                    to={`http://localhost:3000/detail/${product.id}`}
-                    className="w-full flex items-start "
-                  >
-                    <h5 className="text-[10px] lg:text-lg font-semibold tracking-tight px-[10%] p-2 text-center rounded-tr-xl rounded-br-xl bg-[#171717] text-white absolute z-10 ">
-                      {`${product.brand} ${product.model}`}
-                    </h5>
-                    <img
-                      className="w-[260px] h-[200px] m-auto relative z-0"
-                      src={product.images[0]}
-                      alt={`${product.brand} ${product.model}`}
-                    />
-                  </Link>
-                );
-              })}
+            offers1 !== "Actualmente no hay productos con descuentos"
+              ? offers1?.map((product) => {
+                  return (
+                    <Link
+                      to={`http://localhost:3000/detail/${product.id}`}
+                      className="w-full flex items-start "
+                    >
+                      <h5 className="text-[10px] lg:text-xl font-semibold tracking-tight px-[5%] p-2 text-center rounded-tr-xl rounded-br-xl bg-[#171717] text-white absolute z-10 ">
+                        {`${product.brand} ${product.model}`}
+                      </h5>
+                      <h5 className="text-[10px] lg:text-xl font-semibold tracking-tight px-[5%] mt-[10%] text-center rounded-tr-xl rounded-br-xl bg-red-500 text-white  z-10 ">
+                        {`${product.ProductDiscount.discountValue} %`}
+                      </h5>
+                      <img
+                        className="w-[300px] h-[250px] m-auto my-2 relative z-0"
+                        src={product.images[0]}
+                        alt={`${product.brand} ${product.model}`}
+                      />
+                    </Link>
+                  );
+                })
+              : offers2?.map((product) => {
+                  return (
+                    <Link
+                      to={`http://localhost:3000/detail/${product.id}`}
+                      className="w-full flex items-start "
+                    >
+                      <h5 className="text-[10px] lg:text-xl font-semibold tracking-tight px-[5%] p-2 text-center rounded-tr-xl rounded-br-xl bg-[#171717] text-white absolute z-10 ">
+                        {`${product.brand} ${product.model}`}
+                      </h5>
+                      <h5 className="text-[10px] lg:text-xl font-semibold tracking-tight px-[5%] mt-[10%] text-center rounded-tr-xl rounded-br-xl bg-red-500 text-white  z-10 ">
+                        {`NUEVO!`}
+                      </h5>
+                      <img
+                        className="w-[300px] h-[250px] m-auto my-2 relative z-0"
+                        src={product.images[0]}
+                        alt={`${product.brand} ${product.model}`}
+                      />
+                    </Link>
+                  );
+                })}
           </Carousel>
           <Carousel
             leftControl={
@@ -219,24 +292,48 @@ const OffersAndNews = (props) => {
             }
             indicators={false}
           >
-            {offers2 &&
-              offers2.map((product) => {
-                return (
-                  <Link
-                    to={`http://localhost:3000/detail/${product.id}`}
-                    className="w-full flex items-start "
-                  >
-                    <h5 className="text-[10px] lg:text-lg font-semibold tracking-tight px-[10%] p-2 text-center rounded-tr-xl rounded-br-xl bg-[#171717] text-white absolute z-10 ">
-                      {`${product.brand} ${product.model}`}
-                    </h5>
-                    <img
-                      className="w-[260px] h-[200px] m-auto relative z-0"
-                      src={product.images[0]}
-                      alt={`${product.brand} ${product.model}`}
-                    />
-                  </Link>
-                );
-              })}
+            {offers4 &&
+            offers4 !== "Actualmente no hay productos con descuentos"
+              ? offers4?.map((product) => {
+                  return (
+                    <Link
+                      to={`http://localhost:3000/detail/${product.id}`}
+                      className="w-full flex items-start "
+                    >
+                      <h5 className="text-[10px] lg:text-xl font-semibold tracking-tight px-[5%] p-2 text-center rounded-tr-xl rounded-br-xl bg-[#171717] text-white absolute z-10 ">
+                        {`${product.brand} ${product.model}`}
+                      </h5>
+                      <h5 className="text-[10px] lg:text-xl font-semibold tracking-tight px-[5%] mt-[10%] text-center rounded-tr-xl rounded-br-xl bg-red-500 text-white  z-10 ">
+                        {`${product.ProductDiscount.discountValue} %`}
+                      </h5>
+                      <img
+                        className="w-[300px] h-[250px] m-auto my-2 relative z-0"
+                        src={product.images[0]}
+                        alt={`${product.brand} ${product.model}`}
+                      />
+                    </Link>
+                  );
+                })
+              : offers3?.map((product) => {
+                  return (
+                    <Link
+                      to={`http://localhost:3000/detail/${product.id}`}
+                      className="w-full flex items-start "
+                    >
+                      <h5 className="text-[10px] lg:text-xl font-semibold tracking-tight px-[5%] p-2 text-center rounded-tr-xl rounded-br-xl bg-[#171717] text-white absolute z-10 ">
+                        {`${product.brand} ${product.model}`}
+                      </h5>
+                      <h5 className="text-[10px] lg:text-xl font-semibold tracking-tight px-[5%] mt-[10%] text-center rounded-tr-xl rounded-br-xl bg-red-500 text-white  z-10 ">
+                        {`NUEVO!`}
+                      </h5>
+                      <img
+                        className="w-[300px] h-[250px] m-auto my-2 relative z-0"
+                        src={product.images[0]}
+                        alt={`${product.brand} ${product.model}`}
+                      />
+                    </Link>
+                  );
+                })}
           </Carousel>
         </div>
       </section>

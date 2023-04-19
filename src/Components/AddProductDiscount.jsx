@@ -76,7 +76,6 @@ export default function DetailsCard() {
       errorNotify(error.message);
     }
   };
-
   const onSubmit = async (form) => {
     const addDiscount = async () => {
       if (diasRestantes) {
@@ -144,19 +143,6 @@ export default function DetailsCard() {
   const precioUnitario = detailProduct?.price;
   const [diasRestantes, setDiasRestantes] = useState(null);
 
-  const validateStartingDate = (selectedDate) => {
-    const fechaDeAyer = () => {
-      let hoy = new Date();
-      let DIA_EN_MILISEGUNDOS = 24 * 60 * 60 * 1000;
-      let manana = new Date(hoy.getTime() - DIA_EN_MILISEGUNDOS);
-      return manana;
-    };
-    const fechaSeleccionada = new Date(selectedDate);
-    if (isBefore(fechaSeleccionada, fechaDeAyer())) {
-      return "No puedes seleccionar una fecha anterior a hoy";
-    }
-  };
-
   const validateEndingDate = (selectedDate) => {
     const fechaDeAyer = () => {
       let hoy = new Date();
@@ -165,23 +151,11 @@ export default function DetailsCard() {
       return manana;
     };
     const fechaSeleccionada = new Date(selectedDate);
-    if (watch("startingDate")) {
-      const hoy = new Date(watch("endingDate"));
-      const fechaSeleccionada = new Date(watch("startingDate"));
-      if (isBefore(hoy, fechaSeleccionada)) {
-        return "No puedes seleccionar una fecha anterior a la inicial";
-      }
-    } else if (isBefore(fechaSeleccionada, fechaDeAyer())) {
+    if (isBefore(fechaSeleccionada, fechaDeAyer())) {
       console.log(2);
       return "No puedes seleccionar una fecha anterior a hoy";
     }
   };
-  useEffect(() => {
-    register("startingDate", {
-      required: true,
-      validate: validateStartingDate,
-    });
-  }, [register]);
   useEffect(() => {
     register("endingDate", {
       required: true,
@@ -201,7 +175,6 @@ export default function DetailsCard() {
   }, [detailProduct]);
   return (
     <>
-      
       {detailProduct ? (
         <>
           <NavBar />
@@ -321,33 +294,36 @@ export default function DetailsCard() {
                     {detailProduct?.ProductDiscount && diasRestantes > -1 ? (
                       <div className="flex flex-col">
                         <div>
-                          <span className="text-lg font-bold text-red-500 dark:text-white line-through mr-6">
-                            ${precioUnitario}
+                          <span className="text-gray-500 line-through">
+                            ${precioUnitario.toFixed(2)}
                           </span>
-                          <div className="bg-red-600 w-[45px] h-[45px] rounded-full  items-center justify-center text-center text-white inline-flex mr-6">
-                            {detailProduct?.ProductDiscount[0].discountValue}%
+                          <div class="bg-red-500 text-white rounded-md px-1 text-sm w-9">
+                            {detailProduct.ProductDiscount[0].discountValue}%
+                            {console.log(detailProduct)}
                           </div>
-                          <span className="text-lg font-bold text-gray-900 dark:text-white ">
+                          <span className="font-bold text-green-500">
                             $
-                            {precioUnitario -
+                            {(
+                              precioUnitario -
                               (precioUnitario *
                                 detailProduct.ProductDiscount[0]
                                   .discountValue) /
-                                100}
+                                100
+                            ).toFixed(2)}
                           </span>
                         </div>
                         <p className="text-start">
                           {diasRestantes === 0
-                            ? `Esta oferta termina hoy!`
+                            ? `¡Esta oferta termina hoy!`
                             : diasRestantes === 1
-                            ? `Esta oferta termina mañana!`
-                            : `Esta oferta termina en ${diasRestantes} dias`}
+                            ? `¡Esta oferta termina mañana!`
+                            : `¡Esta oferta termina en ${diasRestantes} dias`}
                         </p>
                       </div>
                     ) : (
                       <>
                         <span className="text-lg font-bold text-gray-900 dark:text-white ">
-                          ${precioUnitario}
+                          ${precioUnitario.toFixed(2)}
                         </span>
                       </>
                     )}
@@ -386,19 +362,7 @@ export default function DetailsCard() {
                       </h3>
                       <div className="flex w-full justify-between items-center">
                         <div className="flex flex-col w-full">
-                          <label htmlFor="">Fecha inicial:</label>
-                          <input
-                            {...register("startingDate")}
-                            className={
-                              errors.startingDate
-                                ? " border-l-[20px]  mr-2 bg-white border  text-neutral-900 py-2 px-4 rounded-sm  placeholder:font-light border-red-600  focus:border-red-600"
-                                : " border-l-[20px]  mr-2 bg-white border  text-neutral-900 py-2 px-4 rounded-sm  placeholder:font-light border-[#171717] focus:border-[#171717]"
-                            }
-                            type="date"
-                          />
-                        </div>
-                        <div className="flex flex-col w-full">
-                          <label htmlFor="">Fecha final:</label>
+                          <label htmlFor="">Fecha final de la oferta:</label>
                           <input
                             {...register("endingDate", { required: true })}
                             className={
@@ -437,8 +401,10 @@ export default function DetailsCard() {
                               <span className="font-normal">
                                 {" "}
                                 $
-                                {precioUnitario -
-                                  precioUnitario * (percentage / 100)}
+                                {(
+                                  precioUnitario -
+                                  precioUnitario * (percentage / 100)
+                                ).toFixed(2)}
                               </span>
                             </h3>
                           </div>
@@ -468,19 +434,7 @@ export default function DetailsCard() {
                         </h3>
                         <div className="flex">
                           <div className="flex flex-col w-full">
-                            <label htmlFor="">Fecha inicial:</label>
-                            <input
-                              {...register("startingDate", { required: true })}
-                              className={
-                                errors.startingDate
-                                  ? " border-l-[20px]  mr-2 bg-white border  text-neutral-900 py-2 px-4 rounded-sm  placeholder:font-light border-red-600  focus:border-red-600"
-                                  : " border-l-[20px]  mr-2 bg-white border  text-neutral-900 py-2 px-4 rounded-sm  placeholder:font-light border-[#171717] focus:border-[#171717]"
-                              }
-                              type="date"
-                            />
-                          </div>
-                          <div className="flex flex-col w-full">
-                            <label htmlFor="">Fecha final:</label>
+                            <label htmlFor="">Fecha final de la oferta:</label>
                             <input
                               {...register("endingDate", { required: true })}
                               className={
@@ -519,8 +473,10 @@ export default function DetailsCard() {
                                 <span className="font-normal">
                                   {" "}
                                   $
-                                  {precioUnitario -
-                                    precioUnitario * (percentage / 100)}
+                                  {(
+                                    precioUnitario -
+                                    precioUnitario * (percentage / 100)
+                                  ).toFixed(2)}
                                 </span>
                               </h3>
                             </div>
@@ -648,34 +604,6 @@ export default function DetailsCard() {
                         )}
                       </tr>
                       <tr>
-                        {detailProduct.CellPhone ? (
-                          <>
-                            <td>Colores</td>
-                            <td>
-                              |{" "}
-                              {detailProduct.CellPhone[0].colors.map(
-                                (c) => ` ${c} |`
-                              )}
-                            </td>
-                          </>
-                        ) : (
-                          <></>
-                        )}
-
-                        {detailProduct.Tablet ? (
-                          <>
-                            <td>Colores</td>
-                            <td>
-                              |{" "}
-                              {detailProduct.Tablet[0].colors.map(
-                                (c) => ` ${c} |`
-                              )}
-                            </td>
-                          </>
-                        ) : (
-                          <></>
-                        )}
-
                         {detailProduct.Television ? (
                           <>
                             <td>Tamaño pantalla</td>

@@ -59,7 +59,8 @@ export default function MyOrders() {
                 {order && order.Orders.length === 0 ? (
                   <div className="flex w-full h-[700px] items-center justify-center">
                     <h3 className="text-2xl font-bold">
-                      Aun no tienes ordenes :(
+                      Aun no tienes ordenes, cuando realices alguna compra aquí
+                      podras ver el progreso de tu pedido
                     </h3>
                   </div>
                 ) : (
