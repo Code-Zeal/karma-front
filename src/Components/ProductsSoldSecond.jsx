@@ -4,6 +4,10 @@ import axios from "axios";
 import { Bar } from "react-chartjs-2";
 
 const ProductsSoldSecond = (props) => {
+  const resetData = () => {
+    setGetProductsSoldPerDayDetails(null);
+    setTotalQuantity(0);
+  };
   const chartContainer = useRef(null);
 
   const [getProductsSoldPerDayDetails, setGetProductsSoldPerDayDetails] =
@@ -11,6 +15,7 @@ const ProductsSoldSecond = (props) => {
   const [totalQuantity, setTotalQuantity] = useState(0);
 
   useEffect(() => {
+    resetData();
     if (props.startdate && props.enddate) {
       const analytics = async (startDate, endDate) => {
         const res = await axios.get(
