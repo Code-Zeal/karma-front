@@ -416,14 +416,14 @@ export default function DetailsCard() {
                 {detailProduct?.ProductDiscount && diasRestantes > -1 ? (
                   <div className="flex flex-col">
                     <div>
-                      <span className="text-lg font-bold text-red-500 dark:text-white line-through mr-6">
+                      <span className="text-gray-500 line-through">
                         ${precioUnitario.toFixed(2)}
                       </span>
-                      <div className="bg-red-600 w-[45px] h-[45px] rounded-full  items-center justify-center text-center text-white inline-flex mr-6">
+                      <div class="bg-red-500 text-white rounded-md px-1 text-sm w-9">
                         {detailProduct.ProductDiscount[0].discountValue}%
                         {console.log(detailProduct)}
                       </div>
-                      <span className="text-lg font-bold text-gray-900 dark:text-white ">
+                      <span className="font-bold text-green-500">
                         $
                         {(
                           precioUnitario -
@@ -435,10 +435,10 @@ export default function DetailsCard() {
                     </div>
                     <p className="text-start">
                       {diasRestantes === 0
-                        ? `Esta oferta termina hoy!`
+                        ? `¡Esta oferta termina hoy!`
                         : diasRestantes === 1
-                        ? `Esta oferta termina mañana!`
-                        : `Esta oferta termina en ${diasRestantes} dias`}
+                        ? `¡Esta oferta termina mañana!`
+                        : `¡Esta oferta termina en ${diasRestantes} dias`}
                     </p>
                   </div>
                 ) : (
