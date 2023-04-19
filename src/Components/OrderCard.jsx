@@ -4,10 +4,11 @@ import axios from "axios";
 
 export default function OrderCard(props) {
   const dateString = new Date(props.orderDate).toLocaleString("es-AR");
+  const dateObject = new Date(dateString).toLocaleString("es-AR");
 
-  const year = dateString.getFullYear();
-  const month = dateString.getMonth() + 1;
-  const day = dateString.getDate();
+  const year = dateObject.getFullYear();
+  const month = dateObject.getMonth() + 1;
+  const day = dateObject.getDate();
 
   const [popupOpen, setPopupOpen] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
