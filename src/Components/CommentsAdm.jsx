@@ -56,8 +56,9 @@ export default function CommentsAdm() {
               })
             ) : (
               <>
-                {comments &&
-                comments === "Todavia no hay comentarios disponibles" ? (
+                {(comments &&
+                  comments === "Todavia no hay comentarios disponibles") ||
+                comments === null ? (
                   <div className="w-full h-full flex justify-center items-center text-3xl font-thin">
                     NO HAY COMENTARIOS PARA MOSTRAR
                   </div>

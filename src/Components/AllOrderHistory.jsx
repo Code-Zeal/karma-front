@@ -9,9 +9,13 @@ export default function AllOrderHistory() {
   console.log(allOrders);
   useEffect(() => {
     async function fetchData() {
-      const res = await axios.get("/order/getAllOrder");
-      const data = res.data;
-      setAllOrders(data);
+      try {
+        const res = await axios.get("/order/getAllOrder");
+        const data = res.data;
+        setAllOrders(data);
+      } catch (error) {
+        console.log(error);
+      }
     }
     fetchData();
   }, []);
@@ -95,8 +99,9 @@ export default function AllOrderHistory() {
               })
             ) : (
               <>
-                {allOrders &&
-                allOrders === "No existen registros de Pedidos" ? (
+                {(allOrders &&
+                  allOrders === "No existen registros de Pedidos") ||
+                allOrders === null ? (
                   <div className="flex w-full h-[700px] items-center justify-center">
                     <h3 className="text-2xl font-bold">Aún no hay ordenes</h3>
                   </div>
