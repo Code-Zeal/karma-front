@@ -18,7 +18,7 @@ export default function DiscountProductCard(props) {
   return (
     <Link to={`/admin/addDiscount/${props.card.id}`} className="m-4">
       <div className="max-w-sm overflow-hidden shadow-lg border border-neutral-600 h-[600px]">
-        <div className="h-[400px] w-[400px] flex items-center justify-center">
+        <div className="h-[350px] w-[350px] flex items-center justify-center">
           <img
             src={`${props.card.images[0]}`}
             alt="imagen"
@@ -44,17 +44,18 @@ export default function DiscountProductCard(props) {
             )}
           </a>
         </div>
-        <div className="flex items-center justify-between px-6 py-4">
+        <hr />
+        <div className="flex flex-col justify-between items-center p-4">
           {props.card.ProductDiscount && diasRestantes > -1 ? (
-            <div className="flex flex-col">
-              <div>
-                <span className="text-lg font-bold text-red-500 dark:text-white line-through mr-6">
+            <div className="flex flex-col justify-center items-center">
+              <div className="flex justify-center items-center space-x-2">
+                <span className="text-gray-500 line-through">
                   ${props.card.price}
                 </span>
-                <div className="bg-red-600 w-[45px] h-[45px] rounded-full  items-center justify-center text-center text-white inline-flex mr-6">
+                <div className="bg-red-500 text-white rounded-md py-1 px-2 text-sm">
                   {props.card.ProductDiscount.discountValue}%
                 </div>
-                <span className="text-lg font-bold text-gray-900 dark:text-white ">
+                <span className="font-bold text-green-500">
                   $
                   {(
                     props.card.price -
@@ -64,22 +65,20 @@ export default function DiscountProductCard(props) {
                   ).toFixed(2)}
                 </span>
               </div>
-              <p className="text-start">
+              <p className="text-gray-500 mt-2">
                 {diasRestantes === 0
-                  ? `Esta oferta termina hoy!`
+                  ? `¡Esta oferta termina hoy!`
                   : diasRestantes === 1
-                  ? `Esta oferta termina mañana!`
-                  : `Esta oferta termina en ${diasRestantes} dias`}
+                  ? `¡Esta oferta termina mañana!`
+                  : `¡Esta oferta termina en ${diasRestantes} dias`}
               </p>
             </div>
           ) : (
-            <>
-              <span className="text-lg font-bold text-gray-900 dark:text-white ">
-                ${props.card.price.toFixed(2)}
-              </span>
-            </>
+            <span className="font-bold text-gray-500">${props.card.price}</span>
           )}
-          Ver producto
+          <button className="bg-neutral-900 text-white rounded-md py-2 px-4 mt-4 hover:bg-neutral-500">
+            Ver producto
+          </button>
         </div>
       </div>
     </Link>
