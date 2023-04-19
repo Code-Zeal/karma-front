@@ -20,7 +20,7 @@ export default function CommentsAdm() {
     const getComments = async () => {
       const res = await axios.get("/comments/getComments");
 
-      if (typeof res.data === "string") {
+      if (res.data === "Todavia no hay comentarios disponibles") {
         setComments(res.data);
       } else {
         setComments(sortByReadStatus(res.data));
@@ -40,7 +40,8 @@ export default function CommentsAdm() {
           </div>
           <hr />
           <div className="w-10/12 h-[600px] flex items-center justify-start flex-col mx-auto overflow-y-scroll bg-white border border-neutral-900 text-neutral-900">
-            {comments && comments.length > 0 ? (
+            {comments &&
+            comments !== "Todavia no hay comentarios disponibles" ? (
               comments.map((commentInfo) => {
                 return (
                   <CommentCard
@@ -56,7 +57,7 @@ export default function CommentsAdm() {
             ) : (
               <>
                 {comments &&
-                comments.length === "Todavia no hay comentarios disponibles" ? (
+                comments === "Todavia no hay comentarios disponibles" ? (
                   <div className="w-full h-full flex justify-center items-center text-3xl font-thin">
                     NO HAY COMENTARIOS PARA MOSTRAR
                   </div>

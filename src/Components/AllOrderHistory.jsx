@@ -43,7 +43,7 @@ export default function AllOrderHistory() {
         <SideBar />
         <div className="container mx-auto mt-12">
           <div className="w-12/12 h-[825px] items-center border border-neutral-900 justify-center gap-4 h-800 overflow-auto overflow-y-scroll">
-            {allOrders && allOrders.length > 0 ? (
+            {allOrders && allOrders !== "No existen registros de Pedidos" ? (
               allOrders.map((order) => {
                 console.log(order);
                 const purchaseDate = new Date(order.datePurchase);
@@ -96,7 +96,7 @@ export default function AllOrderHistory() {
             ) : (
               <>
                 {allOrders &&
-                allOrders.length === "No existen registros de Pedidos" ? (
+                allOrders === "No existen registros de Pedidos" ? (
                   <div className="flex w-full h-[700px] items-center justify-center">
                     <h3 className="text-2xl font-bold">Aún no hay ordenes</h3>
                   </div>
