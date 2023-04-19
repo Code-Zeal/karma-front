@@ -5,11 +5,11 @@ import Footer from "./Footer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SideBar from "./SideBar";
-import DiscountProductCard from "./DiscountProductCard";
 import Paginated from "./Paginated";
-import EditProductCard from "./EditProductCard";
-
-const AllProductsAdm = () => {
+import { useAuth0 } from "@auth0/auth0-react";
+import Card from "./Card";
+const AllProductsDiscount = () => {
+  const { user } = useAuth0();
   const errorNotify = (msg) =>
     toast.error(msg, {
       toastId: "error",
@@ -35,29 +35,21 @@ const AllProductsAdm = () => {
   useEffect(() => {
     const searchAll = async () => {
       try {
-        let res = await axios.get("/product/getProducts");
-        setData(res.data);
-        setProducts(res.data.slice(indexOfFirstRecipes, indexOfLastRecipes));
+        let res = await axios.get(
+          `/product/getUserProducts?userId=${user?.sub}`
+        );
+        console.log(res.data.Products.length);
+        setData(res.data.Products);
+        setProducts(
+          res.data.Products.slice(indexOfFirstRecipes, indexOfLastRecipes)
+        );
       } catch (error) {
         setData(false);
         errorNotify(error.response.data);
       }
     };
-    const searchByInput = async (input) => {
-      try {
-        let res = await axios.get(`/product/getProductsByInput?input=${input}`);
-        setData(res.data);
-      } catch (error) {
-        setData(false);
-        errorNotify(error.response.data);
-      }
-    };
-    if (input === "noInput") {
-      searchAll();
-    } else {
-      searchByInput(input);
-    }
-  }, [input, currentPage]);
+    searchAll();
+  }, [currentPage, user?.sub]);
 
   const handlerChange = (event) => {
     if (event.target.value === "") {
@@ -74,25 +66,17 @@ const AllProductsAdm = () => {
         <SideBar />
         <div className="container mx-auto mt-12">
           <div className="flex row-auto flex-wrap">
-            <div className="w-full flex justify-around">
-              <input
-                className="w-4/12"
-                onChange={handlerChange}
-                type="text"
-                placeholder="Buscar por Marca o Modelo"
-              />
-            </div>
             <div className="w-full flex flex-wrap justify-center">
               {products && products.length > 0 ? (
                 products.map((product) => {
-                  return <EditProductCard card={product}></EditProductCard>;
+                  return <Card card={product}></Card>;
                 })
               ) : (
                 <>
-                  {products && products.length === 0 ? (
+                  {data && data.length === 0 ? (
                     <div className="flex w-full h-[700px] items-center justify-center">
-                      <h3 className="text-2xl font-bold">
-                        No hemos encontrado ningún producto :(
+                      <h3 className="text-2xl font-bold text-black">
+                        Aun no tienes productos favoritos
                       </h3>
                     </div>
                   ) : (
@@ -135,4 +119,4 @@ const AllProductsAdm = () => {
     </div>
   );
 };
-export default AllProductsAdm;
+export default AllProductsDiscount;

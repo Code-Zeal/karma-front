@@ -7,9 +7,8 @@ import "react-toastify/dist/ReactToastify.css";
 import SideBar from "./SideBar";
 import DiscountProductCard from "./DiscountProductCard";
 import Paginated from "./Paginated";
-import EditProductCard from "./EditProductCard";
 
-const AllProductsAdm = () => {
+const AllProductsWithDiscount = () => {
   const errorNotify = (msg) =>
     toast.error(msg, {
       toastId: "error",
@@ -35,9 +34,20 @@ const AllProductsAdm = () => {
   useEffect(() => {
     const searchAll = async () => {
       try {
-        let res = await axios.get("/product/getProducts");
-        setData(res.data);
-        setProducts(res.data.slice(indexOfFirstRecipes, indexOfLastRecipes));
+        let res = await axios.get("/discount/getDiscountedProducts");
+        let data = res.data.filter((product) => {
+          const hoy = new Date();
+          const fechaObjetivoEnTiempo = new Date(
+            product.ProductDiscount.endingDate
+          );
+          const diferenciaEnTiempo = fechaObjetivoEnTiempo - hoy;
+          const diasRestantes = Math.ceil(
+            diferenciaEnTiempo / (1000 * 3600 * 24)
+          ); // convertir a días y redondear hacia arriba
+          return diasRestantes > -1;
+        });
+        setData(data);
+        setProducts(data.slice(indexOfFirstRecipes, indexOfLastRecipes));
       } catch (error) {
         setData(false);
         errorNotify(error.response.data);
@@ -83,16 +93,20 @@ const AllProductsAdm = () => {
               />
             </div>
             <div className="w-full flex flex-wrap justify-center">
-              {products && products.length > 0 ? (
+              {typeof products !== "string" &&
+              products &&
+              products !== false ? (
                 products.map((product) => {
-                  return <EditProductCard card={product}></EditProductCard>;
+                  return (
+                    <DiscountProductCard card={product}></DiscountProductCard>
+                  );
                 })
               ) : (
                 <>
-                  {products && products.length === 0 ? (
+                  {products === false ? (
                     <div className="flex w-full h-[700px] items-center justify-center">
                       <h3 className="text-2xl font-bold">
-                        No hemos encontrado ningún producto :(
+                        En estos momentos no hay productos con ofertas
                       </h3>
                     </div>
                   ) : (
@@ -135,4 +149,4 @@ const AllProductsAdm = () => {
     </div>
   );
 };
-export default AllProductsAdm;
+export default AllProductsWithDiscount;

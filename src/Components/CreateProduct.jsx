@@ -15,6 +15,8 @@ import {
 const CreateProduct = (props) => {
   const notify = () =>
     toast.success(`Producto creado correctamente`, {
+      icon: false,
+      toastId: "success",
       position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
@@ -28,6 +30,8 @@ const CreateProduct = (props) => {
     toast.error(
       "Ha ocurrido un error, verifica que los datos son correctos e intente de nuevo",
       {
+        icon: false,
+        toastId: "error",
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -54,7 +58,7 @@ const CreateProduct = (props) => {
     if (category === "Celular") {
       let newData = {
         ...data,
-        colors: data.colors.split(" "),
+        colors: ["none"],
         price: parseInt(data.price),
         stock: parseInt(data.stock),
         images: someData.images,
@@ -65,7 +69,9 @@ const CreateProduct = (props) => {
         if (res.status === 200) {
           console.log(1);
           reset();
-
+          setSomeData({
+            images: [],
+          });
           notify();
         }
       } catch (error) {
@@ -85,6 +91,9 @@ const CreateProduct = (props) => {
         console.log(res);
         if (res.status === 200) {
           reset();
+          setSomeData({
+            images: [],
+          });
           notify();
         }
       } catch (error) {
@@ -94,7 +103,7 @@ const CreateProduct = (props) => {
       let newData = {
         ...data,
         screenSize: parseInt(data.screenSize),
-        colors: data.colors.split(" "),
+        colors: ["none"],
         price: parseInt(data.price),
         stock: parseInt(data.stock),
         images: someData.images,
@@ -105,6 +114,9 @@ const CreateProduct = (props) => {
         console.log(res);
         if (res.status === 200) {
           reset();
+          setSomeData({
+            images: [],
+          });
           notify();
         }
       } catch (error) {
@@ -124,6 +136,9 @@ const CreateProduct = (props) => {
         console.log(res);
         if (res.status === 200) {
           reset();
+          setSomeData({
+            images: [],
+          });
           notify();
         }
       } catch (error) {
@@ -134,7 +149,6 @@ const CreateProduct = (props) => {
 
   const [category, setCategory] = useState("");
   const [someData, setSomeData] = useState({
-    colors: [],
     images: [],
   });
 
@@ -144,10 +158,6 @@ const CreateProduct = (props) => {
       {
         cloudName: "dx2me9gqm",
         uploadPreset: "hauiebsf",
-        cropping: true,
-        multiple: false,
-        resourcetype: "image",
-        transformations: [{ effect: "remove_background" }],
       },
       function (error, result) {
         if (result.event === "success") {
@@ -168,31 +178,25 @@ const CreateProduct = (props) => {
     reset();
     setSomeData({
       images: [],
-      colors: [],
     });
   };
-
+  function deleteArray(index) {
+    const newArray = [...someData.images]; // Creamos una copia del array original
+    newArray.splice(index, 1); // Borramos el elemento correspondiente al índice indicado
+    console.log(newArray);
+    setSomeData({
+      ...someData,
+      images: newArray,
+    });
+  }
   return (
     <div>
       <NavBar />
       <div className="flex">
         <SideBar />
         <div className="container mx-auto mt-12">
-          <ToastContainer
-            position="top-center"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="dark"
-          />
-
           <div className="bg-white w-full rounded-lg flex flex-col items-center justify-center">
-            <div className="w-full mt-4 flex items-center justify-evenly">
+            <div className="w-full mt-4 flex items-start justify-evenly">
               <div>
                 <select
                   className="rounded-sm"
@@ -209,13 +213,14 @@ const CreateProduct = (props) => {
                   <option value="Laptop">Laptop</option>
                 </select>
               </div>
-
-              <button
-                className="border bg-white border-neutral-900 text-neutral-900 hover:bg-neutral-900 hover:text-white py-1 px-3 text-lg rounded-sm font-mono"
-                onClick={() => widgetRef.current.open()}
-              >
-                Subir imagenes
-              </button>
+              {category !== "" && (
+                <button
+                  className="border bg-white border-neutral-900 text-neutral-900 hover:bg-neutral-900 hover:text-white py-1 px-3 text-lg rounded-sm font-mono"
+                  onClick={() => widgetRef.current.open()}
+                >
+                  Subir imagenes
+                </button>
+              )}
 
               <div className="rounded-sm w-[400px] h-[400px] items-center flex flex-col">
                 {category !== "" && (
@@ -235,13 +240,21 @@ const CreateProduct = (props) => {
                         indicators={false}
                       >
                         {someData &&
-                          someData.images.map((image) => {
+                          someData.images.map((image, index) => {
                             return (
-                              <img
-                                className="w-full h-auto"
-                                src={image}
-                                alt=""
-                              />
+                              <div className="flex flex-col w-full h-full justify-center items-center">
+                                <img
+                                  className="object-contain h-[350px] items-center justify-center"
+                                  src={image}
+                                  alt=""
+                                />
+                                <button
+                                  className="font-thin text-base bg-red-600 w-[130px] rounded-md my-4 text-white"
+                                  onClick={() => deleteArray(index)}
+                                >
+                                  Borrar imagen
+                                </button>
+                              </div>
                             );
                           })}
                       </Carousel>
@@ -385,23 +398,6 @@ const CreateProduct = (props) => {
                           : "rounded-sm w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
                       }
                       placeholder="Camara Principal, Ej: '64MP'"
-                      type="text"
-                    />
-                  </div>
-                </div>
-                <div className="w-full flex m-2 justify-evenly">
-                  <div className="flex flex-col justify-start items-start">
-                    <label className="text-lg font-medium">Colores</label>
-                    <input
-                      autocomplete="off"
-                      {...register("colors", { required: true })}
-                      name="colors"
-                      className={
-                        errors.colors
-                          ? "rounded-sm w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                          : "rounded-sm w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                      }
-                      placeholder="Colores Ej: 'Blanco Rojo Negro'"
                       type="text"
                     />
                   </div>
@@ -574,21 +570,6 @@ const CreateProduct = (props) => {
                       }
                       placeholder="Inventario del producto, Ej: '23'"
                       type="number"
-                    />
-                  </div>
-                  <div className="flex flex-col justify-start items-start">
-                    <label className="text-lg font-medium">Colores</label>
-                    <input
-                      autocomplete="off"
-                      {...register("colors", { required: true })}
-                      name="colors"
-                      className={
-                        errors.colors
-                          ? "rounded-sm w-[300px] border-l-[20px] border-red-600 focus:border-red-600"
-                          : "rounded-sm w-[300px] border-l-[20px] border-blue-600 focus:border-blue-600"
-                      }
-                      placeholder="Colores Ej: 'Blanco Rojo Negro'"
-                      type="text"
                     />
                   </div>
                 </div>

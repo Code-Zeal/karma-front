@@ -1,6 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+:root {
+  --toastify-color-progress-info: white;
+  --toastify-color-progress-success: white;
+  --toastify-text-color-dark: white;
+  --toastify-color-dark: #171717;
+}
+
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
