@@ -2,6 +2,10 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Components/Home";
 import Cart from "./Components/Cart";
+import AdminStatistics from "./Components/AdminStatistics";
+import ProductsSoldSecond from "./Components/ProductsSoldSecond";
+// import DetailsCard from "./Components/DetailCard";
+// import Detail from "./Components/Detail";
 import { useSelector, useDispatch } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect } from "react";
@@ -80,6 +84,7 @@ function App() {
               path="/admin/allDiscount"
               element={<AllProductsWithDiscount />}
             />
+            <Route exact path="/admin/Analytic" element={<AdminStatistics />} />
           </>
         ) : (
           <></>

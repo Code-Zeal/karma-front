@@ -150,6 +150,20 @@ export default function SideBar() {
                   </li>
                 </ul>
               </div>
+              <div>
+                Analíticas
+                <ul className={`pt-2 pb-4 space-y-1 text-sm`}>
+                  <li>
+                    <a
+                      href="/admin/Analytic"
+                      className="flex items-center p-2 space-x-3 rounded-sm hover:bg-neutral-900 hover:text-white"
+                    >
+                      <ClipboardDocumentListIcon className="h-6 w-6" />
+                      <span>Gráficas</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
           )}
         </div>
