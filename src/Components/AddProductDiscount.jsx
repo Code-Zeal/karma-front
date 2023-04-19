@@ -349,7 +349,7 @@ export default function DetailsCard() {
                     ) : (
                       <>
                         <span className="text-lg font-bold text-gray-900 dark:text-white ">
-                          ${precioUnitario}
+                          ${precioUnitario.toFixed(2)}
                         </span>
                       </>
                     )}
@@ -439,8 +439,10 @@ export default function DetailsCard() {
                               <span className="font-normal">
                                 {" "}
                                 $
-                                {precioUnitario -
-                                  precioUnitario * (percentage / 100)}
+                                {(
+                                  precioUnitario -
+                                  precioUnitario * (percentage / 100)
+                                ).toFixed(2)}
                               </span>
                             </h3>
                           </div>
@@ -521,8 +523,10 @@ export default function DetailsCard() {
                                 <span className="font-normal">
                                   {" "}
                                   $
-                                  {precioUnitario -
-                                    precioUnitario * (percentage / 100)}
+                                  {(
+                                    precioUnitario -
+                                    precioUnitario * (percentage / 100)
+                                  ).toFixed(2)}
                                 </span>
                               </h3>
                             </div>

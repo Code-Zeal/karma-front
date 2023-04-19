@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import CommentsAndRatings from "./CommentsAndRatings";
 import NavBar from "./NavBar";
@@ -9,19 +9,25 @@ import CommentsPage from "./CommentsPage";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export default function DetailOrder(props) {
-  const [popupOpen, setPopupOpen] = useState(false);
+  const CommentsAndRatingRef = useRef();
   const [popupFeedBackOpen, setPopupFeedBackOpen] = useState(false);
+  const [openPopUp, setOpenPopUp] = useState(false);
   const { user } = useAuth0();
 
-  const handleOpenPopup = () => {
-    setPopupOpen(true);
+  const handleOpenPopup = (isEditOrCreate, productId, pruebaId) => {
+    console.log(pruebaId);
+    CommentsAndRatingRef.current.handlerOpen(
+      isEditOrCreate,
+      productId,
+      pruebaId
+    );
   };
   const handleFeedOpenPopup = () => {
     setPopupFeedBackOpen(true);
   };
 
   const handleClosePopup = () => {
-    setPopupOpen(false);
+    setOpenPopUp(!openPopUp);
   };
   const handleFeedClosePopup = () => {
     setPopupFeedBackOpen(false);
@@ -30,14 +36,16 @@ export default function DetailOrder(props) {
   const [totalPrice, setTotalPrice] = useState(0);
 
   const { id } = useParams();
-  let total = 0;
-  console.log(detailOrder);
+
   useEffect(() => {
-    async function fetchData(id) {
+    const fetchData = async () => {
+      console.log(123);
       const responseOrder = await axios.get(`/order/getOrder?id=${id}`);
       const dataOrder = responseOrder.data;
 
       setDetailOrder(dataOrder);
+      let total = 0;
+
       dataOrder.orderData.ShoppingCarts.forEach((product) => {
         if (product.Product?.ProductDiscount) {
           product.pricePerUnit =
@@ -60,22 +68,38 @@ export default function DetailOrder(props) {
         }
       });
       setTotalPrice(total);
-    }
-    fetchData(id);
-  }, [id, totalPrice]);
+    };
+    fetchData();
+  }, [id, user?.sub]);
+  const [allComments, setAllComments] = useState(null);
+  useEffect(() => {
+    const getAllComments = async () => {
+      try {
+        const res = await axios.get("/commentsRating/getCommentsRatings");
+        setAllComments(res.data?.comments);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getAllComments();
+  }, [id, user?.sub, openPopUp]);
 
   return (
     <div>
+      <CommentsAndRatings
+        ref={CommentsAndRatingRef}
+        fetchData={handleClosePopup}
+      />
       <NavBar />
       <div className="flex">
         <SideBar />
         <div className="container mx-auto mt-12">
           <section className="bg-gray-100 py-8">
             <h1 className="text-3xl font-bold mb-4 text-center">
-              Número de orden #{id}
+              Número de orden # {id}
             </h1>
             <p className="text-lg text-center">
-              Estado de tu orden:
+              Estado de tu orden:{" "}
               {detailOrder && detailOrder.orderStatus === "Orden Pagada"
                 ? "Procesando"
                 : detailOrder && detailOrder.orderStatus === "Enviando"
@@ -86,7 +110,20 @@ export default function DetailOrder(props) {
               {detailOrder ? (
                 <>
                   {detailOrder.orderData.ShoppingCarts.map((shopping) => {
-                    console.log(shopping);
+                    let newArray = allComments?.filter(
+                      (comment) =>
+                        comment.ProductId === shopping.ProductId &&
+                        comment.UserId === user?.sub
+                    );
+                    const handlerIsEditOrCreate = () => {
+                      if (newArray.length > 0) {
+                        return true;
+                      } else {
+                        return false;
+                      }
+                    };
+                    let isEditOrCreate = handlerIsEditOrCreate();
+
                     return (
                       <li className="flex items-center justify-between border-b-2 border-gray-300 py-4">
                         <a href={`/detail/${shopping.ProductId}`}>
@@ -104,27 +141,65 @@ export default function DetailOrder(props) {
                             </h3>
                             <div className="mb-2">
                               {detailOrder &&
-                              detailOrder.orderStatus === "Entregado" ? (
+                              detailOrder.orderStatus === "Entregado" &&
+                              newArray?.length === 0 ? (
                                 <>
                                   <h3 className="font-normal mb-2">
                                     Déjanos tu opinión sobre el producto
                                   </h3>
                                   <button
                                     className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md"
-                                    onClick={handleOpenPopup}
+                                    onClick={() =>
+                                      handleOpenPopup(
+                                        isEditOrCreate,
+                                        shopping.ProductId,
+                                        allComments?.filter(
+                                          (comment) =>
+                                            comment.ProductId ===
+                                              shopping.ProductId &&
+                                            comment.UserId === user?.sub
+                                        ).length > 0
+                                          ? newArray[0].id
+                                          : false
+                                      )
+                                    }
                                   >
                                     Dejar valoración
                                   </button>
                                 </>
                               ) : (
-                                <></>
-                              )}
-
-                              {popupOpen && (
-                                <CommentsAndRatings
-                                  productId={shopping.ProductId}
-                                  onClose={handleClosePopup}
-                                />
+                                <>
+                                  {detailOrder &&
+                                  detailOrder.orderStatus === "Entregado" &&
+                                  newArray?.length > 0 ? (
+                                    <>
+                                      <h3 className="font-normal mb-2">
+                                        Ya has dejado tu valoración!
+                                      </h3>
+                                      <button
+                                        className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md"
+                                        onClick={() =>
+                                          handleOpenPopup(
+                                            isEditOrCreate,
+                                            shopping.ProductId,
+                                            allComments?.filter(
+                                              (comment) =>
+                                                comment.ProductId ===
+                                                  shopping.ProductId &&
+                                                comment.UserId === user?.sub
+                                            ).length > 0
+                                              ? newArray[0].id
+                                              : false
+                                          )
+                                        }
+                                      >
+                                        Editar valoración
+                                      </button>
+                                    </>
+                                  ) : (
+                                    <></>
+                                  )}
+                                </>
                               )}
                             </div>
                           </div>
