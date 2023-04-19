@@ -102,7 +102,7 @@ const ProductsSoldPerDay = (props) => {
         display: true,
         text: `Productos vendidos desde ${startDate?.toLocaleDateString()} hasta ${endDate?.toLocaleDateString()}`,
         font: {
-          size: 28,
+          size: 20,
         },
         padding: {
           top: 20,
@@ -115,7 +115,7 @@ const ProductsSoldPerDay = (props) => {
     <div className=" w-11/12 m-auto p-5">
       <div className="flex justify-center mb-4">
         <label htmlFor="startDate" className="mr-4">
-          Start Date:
+          Desde:
         </label>
         <DatePicker
           selected={startDate}
@@ -125,7 +125,7 @@ const ProductsSoldPerDay = (props) => {
       </div>
       <div className="flex justify-center">
         <label htmlFor="endDate" className="mr-4">
-          End Date:
+          Hasta:
         </label>
         <DatePicker
           selected={endDate}
@@ -134,7 +134,7 @@ const ProductsSoldPerDay = (props) => {
         />
       </div>
       <Bar data={data} options={options} />
-      <p>Total quantity: {totalQuantity}</p>
+      <p>Total Cantidad Productos: {totalQuantity}</p>
 
       <ProductsSoldSecond startdate={startDate} enddate={endDate} />
       {/* <ProductsSoldSecond></ProductsSoldSecond> */}

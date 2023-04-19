@@ -79,7 +79,7 @@ const ProductsSoldSecond = (props) => {
                 const index = context.dataIndex;
                 const date = new Date(dates[index]).toLocaleDateString();
                 const buyer = buyers[index];
-                return `${context.dataset.label}: ${context.formattedValue}\nFecha de compra: ${date}\nComprado por: ${buyer}`;
+                return `${context.dataset.label}: ${context.formattedValue}\nFecha de compra: ${dates[index]}\nComprado por: ${buyer}`;
               },
             },
           },
@@ -122,8 +122,12 @@ const ProductsSoldSecond = (props) => {
           const index = element[0].index;
           const date = new Date(dates[index])?.toLocaleDateString();
           console.log(date);
+
+          console.log(dates);
+          console.log(index);
+
           const buyer = buyers[index];
-          console.log(`Fecha de compra: ${date}\nComprado por: ${buyer}`);
+          console.log(`Fecha de compraa: ${date}\nComprado por: ${buyer}`);
         }
       };
       return () => chart.destroy();
@@ -132,7 +136,9 @@ const ProductsSoldSecond = (props) => {
 
   return (
     <>
-      <h1>Titulo</h1>
+      <div className="w-full flex justify-center items-center text-xl ">
+        <h1>Detalles De las Ventas por Fecha Selecionada</h1>
+      </div>
       <div>
         <canvas
           ref={chartContainer}

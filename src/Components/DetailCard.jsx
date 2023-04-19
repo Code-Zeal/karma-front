@@ -96,9 +96,16 @@ export default function DetailsCard() {
 
   useEffect(() => {
     async function fetchData(id) {
+      let dataClicksUpdate = {
+        productId: id,
+      };
       const response = await axios.get(`/product/getProduct?id=${id}`);
       const data = response.data;
       setDetailProduct(data);
+      const responseClicksUpdate = await axios.put(
+        `/product/updateProductClicks`,
+        dataClicksUpdate
+      );
     }
     fetchData(id);
   }, [id]);

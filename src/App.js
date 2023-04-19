@@ -47,13 +47,6 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path="/estadisticas" element={<AdminStatistics />} />
-        <Route
-          exact
-          path="/estadisticasMalas"
-          element={<ProductsSoldSecond />}
-        />
-
         <Route exact path="/" element={<Home />} />
         <Route exact path="/cart" element={<Cart />} />
         <Route path="/detail/:id" element={<DetailCard />} />
@@ -91,6 +84,7 @@ function App() {
               path="/admin/allDiscount"
               element={<AllProductsWithDiscount />}
             />
+            <Route exact path="/admin/Analytic" element={<AdminStatistics />} />
           </>
         ) : (
           <></>
