@@ -141,7 +141,7 @@ export default function DetailsCard() {
             return;
           } catch (error) {
             errorNotify(
-              "Ha ocurrido un error al agregar el producto al carrito, intente de nuevo"
+              "Lo sentimos, no tenemos suficiente inventario de este producto"
             );
           }
         };
@@ -161,7 +161,7 @@ export default function DetailsCard() {
             return;
           } catch (error) {
             errorNotify(
-              "Ha ocurrido un error al agregar el producto al carrito, intente de nuevo"
+              "Lo sentimos, no tenemos suficiente inventario de este producto"
             );
           }
         };
@@ -182,7 +182,7 @@ export default function DetailsCard() {
           return;
         } catch (error) {
           errorNotify(
-            "Ha ocurrido un error al agregar el producto al carrito, intente de nuevo"
+            "Lo sentimos, no tenemos suficiente inventario de este producto"
           );
         }
       };
@@ -321,16 +321,61 @@ export default function DetailsCard() {
             <div className="flex flex-col w-6/12 ">
               <div className="flex w-full justify-between">
                 {detailProduct.Laptop && (
-                  <h5 className="text-2xl font-bold my-3 ">{`${detailProduct.Laptop[0].name}`}</h5>
+                  <>
+                    <h5 className="text-2xl font-bold my-3 ">{`${detailProduct.Laptop[0].name}`}</h5>
+                    <h5
+                      className={
+                        detailProduct.stock === 0
+                          ? "text-2xl font-bold mx-2 my-3 border border-neutral-900 bg-red-500 px-3 py-1 rounded-sm"
+                          : "text-2xl font-bold"
+                      }
+                    >
+                      {detailProduct.stock === 0 ? "AGOTADO" : ""}
+                    </h5>
+                  </>
                 )}
                 {detailProduct.Tablet && (
-                  <h5 className="text-2xl font-bold my-3">{` ${detailProduct.Tablet[0].name}`}</h5>
+                  <>
+                    <h5 className="text-2xl font-bold my-3">{` ${detailProduct.Tablet[0].name}`}</h5>
+                    <h5
+                      className={
+                        detailProduct.stock === 0
+                          ? "text-2xl font-bold mx-2 my-3 border border-neutral-900 bg-red-500 px-3 py-1 rounded-sm"
+                          : "text-2xl font-bold"
+                      }
+                    >
+                      {detailProduct.stock === 0 ? "AGOTADO" : ""}
+                    </h5>
+                  </>
                 )}
                 {detailProduct.CellPhone && (
-                  <h5 className="text-2xl font-bold my-3">{`${detailProduct.CellPhone[0].name}`}</h5>
+                  <>
+                    <h5 className="text-2xl font-bold my-3">{`${detailProduct.CellPhone[0].name}`}</h5>
+                    <h5
+                      className={
+                        detailProduct.stock === 0
+                          ? "text-2xl font-bold mx-2 my-3 border border-neutral-900 bg-red-500 px-3 py-1 rounded-sm"
+                          : "text-2xl font-bold"
+                      }
+                    >
+                      {detailProduct.stock === 0 ? "AGOTADO" : ""}
+                    </h5>
+                  </>
                 )}
                 {detailProduct.Television && (
-                  <h5 className="text-2xl font-bold my-3">{`${detailProduct.Television[0].name}`}</h5>
+                  <>
+                    {console.log(detailProduct)}
+                    <h5 className="text-2xl font-bold my-3">{`${detailProduct.Television[0].name}`}</h5>
+                    <h5
+                      className={
+                        detailProduct.stock === 0
+                          ? "text-2xl font-bold mx-2 my-3 border border-neutral-900 bg-red-500 px-3 py-1 rounded-sm"
+                          : "text-2xl font-bold"
+                      }
+                    >
+                      {detailProduct.stock === 0 ? "AGOTADO" : ""}
+                    </h5>
+                  </>
                 )}
                 {isAuthenticated && (
                   <>
