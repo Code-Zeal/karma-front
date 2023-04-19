@@ -3,12 +3,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function OrderCard(props) {
-  const dateString = new Date(props.orderDate);
-  const dateObject = new Date(dateString);
+  const dateString = new Date(props.orderDate).toLocaleString("es-AR");
 
-  const year = dateObject.getFullYear();
-  const month = dateObject.getMonth() + 1;
-  const day = dateObject.getDate();
+  const year = dateString.getFullYear();
+  const month = dateString.getMonth() + 1;
+  const day = dateString.getDate();
 
   const [popupOpen, setPopupOpen] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
