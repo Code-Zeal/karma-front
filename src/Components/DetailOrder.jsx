@@ -116,7 +116,7 @@ export default function DetailOrder(props) {
                         comment.UserId === user?.sub
                     );
                     const handlerIsEditOrCreate = () => {
-                      if (newArray.length > 0) {
+                      if (newArray?.length > 0) {
                         return true;
                       } else {
                         return false;
