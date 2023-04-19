@@ -69,8 +69,6 @@ const AllProductsDiscount = () => {
             <div className="w-full flex flex-wrap justify-center">
               {products && products.length > 0 ? (
                 products.map((product) => {
-                  console.log(1);
-
                   return <Card card={product}></Card>;
                 })
               ) : (

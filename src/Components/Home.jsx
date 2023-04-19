@@ -42,30 +42,32 @@ function Home() {
   useEffect(() => {
     const getOffers = async () => {
       const res = await axios.get("/discount/getDiscountedProducts");
-      let data = await res.data.filter((product) => {
-        const hoy = new Date();
-        const fechaObjetivoEnTiempo = new Date(
-          product.ProductDiscount.endingDate
-        );
-        const diferenciaEnTiempo = fechaObjetivoEnTiempo - hoy;
-        const diasRestantes = Math.ceil(
-          diferenciaEnTiempo / (1000 * 3600 * 24)
-        ); // convertir a días y redondear hacia arriba
-        return diasRestantes < 0;
-      });
-      data &&
-        data.map((product) => {
-          const deleteOffer = async (id) => {
-            try {
-              const res = await axios.delete(
-                `/discount/removeDiscountByProductId?productId=${id}`
-              );
-            } catch (error) {
-              console.log(error);
-            }
-          };
-          deleteOffer(product.id);
+      if (res.data !== "Actualmente no hay productos con descuentos") {
+        let data = await res.data.filter((product) => {
+          const hoy = new Date();
+          const fechaObjetivoEnTiempo = new Date(
+            product.ProductDiscount.endingDate
+          );
+          const diferenciaEnTiempo = fechaObjetivoEnTiempo - hoy;
+          const diasRestantes = Math.ceil(
+            diferenciaEnTiempo / (1000 * 3600 * 24)
+          ); // convertir a días y redondear hacia arriba
+          return diasRestantes < 0;
         });
+        data &&
+          data.map((product) => {
+            const deleteOffer = async (id) => {
+              try {
+                const res = await axios.delete(
+                  `/discount/removeDiscountByProductId?productId=${id}`
+                );
+              } catch (error) {
+                console.log(error);
+              }
+            };
+            deleteOffer(product.id);
+          });
+      }
     };
     getOffers();
   }, []);

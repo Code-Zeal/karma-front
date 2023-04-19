@@ -23,7 +23,7 @@ const AllProductsWithDiscount = () => {
     });
   const [data, setData] = useState(false);
   const [input, setInput] = useState("noInput");
-  const [products, setProducts] = useState(false);
+  const [products, setProducts] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [recipesPerPage] = useState(6);
   const indexOfLastRecipes = currentPage * recipesPerPage;
@@ -93,18 +93,44 @@ const AllProductsWithDiscount = () => {
               />
             </div>
             <div className="w-full flex flex-wrap justify-center">
-              {typeof products !== "string" && products ? (
+              {typeof products !== "string" &&
+              products &&
+              products !== false ? (
                 products.map((product) => {
                   return (
                     <DiscountProductCard card={product}></DiscountProductCard>
                   );
                 })
               ) : (
-                <div className="flex w-full h-[700px] items-center justify-center">
-                  <h3 className="text-2xl font-bold">
-                    En estos momentos no hay productos con ofertas
-                  </h3>
-                </div>
+                <>
+                  {products === false ? (
+                    <div className="flex w-full h-[700px] items-center justify-center">
+                      <h3 className="text-2xl font-bold">
+                        En estos momentos no hay productos con ofertas
+                      </h3>
+                    </div>
+                  ) : (
+                    <div className="flex w-full h-[700px] items-center justify-center">
+                      <div className="animate-spin">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="100px"
+                          height="100px"
+                          viewBox="0 0 24 24"
+                          fill="#000"
+                        >
+                          <path
+                            d="M12 2.99988V5.99988M12 20.9999V17.9999M4.20577 16.4999L6.80385 14.9999M21 11.9999H18M16.5 19.7941L15 17.196M3 11.9999H6M7.5 4.20565L9 6.80373M7.5 19.7941L9 17.196M19.7942 16.4999L17.1962 14.9999M4.20577 7.49988L6.80385 8.99988"
+                            stroke="#000000"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           </div>

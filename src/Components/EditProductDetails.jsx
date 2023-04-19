@@ -539,61 +539,6 @@ export default function EditProductDetails() {
                     )}
                   </tr>
                   <tr>
-                    {detailProduct.CellPhone ? (
-                      <>
-                        <td>
-                          Colores{" "}
-                          <button
-                            className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
-                            onClick={() =>
-                              toggleEdit(
-                                "colors",
-                                "colores separados por un espacio"
-                              )
-                            }
-                          >
-                            Editar
-                          </button>
-                        </td>
-                        <td>
-                          |{" "}
-                          {detailProduct.CellPhone[0].colors.map((c) => {
-                            return ` ${c} |`;
-                          })}
-                        </td>
-                      </>
-                    ) : (
-                      <></>
-                    )}
-
-                    {detailProduct.Tablet ? (
-                      <>
-                        <td>
-                          Colores{" "}
-                          <button
-                            className="m-2 bg-white border border-neutral-900 text-neutral-900 py-2 px-4 rounded-sm hover:bg-neutral-900 hover:text-white"
-                            name="Tablet.colors"
-                            onClick={() =>
-                              toggleEdit(
-                                "colors",
-                                "colores separados por un espacio"
-                              )
-                            }
-                          >
-                            Editar
-                          </button>
-                        </td>
-                        <td>
-                          |{" "}
-                          {detailProduct.Tablet[0].colors.map((c) => {
-                            return ` ${c} |`;
-                          })}
-                        </td>
-                      </>
-                    ) : (
-                      <></>
-                    )}
-
                     {detailProduct.Television ? (
                       <>
                         <td>
