@@ -127,6 +127,7 @@ const ProductsSoldSecond = (props) => {
 
   return (
     <>
+      <h1>Titulo</h1>
       <div>
         <canvas
           ref={chartContainer}
