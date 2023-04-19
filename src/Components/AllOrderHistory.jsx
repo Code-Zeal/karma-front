@@ -61,7 +61,7 @@ export default function AllOrderHistory() {
                     <h2 class="text-2xl font-bold mb-4">Orden N° {order.id}</h2>
                     <p class="text-gray-700">ID del usuario: {order.UserId}</p>
                     <p class="text-gray-700">
-                      Fecha de compra: {formattedDate}
+                      Fecha de compra: {order.datePurchase}
                     </p>
                     <p class="text-gray-700">Estado: {order.orderStatus}</p>
                     {order.orderStatus === "Orden Pagada" && (

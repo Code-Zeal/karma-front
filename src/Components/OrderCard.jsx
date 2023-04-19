@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function OrderCard(props) {
-  const dateString = new Date(props.orderDate).toLocaleString("es-AR");
-  const dateObject = new Date(dateString).toLocaleString("es-AR");
+  const dateString = new Date(props.orderDate);
+  const dateObject = new Date(dateString);
 
   const year = dateObject.getFullYear();
   const month = dateObject.getMonth() + 1;
@@ -60,7 +60,7 @@ export default function OrderCard(props) {
         <p class="text-lg font-bold mb-2">Número de orden #{props.idOrder}</p>
         <p class="text-gray-700 text-sm mb-2">
           Fecha de orden{" "}
-          <span className="font-bold">{`${day}/${month}/${year}`} </span>
+          <span className="font-bold">{`${props.orderDate}`} </span>
         </p>
         <p class="text-gray-700 text-sm mb-2">
           Pago de orden <span className="font-bold">$ {totalPrice}</span>
