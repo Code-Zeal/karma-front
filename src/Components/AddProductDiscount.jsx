@@ -653,34 +653,6 @@ export default function DetailsCard() {
                         )}
                       </tr>
                       <tr>
-                        {detailProduct.CellPhone ? (
-                          <>
-                            <td>Colores</td>
-                            <td>
-                              |{" "}
-                              {detailProduct.CellPhone[0].colors.map(
-                                (c) => ` ${c} |`
-                              )}
-                            </td>
-                          </>
-                        ) : (
-                          <></>
-                        )}
-
-                        {detailProduct.Tablet ? (
-                          <>
-                            <td>Colores</td>
-                            <td>
-                              |{" "}
-                              {detailProduct.Tablet[0].colors.map(
-                                (c) => ` ${c} |`
-                              )}
-                            </td>
-                          </>
-                        ) : (
-                          <></>
-                        )}
-
                         {detailProduct.Television ? (
                           <>
                             <td>Tamaño pantalla</td>
