@@ -48,7 +48,7 @@ export default function AllOrderHistory() {
         <div className="container mx-auto mt-12">
           <div className="w-12/12 h-[825px] items-center border border-neutral-900 justify-center gap-4 h-800 overflow-auto overflow-y-scroll">
             {allOrders && allOrders !== "No existen registros de Pedidos" ? (
-              allOrders.map((order) => {
+              allOrders?.map((order) => {
                 console.log(order);
                 const purchaseDate = new Date(order.datePurchase);
                 const formattedDate = purchaseDate.toLocaleDateString("es-MX");
@@ -82,7 +82,7 @@ export default function AllOrderHistory() {
                     )}
                     <h3 class="text-lg font-medium mt-4 mb-2">Pedido:</h3>
                     <div class="grid grid-cols-2 gap-4">
-                      {order.orderData.ShoppingCarts.map((cart) => (
+                      {order.orderData?.ShoppingCarts?.map((cart) => (
                         <div
                           key={cart.id}
                           class="border border-neutral-400 shadow rounded-sm p-2"
